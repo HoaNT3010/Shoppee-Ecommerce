@@ -4,4 +4,9 @@
     <Project Path="src/ShoppeeEcommerce.SharedViewModels/ShoppeeEcommerce.SharedViewModels.csproj" />
     <Project Path="src/ShoppeeEcommerce.WebAPI/ShoppeeEcommerce.WebAPI.csproj" Id="8c4190f7-9c48-4112-8fa9-7bfcb59c0934" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ShoppeeEcommerce.MVC.Customer.Tests/ShoppeeEcommerce.MVC.Customer.Tests.csproj" Id="fd0fa7cc-2624-4aa7-93ee-313e1c28bc53" />
+    <Project Path="tests/ShoppeeEcommerce.SharedViewModels.Tests/ShoppeeEcommerce.SharedViewModels.Tests.csproj" Id="88596632-43ce-42a3-be7c-2222b07b4097" />
+    <Project Path="tests/ShoppeeEcommerce.WebAPI.Tests/ShoppeeEcommerce.WebAPI.Tests.csproj" Id="dad3164e-7a96-420f-b401-a2cfeb0bd89e" />
+  </Folder>
 </Solution>
