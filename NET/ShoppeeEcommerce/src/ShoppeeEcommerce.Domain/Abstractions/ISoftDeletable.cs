@@ -1,4 +1,4 @@
-﻿namespace ShoppeeEcommerce.WebAPI.Domain.Abstractions
+﻿namespace ShoppeeEcommerce.Domain.Abstractions
 {
     public interface ISoftDeletable
     {

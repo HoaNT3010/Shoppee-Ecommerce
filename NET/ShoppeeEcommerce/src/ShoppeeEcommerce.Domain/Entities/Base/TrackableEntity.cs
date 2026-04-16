@@ -1,6 +1,6 @@
-﻿using ShoppeeEcommerce.WebAPI.Domain.Abstractions;
+﻿using ShoppeeEcommerce.Domain.Abstractions;
 
-namespace ShoppeeEcommerce.WebAPI.Domain.Entities.Base
+namespace ShoppeeEcommerce.Domain.Entities.Base
 {
     public abstract class TrackableEntity<TKey> : BaseEntity<TKey>, ITrackable
     {
