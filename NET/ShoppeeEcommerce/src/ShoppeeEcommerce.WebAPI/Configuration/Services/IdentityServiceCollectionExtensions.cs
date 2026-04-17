@@ -8,7 +8,7 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
     {
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services)
         {
-            services.AddIdentityCore<User>(options =>
+            services.AddIdentity<User, Role>(options =>
             {
                 // Lockout
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -28,9 +28,8 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
-            });
-            services.AddIdentityApiEndpoints<User>()
-                .AddEntityFrameworkStores<AppDbContext>();
+            }).AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
             services.AddAuthentication(IdentityConstants.BearerScheme).AddBearerToken();
             services.AddAuthorization();
             return services;
