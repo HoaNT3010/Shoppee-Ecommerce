@@ -1,5 +1,6 @@
 ﻿using ShoppeeEcommerce.Domain.Abstractions;
 using ShoppeeEcommerce.Domain.Entities.Base;
+using ShoppeeEcommerce.Domain.Entities.Identity;
 
 namespace ShoppeeEcommerce.Domain.Entities.Core
 {
@@ -9,7 +10,8 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public Guid? CreatedBy { get; set; }
+        public Guid? CreatorId { get; set; }
+        public User? Creator { get; set; }
         public ICollection<Product> Products { get; set; } = [];
     }
 }

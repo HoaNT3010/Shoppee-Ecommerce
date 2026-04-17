@@ -2,6 +2,6 @@
 {
     public interface IHasCreator<TKey>
     {
-        TKey CreatedBy { get; set; }
+        TKey CreatorId { get; set; }
     }
 }

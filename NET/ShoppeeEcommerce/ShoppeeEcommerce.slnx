@@ -2,6 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/ShoppeeEcommerce.Domain/ShoppeeEcommerce.Domain.csproj" Id="7bdd8506-9a35-40f6-865e-85938ec7c783" />
     <Project Path="src/ShoppeeEcommerce.MVC.Customer/ShoppeeEcommerce.MVC.Customer.csproj" Id="92441792-121f-4eee-9f79-adc72169b14c" />
+    <Project Path="src/ShoppeeEcommerce.Persistence/ShoppeeEcommerce.Persistence.csproj" Id="394ae7fa-0bbf-4f05-9a2d-2bdfe6253ddf" />
     <Project Path="src/ShoppeeEcommerce.SharedViewModels/ShoppeeEcommerce.SharedViewModels.csproj" />
     <Project Path="src/ShoppeeEcommerce.WebAPI/ShoppeeEcommerce.WebAPI.csproj" Id="8c4190f7-9c48-4112-8fa9-7bfcb59c0934" />
   </Folder>
