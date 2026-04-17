@@ -2,7 +2,7 @@
 
 namespace ShoppeeEcommerce.Domain.Entities.Identity
 {
-    public sealed class RoleClaim : IdentityRoleClaim<int>
+    public sealed class RoleClaim : IdentityRoleClaim<Guid>
     {
     }
 }

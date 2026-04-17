@@ -2,7 +2,7 @@
 
 namespace ShoppeeEcommerce.Domain.Entities.Identity
 {
-    public sealed class UserLogin : IdentityUserLogin<int>
+    public sealed class UserLogin : IdentityUserLogin<Guid>
     {
     }
 }
