@@ -6,8 +6,10 @@ namespace ShoppeeEcommerce.Persistence.Configurations
 {
     internal class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
+        const string TableName = "Products";
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.ToTable(TableName, DbSchema.Core);
             builder.Property(p => p.Name)
                 .HasMaxLength(200);
             builder.Property(p => p.Description)

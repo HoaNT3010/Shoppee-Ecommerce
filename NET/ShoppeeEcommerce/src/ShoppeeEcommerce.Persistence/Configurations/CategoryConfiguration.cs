@@ -6,8 +6,10 @@ namespace ShoppeeEcommerce.Persistence.Configurations
 {
     internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
+        const string TableName = "Categories";
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.ToTable(TableName, DbSchema.Core);
             builder.Property(c => c.Name)
                 .HasMaxLength(100);
             builder.Property(c => c.Description)

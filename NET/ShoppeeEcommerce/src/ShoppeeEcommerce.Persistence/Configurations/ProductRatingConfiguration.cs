@@ -6,8 +6,10 @@ namespace ShoppeeEcommerce.Persistence.Configurations
 {
     internal class ProductRatingConfiguration : IEntityTypeConfiguration<ProductRating>
     {
+        const string TableName = "ProductRatings";
         public void Configure(EntityTypeBuilder<ProductRating> builder)
         {
+            builder.ToTable(TableName, DbSchema.Core);
             builder.Property(pr => pr.Comment)
                 .HasMaxLength(1000);
             builder.HasOne(pr => pr.User)

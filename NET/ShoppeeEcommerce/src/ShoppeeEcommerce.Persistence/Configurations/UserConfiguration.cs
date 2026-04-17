@@ -6,8 +6,10 @@ namespace ShoppeeEcommerce.Persistence.Configurations
 {
     internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
+        const string TableName = "Users";
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable(TableName, DbSchema.Identity);
             builder.Property(x => x.FirstName)
                 .HasMaxLength(100);
             builder.Property(x => x.LastName)
