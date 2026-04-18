@@ -9,6 +9,7 @@
             services.AddOpenApi();
             services.AddHealthChecks();
             services.AddApplicationIdentity();
+            services.AddAuthenticationServices();
 
             return services;
         }

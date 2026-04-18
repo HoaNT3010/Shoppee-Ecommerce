@@ -28,9 +28,9 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
-            }).AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders();
-            services.AddAuthentication(IdentityConstants.BearerScheme).AddBearerToken();
+            })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
             services.AddAuthorization();
             return services;
         }
