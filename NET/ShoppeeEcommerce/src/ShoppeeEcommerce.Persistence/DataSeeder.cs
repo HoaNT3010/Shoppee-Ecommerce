@@ -22,15 +22,16 @@ namespace ShoppeeEcommerce.Persistence
             }
 
             // Admins
-            await CreateUserIfNotExists(userManager, "admin1@gmail.com", "AdminPass123!", "Admin", "John", "Administrator");
-            await CreateUserIfNotExists(userManager, "admin2@gmail.com", "AdminPass123!", "Admin");
+            await CreateUserIfNotExists(userManager, "admin1", "admin1@gmail.com", "AdminPass123!", "Admin", "John", "Administrator");
+            await CreateUserIfNotExists(userManager, "admin2", "admin2@gmail.com", "AdminPass123!", "Admin");
 
             // Customers
-            await CreateUserIfNotExists(userManager, "customer1@gmail.com", "CusPass123!", "Customer", "Alice", "Customer");
-            await CreateUserIfNotExists(userManager, "customer2@gmail.com", "CustPass123!", "Customer");
+            await CreateUserIfNotExists(userManager, "customer1", "customer1@gmail.com", "CusPass123!", "Customer", "Alice", "Customer");
+            await CreateUserIfNotExists(userManager, "customer2", "customer2@gmail.com", "CustPass123!", "Customer");
         }
 
         private static async Task CreateUserIfNotExists(UserManager<User> userManager,
+            string userName,
             string email,
             string password,
             string role,
