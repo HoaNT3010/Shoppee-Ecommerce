@@ -6,7 +6,7 @@ using ShoppeeEcommerce.Application.UseCases.Authentication.Login;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
 using ShoppeeEcommerce.WebAPI.Utilities;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication
+namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login
 {
     public class Login(
         ISender sender)
