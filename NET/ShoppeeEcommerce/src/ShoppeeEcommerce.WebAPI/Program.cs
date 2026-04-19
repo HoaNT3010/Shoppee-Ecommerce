@@ -1,3 +1,4 @@
+using ShoppeeEcommerce.Application;
 using ShoppeeEcommerce.Infrastructure;
 using ShoppeeEcommerce.Persistence;
 using ShoppeeEcommerce.WebAPI.Configuration;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureServicesOptions(builder.Configuration);
 // Configure services to the container.
 builder.Services
+    .AddApplicationServices()
     .AddPersistenceServices(builder.Configuration)
     .AddInfrastructureServices()
     .AddWebAPIServices();
