@@ -1,4 +1,6 @@
-﻿namespace ShoppeeEcommerce.WebAPI.Configuration.Services
+﻿using ShoppeeEcommerce.WebAPI.Middlewares;
+
+namespace ShoppeeEcommerce.WebAPI.Configuration.Services
 {
     public static class ServiceCollectionExtensions
     {
@@ -10,6 +12,8 @@
             services.AddHealthChecks();
             services.AddApplicationIdentity();
             services.AddAuthenticationServices();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
 
             return services;
         }
