@@ -5,7 +5,8 @@ namespace ShoppeeEcommerce.WebAPI.Utilities
 {
     public static class ErrorOrExtensions
     {
-        public static ActionResult<T> ToActionResult<T>(this ErrorOr<T> result)
+        public static ActionResult<T> ToActionResult<T>(
+            this ErrorOr<T> result)
         {
             if (result.IsError)
             {
@@ -22,7 +23,14 @@ namespace ShoppeeEcommerce.WebAPI.Utilities
                 };
             }
 
-            return new OkObjectResult(result.Value);
+            return result.Value switch
+            {
+                Created => new StatusCodeResult(StatusCodes.Status201Created),
+                Deleted => new NoContentResult(),
+                Updated => new NoContentResult(),
+                Success => new OkResult(),
+                _ => new OkObjectResult(result.Value)
+            };
         }
     }
 }
