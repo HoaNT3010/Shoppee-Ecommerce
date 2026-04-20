@@ -14,6 +14,14 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Unauthorized(
                     "User.LockedOut",
                     "The current user is locked out of the system.");
+            public static Error EmailExisted(string email) =>
+                Error.Conflict(
+                    "User.EmailExisted",
+                    $"The email '{email}' has been used by another user.");
+            public static Error UserNameExisted(string userName) =>
+                Error.Conflict(
+                    "User.UserNameExisted",
+                    $"The username '{userName}' has been used by another user.");
         }
     }
 
