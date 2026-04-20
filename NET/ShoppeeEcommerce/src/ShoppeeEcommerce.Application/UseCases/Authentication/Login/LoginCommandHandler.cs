@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using ShoppeeEcommerce.Application.Abstractions.Authentication;
+using ShoppeeEcommerce.Domain.Constants;
 using ShoppeeEcommerce.Domain.Entities.Identity;
 using ShoppeeEcommerce.Domain.Errors;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
@@ -28,7 +29,11 @@ namespace ShoppeeEcommerce.Application.UseCases.Authentication.Login
 
             var roles = await userManager.GetRolesAsync(user);
             var refreshToken = jwtProvider.GenerateRefreshToken();
-            await userManager.SetAuthenticationTokenAsync(user, "ShoppeeEcommerce", "refreshToken", refreshToken);
+            await userManager.SetAuthenticationTokenAsync(
+                user,
+                ApplicationToken.ApplicationLoginProvider,
+                ApplicationToken.ApplicationRefreshTokenName,
+                refreshToken);
 
             return new LoginResponse(
                 jwtProvider.GenerateAccessToken(user, roles),
