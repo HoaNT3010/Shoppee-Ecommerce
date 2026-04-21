@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppeeEcommerce.Application.UseCases.Authentication.Refresh;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Refresh;
 using ShoppeeEcommerce.WebAPI.Utilities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Refresh
 {
@@ -16,8 +17,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Refresh
     {
         [AllowAnonymous]
         [HttpPost("auth/refresh")]
+        [SwaggerOperation(
+            Summary = "Allows application's users refresh/rotate their authentication credentials.",
+            Tags = new[] { EndpointTags.Authentication })]
         public override async Task<ActionResult<RefreshResponse>> HandleAsync(
-            RefreshRequest request,
+            [FromBody] RefreshRequest request,
             CancellationToken cancellationToken = default)
         {
             var command = new RefreshCommand(request.RefreshToken);

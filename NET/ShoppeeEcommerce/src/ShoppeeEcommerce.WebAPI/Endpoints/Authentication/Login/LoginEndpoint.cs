@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppeeEcommerce.Application.UseCases.Authentication.Login;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
 using ShoppeeEcommerce.WebAPI.Utilities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login
 {
-    public class Login(
+    public class LoginEndpoint(
         ISender sender)
         : EndpointBaseAsync
         .WithRequest<LoginRequest>
@@ -16,8 +17,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login
     {
         [HttpPost("auth/login")]
         [AllowAnonymous]
+        [SwaggerOperation(
+            Summary = "Allows application's users to sign-in into the system.",
+            Tags = new[] { EndpointTags.Authentication })]
         public override async Task<ActionResult<LoginResponse>> HandleAsync(
-            LoginRequest request,
+            [FromBody] LoginRequest request,
             CancellationToken cancellationToken = default)
         {
             var command = new LoginCommand(request.Email, request.Password);

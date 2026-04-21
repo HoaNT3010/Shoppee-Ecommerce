@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppeeEcommerce.Application.UseCases.Authentication.Logout;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Logout;
 using ShoppeeEcommerce.WebAPI.Utilities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Logout
 {
@@ -15,10 +16,13 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Logout
         .WithRequest<LogoutRequest>
         .WithActionResult<Deleted>
     {
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("auth/logout")]
+        [SwaggerOperation(
+            Summary = "Allows application's users to sign-out of the system.",
+            Tags = new[] { EndpointTags.Authentication })]
         public override async Task<ActionResult<Deleted>> HandleAsync(
-            LogoutRequest request,
+            [FromBody] LogoutRequest request,
             CancellationToken cancellationToken = default)
         {
             var command = new LogoutCommand(request.RefreshToken);

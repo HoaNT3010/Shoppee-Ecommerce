@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppeeEcommerce.Application.UseCases.Authentication.CustomerRegister;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.CustomerRegister;
 using ShoppeeEcommerce.WebAPI.Utilities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.CustomerRegister
 {
@@ -17,8 +18,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.CustomerRegister
     {
         [HttpPost("customers/register")]
         [AllowAnonymous]
+        [SwaggerOperation(
+            Summary = "Allows new user to register as application's customer.",
+            Tags = new[] { EndpointTags.Authentication })]
         public override async Task<ActionResult<Created>> HandleAsync(
-            CustomerRegisterRequest request,
+            [FromBody] CustomerRegisterRequest request,
             CancellationToken cancellationToken = default)
         {
             var command = new CustomerRegisterCommand(
