@@ -28,7 +28,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Authentication.Login
             if (!result.Succeeded) return Errors.Authentication.InvalidCredentials();
 
             var roles = await userManager.GetRolesAsync(user);
-            var refreshToken = jwtProvider.GenerateRefreshToken();
+            var refreshToken = jwtProvider.GenerateRefreshToken(user);
             await userManager.SetAuthenticationTokenAsync(
                 user,
                 ApplicationToken.ApplicationLoginProvider,

@@ -22,6 +22,14 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Conflict(
                     "User.UserNameExisted",
                     $"The username '{userName}' has been used by another user.");
+            public static Error NotFound() =>
+                Error.NotFound(
+                    "User.NotFound",
+                    "User was not found.");
+            public static Error NotFoundWithId(string id) =>
+                Error.NotFound(
+                    "User.NotFoundWithId",
+                    $"User with ID '{id}' was not found.");
         }
     }
 

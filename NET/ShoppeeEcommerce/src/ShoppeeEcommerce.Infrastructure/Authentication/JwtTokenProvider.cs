@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using ErrorOr;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ShoppeeEcommerce.Application.Abstractions.Authentication;
 using ShoppeeEcommerce.Domain.Entities.Identity;
+using ShoppeeEcommerce.Domain.Errors;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -46,10 +48,11 @@ namespace ShoppeeEcommerce.Infrastructure.Authentication
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string GenerateRefreshToken()
+        public string GenerateRefreshToken(User user)
         {
             var claims = new List<Claim>()
             {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var creds = new SigningCredentials(
@@ -62,6 +65,46 @@ namespace ShoppeeEcommerce.Infrastructure.Authentication
                 expires: DateTime.UtcNow.AddMilliseconds(_jwtOptions.RefreshTokenExpiryInMilliseconds),
                 signingCredentials: creds);
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public ErrorOr<string> GetUserIdFromRefreshToken(string refreshToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = false,
+                ValidIssuer = _jwtOptions.Issuer,
+                ValidAudience = _jwtOptions.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
+            };
+            try
+            {
+                var principal = tokenHandler.ValidateToken(
+                    refreshToken,
+                    validationParameters,
+                    out SecurityToken validatedToken);
+
+                // Extra safety: ensure it's actually JWT with expected alg
+                if (validatedToken is not JwtSecurityToken jwt ||
+                    !jwt.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.Ordinal))
+                {
+                    return Errors.Authentication.InvalidRefreshToken();
+                }
+
+                var userId = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrWhiteSpace(userId)) return Errors.Authentication.RefreshTokenMissingClaims();
+
+                return userId;
+            }
+            catch
+            {
+                return Errors.Authentication.InvalidRefreshToken();
+            }
         }
     }
 }
