@@ -26,6 +26,14 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Authentication.RevokeRefreshTokenFailed",
                     "Unexpected error occurred when trying to revoke user's refresh token.");
+            public static Error Unauthorized() =>
+                Error.Unauthorized(
+                    "Authentication.Unauthorized",
+                    "User is unauthorized.");
+            public static Error GenerateRefreshTokenFailed() =>
+                Error.Failure(
+                    "Authentication.GenerateRefreshTokenFailed",
+                    "Unexpected error occurred when trying to generate user's refresh token.");
         }
     }
 }
