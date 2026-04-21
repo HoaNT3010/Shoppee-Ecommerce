@@ -42,7 +42,7 @@ namespace ShoppeeEcommerce.Persistence
             {
                 var user = new User
                 {
-                    UserName = email,
+                    UserName = userName,
                     Email = email,
                     EmailConfirmed = true,
                     FirstName = firstName,
