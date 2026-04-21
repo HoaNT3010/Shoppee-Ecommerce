@@ -8,5 +8,6 @@ namespace ShoppeeEcommerce.Application.Abstractions.Authentication
         string GenerateAccessToken(User user, IList<string> roles);
         string GenerateRefreshToken(User user);
         ErrorOr<string> GetUserIdFromRefreshToken(string refreshToken);
+        bool IsTokenValid(string token);
     }
 }
