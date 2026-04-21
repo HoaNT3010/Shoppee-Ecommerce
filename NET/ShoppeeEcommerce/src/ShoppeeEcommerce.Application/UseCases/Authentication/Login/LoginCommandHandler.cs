@@ -29,11 +29,12 @@ namespace ShoppeeEcommerce.Application.UseCases.Authentication.Login
 
             var roles = await userManager.GetRolesAsync(user);
             var refreshToken = jwtProvider.GenerateRefreshToken(user);
-            await userManager.SetAuthenticationTokenAsync(
+            var createTokenResult = await userManager.SetAuthenticationTokenAsync(
                 user,
                 ApplicationToken.ApplicationLoginProvider,
                 ApplicationToken.ApplicationRefreshTokenName,
                 refreshToken);
+            if (!createTokenResult.Succeeded) return Errors.Authentication.GenerateRefreshTokenFailed();
 
             return new LoginResponse(
                 jwtProvider.GenerateAccessToken(user, roles),
