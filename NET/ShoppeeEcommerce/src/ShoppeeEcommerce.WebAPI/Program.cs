@@ -20,17 +20,20 @@ var app = builder.Build();
 app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.MapOpenApi();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.MapOpenApi();
-}
+    options.SwaggerEndpoint("v1/swagger.json", "Shoppee Ecommerce API V1");
+});
 
 app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
 app.MapHealthChecks("/api/health");
+app.MapControllers();
 
 // Use to seed data for database
 // Disable if not necessary

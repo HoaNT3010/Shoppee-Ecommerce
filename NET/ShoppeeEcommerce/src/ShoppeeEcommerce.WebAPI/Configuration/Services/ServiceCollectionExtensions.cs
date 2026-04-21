@@ -21,6 +21,7 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.AddExceptionHandler<GlobalExceptionHandler>();
             services.AddProblemDetails();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddSwaggerDocs();
 
             return services;
         }
