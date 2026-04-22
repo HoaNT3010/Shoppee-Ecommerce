@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ShoppeeEcommerce.Domain.Constants;
 using ShoppeeEcommerce.Domain.Entities.Core;
 using ShoppeeEcommerce.Domain.Entities.Identity;
 
@@ -14,7 +15,7 @@ namespace ShoppeeEcommerce.Persistence
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             // Roles
-            string[] roleNames = { "Admin", "Customer" };
+            string[] roleNames = { ApplicationRole.Admin, ApplicationRole.Customer };
             foreach (var roleName in roleNames)
             {
                 if (!await roleManager.RoleExistsAsync(roleName))
