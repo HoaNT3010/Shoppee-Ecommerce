@@ -2,6 +2,7 @@
 using ShoppeeEcommerce.WebAPI.Middlewares;
 using ShoppeeEcommerce.WebAPI.Utilities;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace ShoppeeEcommerce.WebAPI.Configuration.Services
 {
@@ -13,6 +14,9 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalValidationFilter>();
+            }).AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
             services.AddOpenApi();
             services.AddHealthChecks();
