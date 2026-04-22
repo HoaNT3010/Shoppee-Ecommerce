@@ -16,7 +16,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Refresh
         .WithActionResult<RefreshResponse>
     {
         [AllowAnonymous]
-        [HttpPost("auth/refresh")]
+        [HttpPost("api/auth/refresh")]
         [SwaggerOperation(
             Summary = "Allows application's users refresh/rotate their authentication credentials.",
             Tags = new[] { EndpointTags.Authentication })]

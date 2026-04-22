@@ -16,7 +16,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.CustomerRegister
         .WithRequest<CustomerRegisterRequest>
         .WithActionResult<Created>
     {
-        [HttpPost("customers/register")]
+        [HttpPost("api/customers/register")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Allows new user to register as application's customer.",

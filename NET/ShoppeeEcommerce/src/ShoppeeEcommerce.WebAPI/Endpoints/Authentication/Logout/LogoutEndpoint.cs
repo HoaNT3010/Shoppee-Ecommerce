@@ -17,7 +17,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Logout
         .WithActionResult<Deleted>
     {
         [AllowAnonymous]
-        [HttpPost("auth/logout")]
+        [HttpPost("api/auth/logout")]
         [SwaggerOperation(
             Summary = "Allows application's users to sign-out of the system.",
             Tags = new[] { EndpointTags.Authentication })]

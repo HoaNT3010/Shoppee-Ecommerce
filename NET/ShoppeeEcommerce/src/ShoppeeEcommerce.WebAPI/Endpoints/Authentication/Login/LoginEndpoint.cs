@@ -15,7 +15,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login
         .WithRequest<LoginRequest>
         .WithActionResult<LoginResponse>
     {
-        [HttpPost("auth/login")]
+        [HttpPost("api/auth/login")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Allows application's users to sign-in into the system.",
