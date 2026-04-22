@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ShoppeeEcommerce.Domain.Abstractions;
 using ShoppeeEcommerce.Domain.Entities.Core;
 using ShoppeeEcommerce.Domain.Entities.Identity;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace ShoppeeEcommerce.Persistence
@@ -21,6 +23,21 @@ namespace ShoppeeEcommerce.Persistence
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            foreach (var entityType in builder.Model.GetEntityTypes())
+            {
+                if (typeof(ISoftDeletable).IsAssignableFrom(entityType.ClrType))
+                {
+                    builder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
+                }
+            }
+        }
+
+        private static LambdaExpression ConvertFilterExpression(Type type)
+        {
+            var parameter = Expression.Parameter(type, "it");
+            var property = Expression.Property(parameter, nameof(ISoftDeletable.IsDeleted));
+            var comparison = Expression.Equal(property, Expression.Constant(false));
+            return Expression.Lambda(comparison, parameter);
         }
     }
 }
