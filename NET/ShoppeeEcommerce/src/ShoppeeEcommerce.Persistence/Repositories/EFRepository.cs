@@ -61,6 +61,12 @@ namespace ShoppeeEcommerce.Persistence.Repositories
                 .ToListAsync(cancellationToken);
         }
 
+        public async Task<List<TResult>> ListAsync<TResult>(ISpecification<TEntity, TResult> specification, CancellationToken cancellationToken = default)
+        {
+            return await ApplySpecification(specification)
+                .ToListAsync(cancellationToken);
+        }
+
         public void Update(TEntity entity)
         {
             _dbSet.Update(entity);
@@ -69,6 +75,11 @@ namespace ShoppeeEcommerce.Persistence.Repositories
         protected virtual IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification, bool evaluateCriteriaOnly = false)
         {
             return _specificationEvaluator.GetQuery(_dbSet, specification, evaluateCriteriaOnly);
+        }
+
+        protected virtual IQueryable<TResult> ApplySpecification<TResult>(ISpecification<TEntity, TResult> specification)
+        {
+            return _specificationEvaluator.GetQuery(_dbSet, specification);
         }
     }
 }
