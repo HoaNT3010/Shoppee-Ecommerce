@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using ShoppeeEcommerce.SharedViewModels.Models.Categories.Update;
-using ShoppeeEcommerce.WebAPI.Endpoints.Categories.GetById;
+using ShoppeeEcommerce.WebAPI.Common.Validators;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Update
 {
