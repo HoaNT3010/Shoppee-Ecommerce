@@ -49,6 +49,12 @@ namespace ShoppeeEcommerce.Persistence.Repositories
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
+        public async Task<TResult?> FirstOrDefaultAsync<TResult>(ISpecification<TEntity, TResult> specification, CancellationToken cancellationToken = default)
+        {
+            return await ApplySpecification(specification)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
         public async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
         {
             return await _dbSet.FirstOrDefaultAsync(
