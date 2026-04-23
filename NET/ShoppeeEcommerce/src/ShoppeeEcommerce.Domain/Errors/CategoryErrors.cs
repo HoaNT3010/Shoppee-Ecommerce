@@ -14,6 +14,14 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Category.CreateCategoryFailed",
                     "Unexpected error occurred when trying to create new category.");
+            public static Error UpdateCategoryFailed() =>
+                Error.Failure(
+                    "Category.UpdateCategoryFailed",
+                    "Unexpected error occurred when trying to update category.");
+            public static Error NotFoundWithId(string id) =>
+                Error.NotFound(
+                    "Category.NotFoundWithId",
+                    $"Category with ID '{id}' was not found.");
         }
     }
 }
