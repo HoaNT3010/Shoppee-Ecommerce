@@ -27,7 +27,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Update
             CancellationToken cancellationToken = default)
         {
             var command = new UpdateCategoryCommand(
-                request.CategoryId,
+                Guid.Parse(request.CategoryId),
                 !string.IsNullOrWhiteSpace(request.Name) ? request.Name.Trim() : null,
                 !string.IsNullOrWhiteSpace(request.Description) ? request.Description.Trim() : null);
             var result = await sender.Send(command, cancellationToken);

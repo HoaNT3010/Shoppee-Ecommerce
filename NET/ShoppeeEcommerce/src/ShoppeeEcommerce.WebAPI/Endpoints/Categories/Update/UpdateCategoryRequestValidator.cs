@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ShoppeeEcommerce.SharedViewModels.Models.Categories.Update;
+using ShoppeeEcommerce.WebAPI.Endpoints.Categories.GetById;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Update
 {
@@ -9,8 +10,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Update
         public UpdateCategoryRequestValidator()
         {
             RuleFor(x => x.CategoryId)
-                .NotEmpty()
-                .WithMessage("Category's ID is required.");
+                .MustBeGuid();
             RuleFor(x => x.Name)
                 .MaximumLength(100)
                 .WithMessage("Category's name cannot exceed 100 characters.")
