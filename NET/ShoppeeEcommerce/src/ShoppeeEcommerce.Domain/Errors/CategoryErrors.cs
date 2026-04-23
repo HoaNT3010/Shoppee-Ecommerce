@@ -22,6 +22,18 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.NotFound(
                     "Category.NotFoundWithId",
                     $"Category with ID '{id}' was not found.");
+            public static Error SoftDeleteCategoryFailed() =>
+                Error.Failure(
+                    "Category.SoftDeleteCategoryFailed",
+                    "Unexpected error occurred when trying to soft delete category.");
+            public static Error RestoreSoftDeletedCategoryFailed() =>
+                Error.Failure(
+                    "Category.RestoreSoftDeletedCategoryFailed",
+                    "Unexpected error occurred when trying to restore soft deleted category.");
+            public static Error DeleteCategoryFailed() =>
+                Error.Failure(
+                    "Category.DeleteCategoryFailed",
+                    "Unexpected error occurred when trying to delete category.");
         }
     }
 }
