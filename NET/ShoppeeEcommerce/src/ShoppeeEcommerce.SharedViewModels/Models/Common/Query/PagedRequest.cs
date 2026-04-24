@@ -1,6 +1,8 @@
 ﻿namespace ShoppeeEcommerce.SharedViewModels.Models.Common.Query
 {
-    public record PagedRequest(
-        int PageIndex = 1,
-        int PageSize = 10);
+    public record PagedRequest
+    {
+        public int? PageIndex { get; init; } = 1;
+        public int? PageSize { get; init; } = 10;
+    }
 }

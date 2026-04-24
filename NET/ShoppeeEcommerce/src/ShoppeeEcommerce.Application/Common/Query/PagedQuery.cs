@@ -1,9 +1,8 @@
-﻿using MediatR;
-
-namespace ShoppeeEcommerce.Application.Common.Query
+﻿namespace ShoppeeEcommerce.Application.Common.Query
 {
-    public record PagedQuery(
-        int PageIndex = 1,
-        int PageSize = 10)
-        : IRequest;
+    public record PagedQuery
+    {
+        public int? PageIndex { get; init; } = 1;
+        public int? PageSize { get; init; } = 10;
+    }
 }

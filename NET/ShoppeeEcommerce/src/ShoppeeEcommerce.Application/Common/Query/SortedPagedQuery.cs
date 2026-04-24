@@ -1,9 +1,9 @@
-﻿using MediatR;
-
-namespace ShoppeeEcommerce.Application.Common.Query
+﻿namespace ShoppeeEcommerce.Application.Common.Query
 {
-    public record SortedPagedQuery(
-        string? SortBy = null,
-        bool SortDesc = false)
-        : PagedQuery, IRequest;
+    public record SortedPagedQuery
+        : PagedQuery
+    {
+        public string? SortBy { get; init; }
+        public bool? SortDesc { get; init; } = false;
+    }
 }

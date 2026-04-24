@@ -1,7 +1,9 @@
 ﻿namespace ShoppeeEcommerce.SharedViewModels.Models.Common.Query
 {
-    public record SortedPagedRequest(
-        string? SortBy = null,
-        bool SortDesc = false)
-        : PagedRequest;
+    public record SortedPagedRequest
+        : PagedRequest
+    {
+        public string? SortBy { get; init; }
+        public bool? SortDesc { get; init; } = false;
+    }
 }

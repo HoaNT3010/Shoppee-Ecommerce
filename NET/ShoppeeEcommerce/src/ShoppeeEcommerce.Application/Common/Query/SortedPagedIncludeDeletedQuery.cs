@@ -1,8 +1,8 @@
-﻿using MediatR;
-
-namespace ShoppeeEcommerce.Application.Common.Query
+﻿namespace ShoppeeEcommerce.Application.Common.Query
 {
-    public record SortedPagedIncludeDeletedQuery(
-        bool IncludeDeleted = false)
-        : SortedPagedQuery, IRequest;
+    public record SortedPagedIncludeDeletedQuery
+        : SortedPagedQuery
+    {
+        public bool? IncludeDeleted { get; init; } = false;
+    }
 }

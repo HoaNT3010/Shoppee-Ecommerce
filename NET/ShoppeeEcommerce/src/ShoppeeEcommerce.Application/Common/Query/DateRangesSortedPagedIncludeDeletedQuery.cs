@@ -1,9 +1,9 @@
-﻿using MediatR;
-
-namespace ShoppeeEcommerce.Application.Common.Query
+﻿namespace ShoppeeEcommerce.Application.Common.Query
 {
-    public record DateRangesSortedPagedIncludeDeletedQuery(
-        DateTime? FromCreatedDate = null,
-        DateTime? ToCreatedDate = null)
-        : SortedPagedIncludeDeletedQuery, IRequest;
+    public record DateRangesSortedPagedIncludeDeletedQuery
+        : SortedPagedIncludeDeletedQuery
+    {
+        public DateTime? FromCreatedDate { get; init; }
+        public DateTime? ToCreatedDate { get; init; }
+    }
 }
