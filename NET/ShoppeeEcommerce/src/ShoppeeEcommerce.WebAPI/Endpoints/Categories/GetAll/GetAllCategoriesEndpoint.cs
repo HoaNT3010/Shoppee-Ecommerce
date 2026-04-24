@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,8 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.GetAll
         .WithoutRequest
         .WithActionResult<List<BaseCategoryResponse>>
     {
-        [HttpGet("api/categories")]
+        [HttpGet("api/v{version:apiVersion}/categories")]
+        [ApiVersion(1)]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Retrieve list of all active categories, excluding soft-deleted ones.",

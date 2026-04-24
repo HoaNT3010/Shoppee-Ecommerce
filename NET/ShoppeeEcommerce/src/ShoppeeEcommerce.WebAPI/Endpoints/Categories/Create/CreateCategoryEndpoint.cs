@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +18,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Create
         .WithRequest<CreateCategoryRequest>
         .WithActionResult<Created>
     {
-        [HttpPost("api/categories")]
+        [HttpPost("api/v{version:apiVersion}/admin/categories")]
+        [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
-            Summary = "Create new category. Only allow Admin user.",
+            Summary = "Create new category. For ADMIN users only.",
             Tags = new[] { EndpointTags.Categories })]
         public override async Task<ActionResult<Created>> HandleAsync(
             [FromBody] CreateCategoryRequest request,

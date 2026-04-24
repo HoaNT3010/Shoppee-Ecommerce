@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +16,9 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Refresh
         .WithRequest<RefreshRequest>
         .WithActionResult<RefreshResponse>
     {
+        [HttpPost("api/v{version:apiVersion}/auth/refresh")]
+        [ApiVersion(1)]
         [AllowAnonymous]
-        [HttpPost("api/auth/refresh")]
         [SwaggerOperation(
             Summary = "Allows application's users refresh/rotate their authentication credentials.",
             Tags = new[] { EndpointTags.Authentication })]

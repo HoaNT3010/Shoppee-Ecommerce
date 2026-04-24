@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppeeEcommerce.Application.UseCases.Categories.GetById;
@@ -17,10 +18,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.GetById
         {
         }
 
-        [HttpGet("api/categories/{id}")]
+        [HttpGet("api/v{version:apiVersion}/admin/categories/{id}")]
+        [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
-            Summary = "Get detailed information of a category by ID. Only allow Admin user.",
+            Summary = "Get detailed information of a category by ID. For ADMIN users only.",
             Tags = new[] { EndpointTags.Categories })]
         public override async Task<ActionResult<DetailedCategoryResponse>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,

@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,8 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login
         .WithRequest<LoginRequest>
         .WithActionResult<LoginResponse>
     {
-        [HttpPost("api/auth/login")]
+        [HttpPost("api/v{version:apiVersion}/auth/login")]
+        [ApiVersion(1)]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Allows application's users to sign-in into the system.",

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppeeEcommerce.Application.UseCases.Categories.AdminListCategories;
@@ -19,10 +20,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.AdminListCategories
         {
         }
 
-        [HttpGet("api/admin/categories")]
+        [HttpGet("api/v{version:apiVersion}/admin/categories")]
+        [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
-            Summary = "Get categories with filter, sorting and pagination support. Only allow Admin users.",
+            Summary = "Get categories with filter, sorting and pagination support. For ADMIN users only.",
             Tags = new[] { EndpointTags.Categories })]
         public override async Task<ActionResult<PagedList<AdminListCategoryResponse>>> HandleAsync(
             [FromQuery] AdminListCategoriesRequest request,

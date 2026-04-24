@@ -1,3 +1,4 @@
+using Asp.Versioning.ApiExplorer;
 using ShoppeeEcommerce.Application;
 using ShoppeeEcommerce.Infrastructure;
 using ShoppeeEcommerce.Persistence;
@@ -24,7 +25,13 @@ app.MapOpenApi();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("v1/swagger.json", "Shoppee Ecommerce API V1");
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+    foreach (var description in provider.ApiVersionDescriptions)
+    {
+        options.SwaggerEndpoint(
+            $"/swagger/{description.GroupName}/swagger.json",
+            $"Shoppee Ecommerce API {description.GroupName.ToUpperInvariant()}");
+    }
 });
 
 app.UseHttpsRedirection();

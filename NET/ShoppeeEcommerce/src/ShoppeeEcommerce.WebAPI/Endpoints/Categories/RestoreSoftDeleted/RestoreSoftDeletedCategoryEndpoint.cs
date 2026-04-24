@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Asp.Versioning;
+using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.RestoreSoftDeleted
         {
         }
 
-        [HttpPost("api/categories/{id}/restore")]
+        [HttpPost("api/v{version:apiVersion}/admin/categories/{id}/restore")]
+        [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
-            Summary = "Restore a soft deleted category. Only allow Admin user.",
+            Summary = "Restore a soft deleted category. For ADMIN users only.",
             Tags = new[] { EndpointTags.Categories })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,

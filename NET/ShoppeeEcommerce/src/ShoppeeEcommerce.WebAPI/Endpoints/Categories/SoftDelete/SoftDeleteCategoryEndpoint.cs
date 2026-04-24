@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Asp.Versioning;
+using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.SoftDelete
         {
         }
 
-        [HttpDelete("api/categories/{id}")]
+        [HttpDelete("api/v{version:apiVersion}/admin/categories/{id}")]
+        [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
-            Summary = "Soft delete category. Only allow Admin user.",
+            Summary = "Soft delete category. For ADMIN users only.",
             Tags = new[] { EndpointTags.Categories })]
         public override async Task<ActionResult<Deleted>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,

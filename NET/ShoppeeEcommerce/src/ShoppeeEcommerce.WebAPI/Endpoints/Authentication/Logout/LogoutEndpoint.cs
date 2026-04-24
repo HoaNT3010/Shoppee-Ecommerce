@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -16,10 +17,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Logout
         .WithRequest<LogoutRequest>
         .WithActionResult<Deleted>
     {
+        [HttpPost("api/v{version:apiVersion}/auth/logout")]
+        [ApiVersion(1)]
         [AllowAnonymous]
-        [HttpPost("api/auth/logout")]
         [SwaggerOperation(
-            Summary = "Allows application's users to sign-out of the system.",
+            Summary = "Allows application's users to sign-out out of the system.",
             Tags = new[] { EndpointTags.Authentication })]
         public override async Task<ActionResult<Deleted>> HandleAsync(
             [FromBody] LogoutRequest request,

@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,8 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.CustomerRegister
         .WithRequest<CustomerRegisterRequest>
         .WithActionResult<Created>
     {
-        [HttpPost("api/customers/register")]
+        [HttpPost("api/v{version:apiVersion}/customers/register")]
+        [ApiVersion(1)]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Allows new user to register as application's customer.",

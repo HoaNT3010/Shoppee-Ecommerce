@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using Asp.Versioning;
 using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +18,11 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Update
         .WithRequest<UpdateCategoryRequest>
         .WithActionResult<Updated>
     {
-        [HttpPatch("api/categories")]
+        [HttpPatch("api/v{version:apiVersion}/admin/categories")]
+        [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
-            Summary = "Update category. The information can be updated are Name and Description, which both are optional. Only allow Admin user.",
+            Summary = "Update category. The information can be updated are Name and Description, which both are optional. For ADMIN users only.",
             Tags = new[] { EndpointTags.Categories })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             UpdateCategoryRequest request,

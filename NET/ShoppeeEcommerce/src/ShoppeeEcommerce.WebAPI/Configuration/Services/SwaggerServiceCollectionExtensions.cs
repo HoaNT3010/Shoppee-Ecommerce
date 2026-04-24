@@ -10,18 +10,6 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Shoppee Ecommerce API",
-                    Version = "v1",
-                    Description = "An overall documentation of API endpoints exist in Shoppee Ecommerce system.",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Nguyen Thai Hoa",
-                        Url = new Uri("https://github.com/HoaNT3010/Shoppee-Ecommerce"),
-                        Email = "hoa41300@gmail.com",
-                    }
-                });
                 c.EnableAnnotations();
                 // Prefer explicit [SwaggerOperation(Tags = ...)] tags.
                 // Fall back to controller name when no explicit tags are present.
@@ -49,6 +37,9 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
                     return new[] { $"{api.HttpMethod ?? "UNKN"} {api.RelativePath}" ?? "Default" };
                 });
             });
+
+            services.ConfigureOptions<SwaggerGenOptionsSetup>();
+
             return services;
         }
     }

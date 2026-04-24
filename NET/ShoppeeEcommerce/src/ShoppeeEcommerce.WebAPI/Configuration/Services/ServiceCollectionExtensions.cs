@@ -27,6 +27,7 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddSwaggerDocs();
             services.AddAuthorizationServices();
+            services.AddApiVersioningServices();
 
             return services;
         }
