@@ -1,11 +1,18 @@
 <Solution>
-  <Folder Name="/src/">
+  <Folder Name="/src/" />
+  <Folder Name="/src/Contracts/">
+    <Project Path="src/ShoppeeEcommerce.SharedViewModels/ShoppeeEcommerce.SharedViewModels.csproj" />
+  </Folder>
+  <Folder Name="/src/Core/">
     <Project Path="src/ShoppeeEcommerce.Application/ShoppeeEcommerce.Application.csproj" Id="a812b277-4c56-4358-891f-169092b2dbeb" />
     <Project Path="src/ShoppeeEcommerce.Domain/ShoppeeEcommerce.Domain.csproj" Id="7bdd8506-9a35-40f6-865e-85938ec7c783" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
     <Project Path="src/ShoppeeEcommerce.Infrastructure/ShoppeeEcommerce.Infrastructure.csproj" Id="66c1fd0a-cbb3-44af-8395-a527b7ac72f5" />
-    <Project Path="src/ShoppeeEcommerce.MVC.Customer/ShoppeeEcommerce.MVC.Customer.csproj" Id="92441792-121f-4eee-9f79-adc72169b14c" />
     <Project Path="src/ShoppeeEcommerce.Persistence/ShoppeeEcommerce.Persistence.csproj" Id="394ae7fa-0bbf-4f05-9a2d-2bdfe6253ddf" />
-    <Project Path="src/ShoppeeEcommerce.SharedViewModels/ShoppeeEcommerce.SharedViewModels.csproj" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="src/ShoppeeEcommerce.MVC.Customer/ShoppeeEcommerce.MVC.Customer.csproj" Id="92441792-121f-4eee-9f79-adc72169b14c" />
     <Project Path="src/ShoppeeEcommerce.WebAPI/ShoppeeEcommerce.WebAPI.csproj" Id="8c4190f7-9c48-4112-8fa9-7bfcb59c0934" />
   </Folder>
   <Folder Name="/tests/">

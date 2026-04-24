@@ -18,6 +18,9 @@ namespace ShoppeeEcommerce.Persistence.Configurations
                 .WithMany(u => u.CreatedProducts)
                 .HasForeignKey(p => p.CreatorId)
                 .IsRequired(false);
+            // Many-to-many with Category
+            builder.HasMany(p => p.Categories)
+                .WithMany(c => c.Products);
         }
     }
 }

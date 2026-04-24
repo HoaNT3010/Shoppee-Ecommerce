@@ -14,5 +14,6 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public User? Creator { get; set; }
         public List<ProductImage> ProductImages { get; set; } = [];
         public ICollection<ProductRating> ProductRatings { get; set; } = [];
+        public ICollection<Category> Categories { get; set; } = [];
     }
 }
