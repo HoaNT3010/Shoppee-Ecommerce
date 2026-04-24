@@ -30,10 +30,10 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Category.RestoreSoftDeletedCategoryFailed",
                     "Unexpected error occurred when trying to restore soft deleted category.");
-            public static Error DeleteCategoryFailed() =>
+            public static Error HardDeleteCategoryFailed() =>
                 Error.Failure(
-                    "Category.DeleteCategoryFailed",
-                    "Unexpected error occurred when trying to delete category.");
+                    "Category.HardDeleteCategoryFailed",
+                    "Unexpected error occurred when trying to hard delete category.");
         }
     }
 }
