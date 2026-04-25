@@ -30,6 +30,10 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.NotFound(
                     "User.NotFoundWithId",
                     $"User with ID '{id}' was not found.");
+            public static Error GetUserInfoFailed(string id) =>
+                Error.Failure(
+                    "User.GetUserInfoFailed",
+                    $"Unexpected error occurred when trying to get info of user with ID '{id}'.");
         }
     }
 
