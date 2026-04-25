@@ -5,6 +5,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar"
+import { Link } from "react-router"
 
 interface Props {
   mainTitle?: string
@@ -20,9 +21,9 @@ const AppSidebarHeader = ({
   return (
     <SidebarHeader className="border-b border-sidebar-border p-4">
       <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton size={"lg"}>
-            <a href={url} className="flex items-center gap-3">
+        <Link to={url}>
+          <SidebarMenuItem>
+            <SidebarMenuButton size={"lg"} className="hover:cursor-pointer">
               <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <Store className="size-6" />
               </div>
@@ -32,9 +33,9 @@ const AppSidebarHeader = ({
                   {altTitle}
                 </span>
               </div>
-            </a>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </Link>
       </SidebarMenu>
     </SidebarHeader>
   )

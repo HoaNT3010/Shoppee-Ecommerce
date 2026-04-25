@@ -7,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar"
+import { Link } from "react-router"
 
 interface NavigationItem {
   title: string
@@ -26,14 +27,17 @@ const AppSidebarNavigation = ({ label, items }: Props) => {
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                <a href={item.url} className="flex w-full items-center">
+            <Link to={item.url}>
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  className="hover:cursor-pointer"
+                >
                   <item.icon className="mr-2 size-5" />
                   <span className="flex-1 font-medium">{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </Link>
           ))}
         </SidebarMenu>
       </SidebarGroupContent>

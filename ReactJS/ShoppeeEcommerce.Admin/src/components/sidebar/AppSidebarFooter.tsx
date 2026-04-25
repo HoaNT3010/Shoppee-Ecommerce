@@ -16,6 +16,7 @@ import {
 } from "../ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import AppThemeToggler from "./AppThemeToggler"
+import { Link } from "react-router"
 
 interface Props {
   username?: string
@@ -38,6 +39,7 @@ const AppSidebarFooter = ({
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger
+              className="hover:cursor-pointer"
               render={
                 <SidebarMenuButton
                   size="lg"
@@ -77,22 +79,28 @@ const AppSidebarFooter = ({
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <User2 />
-                  Account
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings2 />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Bell />
-                  Notifications
-                </DropdownMenuItem>
+                <Link to={"account"}>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    <User2 />
+                    Account
+                  </DropdownMenuItem>
+                </Link>
+                <Link to={"account/settings"}>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    <Settings2 />
+                    Settings
+                  </DropdownMenuItem>
+                </Link>
+                <Link to={"account/notifications"}>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    <Bell />
+                    Notifications
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="hover:cursor-pointer">
                   <LogOut />
                   Log out
                 </DropdownMenuItem>
