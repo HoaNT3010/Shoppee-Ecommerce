@@ -17,7 +17,7 @@ builder.Services
     .AddWebAPIServices();
 
 var app = builder.Build();
-
+app.UseCors(CORSServiceCollectionExtensions.AllowedAllOriginsPolicy);
 app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
@@ -34,8 +34,8 @@ app.UseSwaggerUI(options =>
     }
 });
 
-app.UseHttpsRedirection();
-
+// For now, disable HTTPS because of Docker setup complexity
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

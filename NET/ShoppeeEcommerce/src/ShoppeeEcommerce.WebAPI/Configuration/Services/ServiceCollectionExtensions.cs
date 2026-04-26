@@ -28,6 +28,7 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.AddSwaggerDocs();
             services.AddAuthorizationServices();
             services.AddApiVersioningServices();
+            services.ConfigureCORSPolicies();
 
             return services;
         }
