@@ -16,19 +16,23 @@ import {
 } from "../ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import AppThemeToggler from "./AppThemeToggler"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
+import { useAuth } from "@/contexts/auth-context"
 
-interface Props {
-  username?: string
-  email?: string
-  avatarUrl?: string
-}
+const AppSidebarFooter = () => {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+  // Fallback values if user data is still loading or unavailable
+  const username = user?.username || "Admin User"
+  const email = user?.email || "admin@shoppee.com"
+  const avatarUrl = "/images/common/default-avatar.jpg"
 
-const AppSidebarFooter = ({
-  username = "Username",
-  email = "user@mail.com",
-  avatarUrl = "/images/common/default-avatar.jpg",
-}: Props) => {
+  const handleLogout = async () => {
+    await logout()
+    // Back to login
+    navigate("/login")
+  }
+
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -100,8 +104,11 @@ const AppSidebarFooter = ({
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem className="hover:cursor-pointer">
-                  <LogOut />
+                <DropdownMenuItem
+                  className="text-destructive hover:cursor-pointer focus:text-destructive"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuGroup>

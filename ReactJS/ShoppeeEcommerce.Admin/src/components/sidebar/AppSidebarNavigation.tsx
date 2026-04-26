@@ -27,7 +27,7 @@ const AppSidebarNavigation = ({ label, items }: Props) => {
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (
-            <Link to={item.url}>
+            <Link key={item.title} to={item.url}>
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   tooltip={item.title}
