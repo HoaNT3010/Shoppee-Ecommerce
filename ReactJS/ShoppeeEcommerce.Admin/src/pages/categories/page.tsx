@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import { CategoryDataTable } from "./data-table"
 import { Button } from "@/components/ui/button"
 import { CreateEditModal } from "@/components/category/create-edit-modal"
 import { DetailSheet } from "@/components/category/detail-sheet"
 import { ConfirmDialog } from "@/components/category/confirm-dialog"
-import { CategoryDataTable } from "./categories/data-table"
 
 type DialogState =
   | { type: "none" }
@@ -18,11 +18,9 @@ type DialogState =
 export default function CategoriesPage() {
   const [dialog, setDialog] = useState<DialogState>({ type: "none" })
   const close = () => setDialog({ type: "none" })
-  const isSoftDelete = dialog.type === "soft-delete"
-  const isRestore = isSoftDelete && dialog.isDeleted
 
   return (
-    <div className="container mx-auto mt-4">
+    <div className="container mx-auto py-10">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Categories</h1>
         <Button onClick={() => setDialog({ type: "create" })}>
@@ -53,6 +51,33 @@ export default function CategoriesPage() {
       />
 
       <ConfirmDialog
+        open={dialog.type === "soft-delete"}
+        title={
+          dialog.type === "soft-delete" && dialog.isDeleted
+            ? "Restore Category"
+            : "Delete Category"
+        }
+        description={
+          dialog.type === "soft-delete" && dialog.isDeleted
+            ? "This will restore the category and make it active again."
+            : "This will soft-delete the category. It can be restored later."
+        }
+        confirmLabel={
+          dialog.type === "soft-delete" && dialog.isDeleted
+            ? "Restore"
+            : "Delete"
+        }
+        variant={
+          dialog.type === "soft-delete" && dialog.isDeleted
+            ? "default"
+            : "destructive"
+        }
+        id={dialog.type === "soft-delete" ? dialog.id : undefined}
+        action="soft-delete"
+        onClose={close}
+      />
+
+      <ConfirmDialog
         open={dialog.type === "hard-delete"}
         title="Permanently Delete Category"
         description="This cannot be undone. The category will be permanently removed."
@@ -60,22 +85,6 @@ export default function CategoriesPage() {
         variant="destructive"
         id={dialog.type === "hard-delete" ? dialog.id : undefined}
         action="hard-delete"
-        onClose={close}
-      />
-
-      <ConfirmDialog
-        open={isSoftDelete}
-        title={isRestore ? "Restore Category" : "Delete Category"}
-        description={
-          isRestore
-            ? "This will restore the category and make it active again."
-            : "This will soft-delete the category. It can be restored later."
-        }
-        confirmLabel={isRestore ? "Restore" : "Delete"}
-        variant={isRestore ? "default" : "destructive"}
-        id={isSoftDelete ? dialog.id! : undefined}
-        action="soft-delete"
-        isRestore={isRestore}
         onClose={close}
       />
     </div>

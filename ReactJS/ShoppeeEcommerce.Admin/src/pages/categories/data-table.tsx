@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table"
 import { useCategoryTableState } from "./useCategoryTableState"
 import { useCategoryList } from "./useCategoryList"
-import { columns } from "./columns"
+import { columns, type CategoryTableHandlers } from "./columns"
 import { Input } from "@/components/ui/input"
 import {
   Table,
@@ -21,8 +21,16 @@ import {
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useReactTable } from "@tanstack/react-table"
+import { useMemo } from "react"
 
-export function CategoryDataTable() {
+interface CategoryDataTableProps extends CategoryTableHandlers {}
+
+export function CategoryDataTable({
+  onView,
+  onEdit,
+  onSoftDelete,
+  onHardDelete,
+}: CategoryDataTableProps) {
   const { params, dispatch } = useCategoryTableState()
   const { data, isFetching } = useCategoryList(params)
 
@@ -31,9 +39,14 @@ export function CategoryDataTable() {
     ? [{ id: params.sortBy, desc: params.sortDesc === true }]
     : []
 
+  const tableColumns = useMemo(
+    () => columns({ onView, onEdit, onSoftDelete, onHardDelete }),
+    [onView, onEdit, onSoftDelete, onHardDelete]
+  )
+
   const table = useReactTable({
     data: data?.items ?? [],
-    columns,
+    columns: tableColumns,
     pageCount: data?.totalPages ?? -1, // tell TanStack the total pages
 
     // Manual mode — table doesn't process data itself
@@ -50,7 +63,7 @@ export function CategoryDataTable() {
     },
 
     onSortingChange: (updater) => {
-      const next = typeof updater === "function" ? updater(sorting) : updater
+      const next = functionalUpdate(updater, sorting)
       dispatch({ type: "SET_SORTING", payload: next })
     },
 
@@ -132,7 +145,7 @@ export function CategoryDataTable() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={table.getAllColumns().length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -150,7 +163,13 @@ export function CategoryDataTable() {
         </span>
         <Button
           onClick={() =>
-            dispatch({ type: "SET_PAGE", payload: params.pageIndex! - 1 })
+            dispatch({
+              type: "SET_PAGINATION",
+              payload: {
+                pageIndex: params.pageIndex! - 1,
+                pageSize: params.pageSize!,
+              },
+            })
           }
           disabled={params.pageIndex! <= 1}
         >
@@ -158,8 +177,13 @@ export function CategoryDataTable() {
         </Button>
         <Button
           onClick={() => {
-            console.log(params.pageIndex! + 1)
-            dispatch({ type: "SET_PAGE", payload: params.pageIndex! + 1 })
+            dispatch({
+              type: "SET_PAGINATION",
+              payload: {
+                pageIndex: params.pageIndex! + 1,
+                pageSize: params.pageSize!,
+              },
+            })
           }}
           disabled={params.pageIndex! >= (data?.totalPages ?? 1)}
         >

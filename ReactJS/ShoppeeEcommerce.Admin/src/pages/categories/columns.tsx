@@ -14,7 +14,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export const columns: ColumnDef<ShortCategoryResponse>[] = [
+export type CategoryTableHandlers = {
+  onView: (id: string) => void
+  onEdit: (id: string) => void
+  onSoftDelete: (id: string, isDeleted: boolean) => void
+  onHardDelete: (id: string) => void
+}
+
+export const columns = (
+  handlers: CategoryTableHandlers
+): ColumnDef<ShortCategoryResponse>[] => [
   {
     accessorKey: "id",
     header: "ID",
@@ -98,16 +107,25 @@ export const columns: ColumnDef<ShortCategoryResponse>[] = [
             <DropdownMenuGroup>
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => console.log("Edit", category.id)}
-              >
+              <DropdownMenuItem onClick={() => handlers.onView(category.id)}>
+                View details
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handlers.onEdit(category.id)}>
                 Edit
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() =>
+                  handlers.onSoftDelete(category.id, category.isDeleted)
+                }
+              >
+                {category.isDeleted ? "Restore" : "Delete"}
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="text-destructive"
-                onClick={() => console.log("Delete", category.id)}
+                onClick={() => handlers.onHardDelete(category.id)}
               >
-                Delete
+                Hard delete
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>

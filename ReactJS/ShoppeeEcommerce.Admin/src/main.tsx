@@ -7,6 +7,7 @@ import { router } from "./lib/router.tsx"
 import { TooltipProvider } from "./components/ui/tooltip.tsx"
 import { AuthProvider } from "./contexts/auth-context.tsx"
 import { Providers } from "./components/providers.tsx"
+import { Toaster } from "./components/ui/sonner.tsx"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <ThemeProvider>
         <Providers>
           <TooltipProvider>
+            <Toaster richColors duration={5000} position="top-right"></Toaster>
             <RouterProvider router={router} />
           </TooltipProvider>
         </Providers>
