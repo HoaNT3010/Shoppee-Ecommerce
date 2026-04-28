@@ -13,7 +13,7 @@ builder.Services.ConfigureServicesOptions(builder.Configuration);
 builder.Services
     .AddApplicationServices()
     .AddPersistenceServices(builder.Configuration)
-    .AddInfrastructureServices()
+    .AddInfrastructureServices(builder.Configuration)
     .AddWebAPIServices();
 
 var app = builder.Build();
