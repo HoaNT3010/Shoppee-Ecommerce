@@ -21,6 +21,25 @@ namespace ShoppeeEcommerce.Persistence.Configurations
             // Many-to-many with Category
             builder.HasMany(p => p.Categories)
                 .WithMany(c => c.Products);
+
+            builder.HasMany(p => p.ProductImages)
+               .WithOne(pi => pi.Product)
+               .HasForeignKey(pi => pi.ProductId)
+               .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.ProductRatings)
+               .WithOne(pr => pr.Product)
+               .HasForeignKey(pr => pr.ProductId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(p => p.SKU)
+                .IsRequired()
+                .HasMaxLength(128);
+            builder.HasIndex(p => p.Name)
+                .IsUnique();
+            builder.HasIndex(p => p.SKU)
+                .IsUnique();
+            builder.Property(p => p.Price)
+                .HasPrecision(18, 2);
         }
     }
 }

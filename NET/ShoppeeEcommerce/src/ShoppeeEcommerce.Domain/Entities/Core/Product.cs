@@ -1,6 +1,7 @@
 ﻿using ShoppeeEcommerce.Domain.Abstractions;
 using ShoppeeEcommerce.Domain.Entities.Base;
 using ShoppeeEcommerce.Domain.Entities.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShoppeeEcommerce.Domain.Entities.Core
 {
@@ -15,5 +16,11 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public List<ProductImage> ProductImages { get; set; } = [];
         public ICollection<ProductRating> ProductRatings { get; set; } = [];
         public ICollection<Category> Categories { get; set; } = [];
+
+        public string SKU { get; set; } = string.Empty;
+        [NotMapped]
+        public ProductImage? MainImage => ProductImages.FirstOrDefault(x => x.IsMain);
+        [NotMapped]
+        public IEnumerable<ProductImage> OrderedImages => ProductImages.OrderBy(x => !x.IsMain).ThenBy(x => x.DisplayOrder);
     }
 }

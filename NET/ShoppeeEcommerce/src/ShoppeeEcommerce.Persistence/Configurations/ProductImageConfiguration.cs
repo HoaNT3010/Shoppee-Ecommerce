@@ -10,9 +10,18 @@ namespace ShoppeeEcommerce.Persistence.Configurations
         public void Configure(EntityTypeBuilder<ProductImage> builder)
         {
             builder.ToTable(TableName, DbSchema.Core);
-            builder.HasOne(pi => pi.Product)
-                .WithMany(p => p.ProductImages)
-                .HasForeignKey(pi => pi.ProductId);
+
+            builder.Property(pi => pi.AltText)
+                .HasMaxLength(255);
+            builder.HasIndex(pi => pi.ProductId)
+                .HasFilter("[IsMain] = 1")
+                .IsUnique();
+            builder.HasIndex(pi => new { pi.ProductId, pi.DisplayOrder })
+                .IsUnique();
+            builder.Property(pi => pi.PublicId)
+                .IsRequired()
+                .HasMaxLength(512);
+            builder.HasQueryFilter(pi => !pi.Product.IsDeleted);
         }
     }
 }

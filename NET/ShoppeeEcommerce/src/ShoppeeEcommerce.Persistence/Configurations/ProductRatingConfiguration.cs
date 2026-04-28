@@ -15,9 +15,8 @@ namespace ShoppeeEcommerce.Persistence.Configurations
             builder.HasOne(pr => pr.User)
                 .WithMany(u => u.ProductRatings)
                 .HasForeignKey(pr => pr.UserId);
-            builder.HasOne(pr => pr.Product)
-                .WithMany(p => p.ProductRatings)
-                .HasForeignKey(pr => pr.ProductId);
+
+            builder.HasQueryFilter(pr => !pr.Product.IsDeleted);
         }
     }
 }
