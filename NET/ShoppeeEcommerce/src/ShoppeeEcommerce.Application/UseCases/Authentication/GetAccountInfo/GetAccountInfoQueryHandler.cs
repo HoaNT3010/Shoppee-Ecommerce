@@ -17,9 +17,9 @@ namespace ShoppeeEcommerce.Application.UseCases.Authentication.GetAccountInfo
             GetAccountInfoQuery request,
             CancellationToken cancellationToken)
         {
-            var user = await userManager.FindByIdAsync(request.UserId.ToString());
             try
             {
+                var user = await userManager.FindByIdAsync(request.UserId.ToString());
                 if (user is null) return Errors.User.NotFoundWithId(request.UserId.ToString());
                 var roles = await userManager.GetRolesAsync(user);
                 return new GetAccountInfoResponse(user.Id,
