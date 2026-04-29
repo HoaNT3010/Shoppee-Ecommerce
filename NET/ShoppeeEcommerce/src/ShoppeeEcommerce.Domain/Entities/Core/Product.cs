@@ -1,6 +1,7 @@
 ﻿using ShoppeeEcommerce.Domain.Abstractions;
 using ShoppeeEcommerce.Domain.Entities.Base;
 using ShoppeeEcommerce.Domain.Entities.Identity;
+using ShoppeeEcommerce.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShoppeeEcommerce.Domain.Entities.Core
@@ -17,6 +18,7 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public ICollection<ProductRating> ProductRatings { get; set; } = [];
         public ICollection<Category> Categories { get; set; } = [];
 
+        public ProductStatus Status { get; set; } = ProductStatus.Draft;
         public string SKU { get; set; } = string.Empty;
         [NotMapped]
         public ProductImage? MainImage => ProductImages.FirstOrDefault(x => x.IsMain);
