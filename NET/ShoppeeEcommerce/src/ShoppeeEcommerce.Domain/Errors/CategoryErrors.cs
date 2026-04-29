@@ -34,6 +34,10 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Category.HardDeleteCategoryFailed",
                     "Unexpected error occurred when trying to hard delete category.");
+            public static Error InvalidCategoryIds()
+                => Error.Validation(
+                    "Category.InvalidCategoryIds",
+                    "One or more provided Category IDs are invalid.");
         }
     }
 }

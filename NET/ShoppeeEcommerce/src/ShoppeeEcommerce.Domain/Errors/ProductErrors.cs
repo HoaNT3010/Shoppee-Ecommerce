@@ -1,0 +1,65 @@
+﻿using ErrorOr;
+
+namespace ShoppeeEcommerce.Domain.Errors
+{
+    public static partial class Errors
+    {
+        public static class ProductErrors
+        {
+            public static Error ProductNameExisted(string name) =>
+                Error.Conflict(
+                    "Product.ProductNameExisted",
+                    $"The name '{name}' has been used by another product.");
+            public static Error ProductSKUExisted(string sku) =>
+                Error.Conflict(
+                    "Product.ProductSKUExisted",
+                    $"The SKU '{sku}' has been used by another product.");
+            public static Error CreateProductFailed() =>
+                Error.Failure(
+                    "Product.CreateProductFailed",
+                    "Unexpected error occurred when trying to create new product.");
+            public static Error ProductNotFound() =>
+                Error.NotFound(
+                    "Product.ProductNotFound",
+                    "Product was not found.");
+            public static Error ProductNotFoundWithId(string id) =>
+                Error.NotFound(
+                    "Product.ProductNotFoundWithId",
+                    $"Product with ID '{id}' was not found.");
+
+            public static Error UpdateFailed() =>
+                Error.Failure(
+                    "Product.UpdateFailed",
+                    "Unexpected error occurred when trying to update product.");
+            public static Error SoftDeleteFailed() =>
+                Error.Failure(
+                    "Product.SoftDeleteFailed",
+                    "Unexpected error occurred when trying to soft delete product.");
+            public static Error RestoreSoftDeletedFailed() =>
+                Error.Failure(
+                    "Product.RestoreSoftDeletedFailed",
+                    "Unexpected error occurred when trying to restore soft deleted product.");
+            public static Error HardDeleteFailed() =>
+                Error.Failure(
+                    "Product.HardDeleteFailed",
+                    "Unexpected error occurred when trying to hard delete product.");
+
+            public static Error ExceedMaximumCategories(int limit) =>
+                Error.Validation(
+                    "Product.ExceedMaximumCategories",
+                    $"Product has exceed maximum number of categories ({limit} categories).");
+            public static Error ExceedMaximumImages(int limit) =>
+                Error.Validation(
+                    "Product.ExceedMaximumImages",
+                    $"Product has exceed maximum number of images ({limit} images).");
+            public static Error UpdateImagesFailed() =>
+                Error.Failure(
+                    "Product.UpdateImagesFailed",
+                    "Unexpected error occurred when trying to update product's images.");
+            public static Error UpdateStatusFailed() =>
+                Error.Failure(
+                    "Product.UpdateStatusFailed",
+                    "Unexpected error occurred when trying to update product's status.");
+        }
+    }
+}
