@@ -72,10 +72,31 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Product.UpdateMainImageFailed",
                     $"Unexpected error occurred when trying to update main image for product with ID '{id}'.");
+
             public static Error PublishProductFailed(string id) =>
                 Error.Failure(
                     "Product.PublishProductFailed",
                     $"Unexpected error occurred when trying to publish product with ID '{id}'.");
+            public static Error AlreadyPublished(string id) =>
+                Error.Conflict(
+                    "Product.AlreadyPublished",
+                    $"Product with ID '{id}' has already been published.");
+            public static Error MissingImages =>
+                Error.Validation(
+                    "Product.MissingImages",
+                    "Product must have at least one image before publishing.");
+            public static Error MissingMainImage =>
+                Error.Validation(
+                    "Product.MissingMainImage",
+                    "Product must have a main image before publishing.");
+            public static Error MissingCategories =>
+                Error.Validation(
+                    "Product.MissingCategories",
+                    "Product must belong to at least one category before publishing.");
+            public static Error InvalidPrice =>
+                Error.Validation(
+                    "Product.InvalidPrice",
+                    "Product must have a valid price before publishing.");
         }
     }
 }
