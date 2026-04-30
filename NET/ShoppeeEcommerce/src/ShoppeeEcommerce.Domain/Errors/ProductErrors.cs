@@ -60,6 +60,22 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Product.UpdateStatusFailed",
                     "Unexpected error occurred when trying to update product's status.");
+            public static Error EmptyProductImages() =>
+                Error.NotFound(
+                    "Product.EmptyProductImages",
+                    "Product does not have any images.");
+            public static Error HasNoSpecificImage(int imageId, string productId) =>
+                Error.NotFound(
+                    "Product.HasNoSpecificImage",
+                    $"Image with ID '{imageId}' not found on product '{productId}'.");
+            public static Error UpdateMainImageFailed(string id) =>
+                Error.Failure(
+                    "Product.UpdateMainImageFailed",
+                    $"Unexpected error occurred when trying to update main image for product with ID '{id}'.");
+            public static Error PublishProductFailed(string id) =>
+                Error.Failure(
+                    "Product.PublishProductFailed",
+                    $"Unexpected error occurred when trying to publish product with ID '{id}'.");
         }
     }
 }
