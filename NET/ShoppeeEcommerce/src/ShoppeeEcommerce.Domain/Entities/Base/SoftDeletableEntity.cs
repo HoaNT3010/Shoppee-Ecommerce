@@ -8,10 +8,10 @@ namespace ShoppeeEcommerce.Domain.Entities.Base
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }
 
-        public virtual void SoftDelete()
+        public virtual void SoftDelete(DateTime? deleteTimestamp = null)
         {
             IsDeleted = true;
-            DeletedDate = DateTime.UtcNow;
+            DeletedDate = deleteTimestamp ?? DateTime.UtcNow;
         }
 
         public virtual void RestoreSoftDelete()
