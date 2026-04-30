@@ -14,11 +14,16 @@ namespace ShoppeeEcommerce.Infrastructure.Storage.CloudinaryFS
             var cloudinarySettings = configuration
                 .GetSection(CloudinaryOptions.SectionName)
                 .Get<CloudinaryOptions>();
-            services.AddSingleton(new Cloudinary(
-                new Account(
-                    cloudinarySettings!.CloudName,
-                    cloudinarySettings.ApiKey,
-                    cloudinarySettings.ApiSecret)));
+            var account = new Account(
+                cloudinarySettings!.CloudName,
+                cloudinarySettings.ApiKey,
+                cloudinarySettings.ApiSecret);
+            services.AddSingleton<ICloudinary>(new Cloudinary(account));
+            //services.AddSingleton(new Cloudinary(
+            //    new Account(
+            //        cloudinarySettings!.CloudName,
+            //        cloudinarySettings.ApiKey,
+            //        cloudinarySettings.ApiSecret)));
             services.AddScoped<IFileService, CloudinaryFileService>();
 
             return services;

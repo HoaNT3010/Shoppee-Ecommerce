@@ -26,8 +26,10 @@ namespace ShoppeeEcommerce.Infrastructure.Authentication
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Name, user.UserName!),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email!),
+                // If value is null (Very unlikely as UserName and Email are required),
+                // fallback to empty string
+                new Claim(JwtRegisteredClaimNames.Name, user.UserName ?? string.Empty),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
                 new Claim(JwtFirstNameClaimType, user.FirstName ?? string.Empty),
                 new Claim(JwtLastNameClaimType, user.LastName ?? string.Empty),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

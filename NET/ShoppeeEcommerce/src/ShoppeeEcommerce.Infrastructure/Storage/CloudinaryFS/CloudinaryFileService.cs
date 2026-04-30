@@ -8,11 +8,11 @@ namespace ShoppeeEcommerce.Infrastructure.Storage.CloudinaryFS
 {
     internal class CloudinaryFileService : IFileService
     {
-        readonly Cloudinary _cloudinary;
+        readonly ICloudinary _cloudinary;
         readonly ILogger<CloudinaryFileService> _logger;
 
         public CloudinaryFileService(
-            Cloudinary cloudinary,
+            ICloudinary cloudinary,
             ILogger<CloudinaryFileService> logger)
         {
             _cloudinary = cloudinary;
