@@ -52,10 +52,10 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Validation(
                     "Product.ExceedMaximumImages",
                     $"Product has exceed maximum number of images ({limit} images).");
-            public static Error UpdateImagesFailed() =>
+            public static Error UpdateImagesFailed(string id) =>
                 Error.Failure(
                     "Product.UpdateImagesFailed",
-                    "Unexpected error occurred when trying to update product's images.");
+                    $"Unexpected error occurred when trying to update images for product with ID '{id}'.");
             public static Error UpdateStatusFailed() =>
                 Error.Failure(
                     "Product.UpdateStatusFailed",

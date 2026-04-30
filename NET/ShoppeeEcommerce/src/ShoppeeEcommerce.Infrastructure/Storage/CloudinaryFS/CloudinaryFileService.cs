@@ -53,7 +53,7 @@ namespace ShoppeeEcommerce.Infrastructure.Storage.CloudinaryFS
                 File = new FileDescription(fileName, fileStream),
                 Folder = folder,
                 // Let Cloudinary generate a unique id
-                UseFilename = false, 
+                UseFilename = false,
                 UniqueFilename = true,
                 Overwrite = false,
                 Transformation = new Transformation()
@@ -87,9 +87,11 @@ namespace ShoppeeEcommerce.Infrastructure.Storage.CloudinaryFS
             string? folder = null,
             CancellationToken cancellationToken = default)
         {
+            // Materialized list to preserve file order
+            var fileList = files.ToList();
             // Upload in parallel but cap concurrency to avoid hammering the API
             var semaphore = new SemaphoreSlim(3);
-            var tasks = files.Select(async file =>
+            var tasks = fileList.Select(async file =>
             {
                 await semaphore.WaitAsync(cancellationToken);
                 try
