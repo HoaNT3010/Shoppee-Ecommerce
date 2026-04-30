@@ -11,12 +11,12 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.PublishProduct
 {
-    public class PublicProductEndpoint
+    public class PublishProductEndpoint
         : BaseEndpoint<
             PathGuidIdRequest,
             Updated>
     {
-        public PublicProductEndpoint(ISender sender) : base(sender)
+        public PublishProductEndpoint(ISender sender) : base(sender)
         {
         }
 

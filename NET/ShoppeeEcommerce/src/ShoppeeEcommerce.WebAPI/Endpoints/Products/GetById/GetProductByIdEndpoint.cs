@@ -21,7 +21,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.GetById
         [ApiVersion(1)]
         [AllowAnonymous]
         [SwaggerOperation(
-            Summary = "get product by product's ID. The result product will have its images and categories included.",
+            Summary = "Get product by product's ID. The result product will have its images and categories included.",
             Tags = new[] { EndpointTags.Products })]
         public override async Task<ActionResult<BaseProductResponse>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,
