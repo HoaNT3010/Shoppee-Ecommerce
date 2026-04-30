@@ -11,17 +11,22 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.Common.Specifications
             bool asTracking = false,
             bool ignoreQueryFilter = false,
             bool includeCategories = false,
-            bool includeCreator = false)
+            bool includeCreator = false,
+            bool onlyActiveProduct = true,
+            bool asSplitQuery = true)
         {
             Query.Where(x => x.Id == id)
                 .AsTracking(asTracking)
-                .IgnoreQueryFilters(ignoreQueryFilter);
+                .IgnoreQueryFilters(ignoreQueryFilter)
+                .AsSplitQuery(asSplitQuery);
             if (includeImages)
                 Query.Include(x => x.ProductImages);
             if (includeCategories)
                 Query.Include(x => x.Categories);
             if (includeCreator)
                 Query.Include(x => x.Creator);
+            if (onlyActiveProduct)
+                Query.Where(x => x.Status == Domain.Enums.ProductStatus.Published);
         }
     }
 }
