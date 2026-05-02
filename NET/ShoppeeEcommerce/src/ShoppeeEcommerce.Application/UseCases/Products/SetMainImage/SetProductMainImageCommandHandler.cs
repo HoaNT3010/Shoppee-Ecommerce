@@ -20,7 +20,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.SetMainImage
             CancellationToken cancellationToken)
         {
             var product = await repo.FirstOrDefaultAsync(
-                new ProductByIdSpec(request.ProductId, true, true, true),
+                new ProductByIdSpec(request.ProductId, true, true, true, onlyActiveProduct: false),
                 cancellationToken);
             if (product is null) return Errors.ProductErrors.ProductNotFoundWithId(request.ProductId.ToString());
             if (product.ProductImages.Count == 0) return Errors.ProductErrors.EmptyProductImages();

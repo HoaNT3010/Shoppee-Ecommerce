@@ -12,7 +12,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.RestoreSoftDeleted
     internal class RestoreSoftDeletedProductCommandHandler(
         IRepository<Product, Guid> repo,
         IUnitOfWork uow,
-        ILogger<SoftDeleteProductCommandHandler> logger)
+        ILogger<RestoreSoftDeletedProductCommandHandler> logger)
         : IRequestHandler<RestoreSoftDeletedProductCommand, ErrorOr<Updated>>
     {
         public async Task<ErrorOr<Updated>> Handle(

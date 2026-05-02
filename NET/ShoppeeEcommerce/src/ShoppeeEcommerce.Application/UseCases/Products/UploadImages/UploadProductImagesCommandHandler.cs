@@ -27,7 +27,8 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.UploadImages
                     request.ProductId,
                     includeImages: true,
                     asTracking: true,
-                    ignoreQueryFilter: true));
+                    ignoreQueryFilter: true,
+                    onlyActiveProduct: false), cancellationToken);
             if (product is null) return Errors.ProductErrors.ProductNotFoundWithId(request.ProductId.ToString());
             // Validate product images count (current + with new images)
             int existingCount = product.ProductImages.Count;

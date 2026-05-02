@@ -17,7 +17,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.PublishProduct
         public async Task<ErrorOr<Updated>> Handle(PublishProductCommand request, CancellationToken cancellationToken)
         {
             var product = await repo.FirstOrDefaultAsync(
-                new ProductByIdSpec(request.Id, true, true, true, true), cancellationToken);
+                new ProductByIdSpec(request.Id, true, true, true, true, onlyActiveProduct: false), cancellationToken);
             if (product is null) return Errors.ProductErrors.ProductNotFoundWithId(request.Id.ToString());
             if (product.Status == Domain.Enums.ProductStatus.Published) return Errors.ProductErrors.AlreadyPublished(request.Id.ToString());
 

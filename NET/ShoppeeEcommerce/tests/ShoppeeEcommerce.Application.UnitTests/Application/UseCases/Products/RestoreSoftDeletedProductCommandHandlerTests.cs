@@ -14,9 +14,9 @@ namespace ShoppeeEcommerce.Application.Tests.Application.UseCases.Products
     : CommandHandlerTestBase<Product, Guid>
     {
         private RestoreSoftDeletedProductCommandHandler CreateHandler(
-            Mock<ILogger<SoftDeleteProductCommandHandler>>? loggerMock = null)
+            Mock<ILogger<RestoreSoftDeletedProductCommandHandler>>? loggerMock = null)
         {
-            var logger = loggerMock ?? CreateLoggerMock<SoftDeleteProductCommandHandler>();
+            var logger = loggerMock ?? CreateLoggerMock<RestoreSoftDeletedProductCommandHandler>();
             return new RestoreSoftDeletedProductCommandHandler(
                 RepoMock.Object,
                 UoWMock.Object,
@@ -97,7 +97,7 @@ namespace ShoppeeEcommerce.Application.Tests.Application.UseCases.Products
             // Arrange
             var product = new Product { IsDeleted = true };
             var command = new RestoreSoftDeletedProductCommand(product.Id);
-            var loggerMock = CreateLoggerMock<SoftDeleteProductCommandHandler>();
+            var loggerMock = CreateLoggerMock<RestoreSoftDeletedProductCommandHandler>();
 
             RepoMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<GetBaseProductByIdSpec>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(product);
