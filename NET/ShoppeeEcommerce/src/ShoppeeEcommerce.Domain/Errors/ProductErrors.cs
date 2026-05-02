@@ -97,6 +97,18 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Validation(
                     "Product.InvalidPrice",
                     "Product must have a valid price before publishing.");
+            public static Error HasNoImages =>
+                Error.Validation(
+                    "Product.HasNoImages",
+                    "Product does not have any images.");
+            public static Error ImagesNotFound(int[] imageIds) =>
+                Error.Validation(
+                    "Product.ImagesNotFound",
+                    $"Product does not have any image(s) with ID: {string.Join(", ", imageIds)}");
+            public static Error ImagesMissingFromReorder(int[] imageIds) =>
+                Error.Validation(
+                    "Product.ImagesMissingFromReorder",
+                    $"Please provide all product's images with display order. The image(s) with ID is missing: {string.Join(", ", imageIds)}");
         }
     }
 }
