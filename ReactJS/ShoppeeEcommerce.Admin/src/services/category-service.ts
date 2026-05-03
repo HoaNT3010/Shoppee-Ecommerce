@@ -5,6 +5,7 @@ import type {
   DetailedCategoryResponse,
   CreateCategoryRequest,
   UpdateCategoryRequest,
+  BaseCategoryResponse,
 } from "@/types/category"
 
 const CategoryService = {
@@ -43,6 +44,10 @@ const CategoryService = {
   // Hard Delete (Permanent)
   hardDelete: async (id: string): Promise<void> => {
     await api.delete(`/admin/categories/${id}/hard`)
+  },
+  generalList: async () => {
+    const { data } = await api.get<BaseCategoryResponse[]>("/categories")
+    return data
   },
 }
 export default CategoryService

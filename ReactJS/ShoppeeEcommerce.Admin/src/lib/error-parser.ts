@@ -1,3 +1,5 @@
+import type { ApiError } from "@/types/common"
+
 export type ParsedError = {
   message: string
   fieldErrors?: Record<string, string>
@@ -35,4 +37,11 @@ export const parseBackendError = (error: any): ParsedError => {
   return {
     message: typeof data === "string" ? data : "Server connection failed.",
   }
+}
+
+export function getFieldError(
+  errors: ApiError[],
+  code: string
+): string | undefined {
+  return errors.find((e) => e.code === code)?.description
 }

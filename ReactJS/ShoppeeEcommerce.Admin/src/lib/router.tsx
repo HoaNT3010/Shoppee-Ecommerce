@@ -9,6 +9,10 @@ import DashboardPage from "@/pages/dashboard"
 import LoginPage from "@/pages/login"
 import OrdersPage from "@/pages/orders"
 import ProductsPage from "@/pages/products"
+import BasicInfoStep from "@/pages/products/create"
+import ImagesStep from "@/pages/products/create/images-step"
+import MainImageStep from "@/pages/products/create/main-image-step"
+import PublishStep from "@/pages/products/create/publish-step"
 import SystemSettingsPage from "@/pages/system-settings"
 import UnauthorizedPage from "@/pages/unauthorized"
 import { createBrowserRouter, Navigate } from "react-router"
@@ -27,6 +31,10 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <DashboardPage /> },
           { path: "categories", element: <CategoriesPage /> },
+          { path: "products/new", element: <BasicInfoStep /> },
+          { path: "products/new/:id/images", element: <ImagesStep /> },
+          { path: "products/new/:id/main-image", element: <MainImageStep /> },
+          { path: "products/new/:id/publish", element: <PublishStep /> },
           { path: "products", element: <ProductsPage /> },
           { path: "customers", element: <CustomersPage /> },
           { path: "orders", element: <OrdersPage /> },

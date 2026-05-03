@@ -37,3 +37,9 @@ export interface DetailedCategoryResponse {
   deletedDate?: string
   creator?: BaseCreatorResponse
 }
+
+export interface BaseCategoryResponse {
+  id: string
+  name: string
+  description: string
+}

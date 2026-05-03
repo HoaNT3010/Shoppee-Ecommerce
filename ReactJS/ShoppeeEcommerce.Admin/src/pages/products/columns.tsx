@@ -32,7 +32,6 @@ function StatusBadge({ status }: { status: string }) {
 
 // Image thumbnail with fallback
 function ProductImage({ imgUrl, name }: { imgUrl?: string; name: string }) {
-  console.log(imgUrl)
   if (imgUrl)
     return (
       <img
