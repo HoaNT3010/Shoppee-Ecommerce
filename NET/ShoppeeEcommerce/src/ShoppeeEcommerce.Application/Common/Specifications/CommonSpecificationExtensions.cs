@@ -13,6 +13,10 @@ namespace ShoppeeEcommerce.Application.Common.Specifications
             DateRangesSortedPagedIncludeDeletedQuery query)
             where TEntity : class, ISoftDeletable, ITrackable
         {
+            builder
+                .AsNoTracking()
+                .AsSplitQuery();
+
             // Soft-delete
             // Since global query filter already exclude soft deleted items
             // If enable include deleted, disable global query filter.
