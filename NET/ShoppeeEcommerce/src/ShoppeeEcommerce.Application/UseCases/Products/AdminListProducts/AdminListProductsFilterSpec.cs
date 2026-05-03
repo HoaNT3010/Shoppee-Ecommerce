@@ -11,6 +11,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.AdminListProducts
     {
         public AdminListProductsFilterSpec(AdminListProductsQuery query)
         {
+            Query.Include(x => x.ProductImages.Where(i => i.IsMain));
             if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 Query
