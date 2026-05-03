@@ -60,7 +60,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.UploadImages
                 }).ToList();
                 product.ProductImages.AddRange(images);
                 await uow.SaveChangesAsync(cancellationToken);
-                return new UploadProductImagesResponse(images
+                return new UploadProductImagesResponse(product.OrderedImages
                     .Select(
                         i => new CreateProductImageResponse(i.Id, i.Url, i.DisplayOrder, i.IsMain))
                     .ToList());
