@@ -41,7 +41,10 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.AdminListProducts
                 x.CreatedDate,
                 x.IsDeleted,
                 x.Status.ToString(),
-                x.MainImage != null ? x.MainImage.Url : null));
+                x.ProductImages
+                .Where(i => i.IsMain)
+                .Select(i => i.Url)
+                .FirstOrDefault()));
         }
     }
 }
