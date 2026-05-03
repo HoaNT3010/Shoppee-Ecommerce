@@ -1,11 +1,10 @@
-"use client"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { CreateEditModal } from "@/components/category/create-edit-modal"
 import { DetailSheet } from "@/components/category/detail-sheet"
 import { ConfirmDialog } from "@/components/category/confirm-dialog"
 import { CategoryDataTable } from "./categories/data-table"
+import CategoryService from "@/services/category-service"
 
 type DialogState =
   | { type: "none" }
@@ -58,9 +57,13 @@ export default function CategoriesPage() {
         description="This cannot be undone. The category will be permanently removed."
         confirmLabel="Delete Forever"
         variant="destructive"
-        id={dialog.type === "hard-delete" ? dialog.id : undefined}
-        action="hard-delete"
+        invalidateKey={["categories"]}
+        onConfirm={() => {
+          if (dialog.type !== "hard-delete") return Promise.resolve()
+          return CategoryService.hardDelete(dialog.id)
+        }}
         onClose={close}
+        successMsg="Category permanently deleted."
       />
 
       <ConfirmDialog
@@ -73,10 +76,15 @@ export default function CategoriesPage() {
         }
         confirmLabel={isRestore ? "Restore" : "Delete"}
         variant={isRestore ? "default" : "destructive"}
-        id={isSoftDelete ? dialog.id! : undefined}
-        action="soft-delete"
-        isRestore={isRestore}
+        invalidateKey={["categories"]}
+        onConfirm={() => {
+          if (dialog.type !== "soft-delete") return Promise.resolve()
+          return isRestore
+            ? CategoryService.restore(dialog.id)
+            : CategoryService.softDelete(dialog.id)
+        }}
         onClose={close}
+        successMsg={isRestore ? "Category restored." : "Category deleted."}
       />
     </div>
   )

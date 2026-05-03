@@ -11,7 +11,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import CategoryService from "@/services/category-service"
 import { toast } from "sonner"
 
 interface ConfirmDialogProps {
@@ -20,10 +19,14 @@ interface ConfirmDialogProps {
   description: string
   confirmLabel: string
   variant: "default" | "destructive"
-  id?: string
-  action: "soft-delete" | "hard-delete"
-  isRestore?: boolean
+  invalidateKey: unknown[]
+  // id?: string
+  // action: "soft-delete" | "hard-delete"
+  // isRestore?: boolean
+  // onClose: () => void
+  onConfirm: () => Promise<void> // ← caller provides the action
   onClose: () => void
+  successMsg?: string
 }
 
 export function ConfirmDialog({
@@ -32,25 +35,40 @@ export function ConfirmDialog({
   description,
   confirmLabel,
   variant,
-  id,
-  action,
-  isRestore,
+  invalidateKey,
+  // id,
+  // action,
+  // isRestore,
+  onConfirm,
   onClose,
+  successMsg = "Done.",
 }: ConfirmDialogProps) {
   const queryClient = useQueryClient()
 
+  // const mutation = useMutation({
+  //   mutationFn: () => {
+  //     if (action === "hard-delete") return CategoryService.hardDelete(id!)
+  //     if (isRestore) return CategoryService.restore(id!)
+  //     return CategoryService.softDelete(id!)
+  //   },
+  //   onSuccess: () => {
+  //     if (action === "hard-delete")
+  //       toast.success("Category permanently deleted.")
+  //     else if (isRestore) toast.success("Category restored.")
+  //     else toast.success("Category deleted.")
+  //     queryClient.invalidateQueries({ queryKey: ["categories"] })
+  //     onClose()
+  //   },
+  //   onError: () => {
+  //     toast.error("Something went wrong. Please try again.")
+  //   },
+  // })
+
   const mutation = useMutation({
-    mutationFn: () => {
-      if (action === "hard-delete") return CategoryService.hardDelete(id!)
-      if (isRestore) return CategoryService.restore(id!)
-      return CategoryService.softDelete(id!)
-    },
+    mutationFn: onConfirm,
     onSuccess: () => {
-      if (action === "hard-delete")
-        toast.success("Category permanently deleted.")
-      else if (isRestore) toast.success("Category restored.")
-      else toast.success("Category deleted.")
-      queryClient.invalidateQueries({ queryKey: ["categories"] })
+      queryClient.invalidateQueries({ queryKey: invalidateKey })
+      toast.success(successMsg)
       onClose()
     },
     onError: () => {

@@ -37,7 +37,7 @@ const AppSidebar = () => {
       </SidebarContent>
 
       {/* Footer start here */}
-      <AppSidebarFooter username="Hoa Nguyen" />
+      <AppSidebarFooter />
     </Sidebar>
   )
 }
