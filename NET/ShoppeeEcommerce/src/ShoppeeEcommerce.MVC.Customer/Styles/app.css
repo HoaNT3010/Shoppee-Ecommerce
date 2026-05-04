@@ -1,0 +1,13 @@
+﻿@import "tailwindcss";
+
+/* Tell Tailwind v4 to scan your Razor views */
+@source "../Views/**/*.cshtml";
+@source "../Pages/**/*.cshtml";
+
+/* Load DaisyUI as a plugin */
+@plugin "daisyui";
+
+/* Optional: configure DaisyUI themes */
+@plugin "daisyui" {
+    themes: light, dark, cupcake;
+}

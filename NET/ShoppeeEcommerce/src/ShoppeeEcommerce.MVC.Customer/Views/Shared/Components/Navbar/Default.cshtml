@@ -1,0 +1,29 @@
+﻿@model List<string>
+
+<div class="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4 md:px-10">
+    <!-- Navbar Brand -->
+    <div class="navbar-start">
+        <a asp-controller="Home" asp-action="Index" class="text-xl font-bold">Shoppee</a>
+    </div>
+    <!-- Categories Loop -->
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+            @foreach (var cat in Model)
+            {
+                <li><a>@cat</a></li>
+            }
+        </ul>
+    </div>
+    <!-- Auth Section -->
+    <div class="navbar-end">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span>Hi, @User.Identity.Name</span>
+            <a asp-action="Logout" asp-controller="Account" class="btn btn-outline ml-2">Logout</a>
+        }
+        else
+        {
+            <a asp-action="Login" asp-controller="Account" class="btn btn-outline">Login</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "shoppeeecommerce.mvc.customer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css:build": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.css --minify",
+    "css:watch": "npx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.css --watch",
+    "htmx:copy": "shx cp ./node_modules/htmx.org/dist/htmx.min.js ./wwwroot/js/htmx.min.js",
+    "dev": "concurrently \"dotnet watch run\" \"npm run css:watch\"",
+    "build": "npm run htmx:copy && npm run css:build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "autoprefixer": "^10.5.0",
+    "concurrently": "^9.2.1",
+    "daisyui": "^5.5.19",
+    "postcss": "^8.5.13",
+    "shx": "^0.4.0",
+    "tailwindcss": "^4.2.4"
+  },
+  "dependencies": {
+    "htmx.org": "^2.0.10"
+  }
+}

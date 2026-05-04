@@ -1,0 +1,22 @@
+﻿@model List<string>
+
+<footer class="footer sm:footer-horizontal p-10 bg-base-200 shadow-lg px-4 md:px-10">
+    <nav>
+        <h6 class="footer-title">Categories</h6>
+        @foreach (var category in Model)
+        {
+            <a class="link link-hover">@category</a>
+        }
+    </nav>
+    <nav>
+        <h6 class="footer-title">Support</h6>
+        <a asp-controller="Home" asp-action="Contact" class="link link-hover">Contact</a>
+        <a class="link link-hover">Shipping Policy</a>
+        <a class="link link-hover">FAQs</a>
+    </nav>
+</footer>
+<footer class="footer sm:footer-horizontal footer-center bg-base-content text-base-100 p-4">
+    <aside>
+        <p>© @DateTime.Now.Year - Shoppee Ecommerce</p>
+    </aside>
+</footer>
