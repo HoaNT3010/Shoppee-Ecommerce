@@ -9,5 +9,5 @@
 
 /* Optional: configure DaisyUI themes */
 @plugin "daisyui" {
-    themes: light, dark, cupcake;
+    themes: light, dark, cupcake, emerald, pastel, night;
 }

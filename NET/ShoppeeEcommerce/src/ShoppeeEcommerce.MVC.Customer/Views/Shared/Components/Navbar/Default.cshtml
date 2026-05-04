@@ -1,4 +1,5 @@
-﻿@model List<string>
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Categories
+@model List<BaseCategoryResponse>
 
 <div class="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4 md:px-10">
     <!-- Navbar Brand -->
@@ -10,7 +11,7 @@
         <ul class="menu menu-horizontal px-1">
             @foreach (var cat in Model)
             {
-                <li><a>@cat</a></li>
+                <li><a>@cat.Name</a></li>
             }
         </ul>
     </div>

@@ -7,7 +7,11 @@
 	<ItemGroup>
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
 		<PackageReference Include="Refit" />
+		<PackageReference Include="Refit.HttpClientFactory" />
 		<PackageReference Include="Westwind.AspNetCore.LiveReload" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ShoppeeEcommerce.SharedViewModels\ShoppeeEcommerce.SharedViewModels.csproj" />
 	</ItemGroup>
 	<Target Name="BuildCSS" BeforeTargets="Build">
 		<Exec Command="npm run build" />

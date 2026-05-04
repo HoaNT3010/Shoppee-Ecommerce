@@ -1,7 +1,15 @@
+using Refit;
+using ShoppeeEcommerce.MVC.Customer.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services
+    .AddRefitClient<IAuthApi>()
+    .AddRefitClient<ICategoriesApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:8080/api/v1"));
 
 var app = builder.Build();
 
@@ -13,7 +21,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
@@ -24,6 +32,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();
