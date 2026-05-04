@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { arrayMove } from "@dnd-kit/sortable"
 import type { DragEndEvent } from "@dnd-kit/core"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -13,6 +13,10 @@ export function useImageSection(
   const queryClient = useQueryClient()
   const [images, setImages] = useState(initialImages)
   const [isDirty, setIsDirty] = useState(false)
+
+  useEffect(() => {
+    setImages(initialImages)
+  }, [initialImages])
 
   function invalidate() {
     queryClient.invalidateQueries({ queryKey: ["product", productId] })
