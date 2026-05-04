@@ -70,7 +70,7 @@ export default function PublishStep() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => navigate(`/products/${id}/setup/main-image`)}
+            onClick={() => navigate(`/products/new/${id}/main-image`)}
           >
             ← Back
           </Button>

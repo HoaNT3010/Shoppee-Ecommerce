@@ -55,6 +55,11 @@ export default function ProductsPage() {
         }}
         onClose={close}
         invalidateKey={["products"]}
+        successMsg={
+          isRestore
+            ? "Product restore successfully."
+            : "Product soft-delete successfully."
+        }
       />
     </div>
   )

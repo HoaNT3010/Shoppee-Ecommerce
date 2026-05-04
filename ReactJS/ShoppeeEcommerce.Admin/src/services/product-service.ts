@@ -6,6 +6,9 @@ import type {
   CreateProductRequest,
   CreateProductResponse,
   DetailedProductResponse,
+  UpdateProductCategoryRequest,
+  UpdateProductImagesOrderRequest,
+  UpdateProductInfoRequest,
 } from "@/types/product"
 
 const ProductService = {
@@ -74,6 +77,27 @@ const ProductService = {
       `/admin/products/${id}`
     )
     return data
+  },
+
+  updateInfo: async (
+    id: string,
+    request: UpdateProductInfoRequest
+  ): Promise<void> => {
+    await api.patch(`/admin/products/${id}`, request)
+  },
+
+  updateCategories: async (
+    id: string,
+    request: UpdateProductCategoryRequest
+  ): Promise<void> => {
+    await api.patch(`/admin/products/${id}/categories`, request)
+  },
+
+  reorderImages: async (
+    id: string,
+    request: UpdateProductImagesOrderRequest
+  ): Promise<void> => {
+    await api.patch(`/admin/products/${id}/images/reorder`, request)
   },
 }
 

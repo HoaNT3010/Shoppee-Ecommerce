@@ -45,3 +45,34 @@ export function getFieldError(
 ): string | undefined {
   return errors.find((e) => e.code === code)?.description
 }
+
+export interface ParsedUpdateErrors {
+  // Field-level errors from FluentValidation
+  fieldErrors: Record<string, string>
+  // Domain errors (SKU conflict etc.)
+  domainErrors: ApiError[]
+}
+
+export function parseUpdateErrors(error: any): ParsedUpdateErrors {
+  const data = error?.response?.data
+
+  // FluentValidation shape: { "Name": ["message"], "Price": ["message"] }
+  if (data && !Array.isArray(data) && typeof data === "object") {
+    const fieldErrors: Record<string, string> = {}
+    for (const [key, messages] of Object.entries(data)) {
+      if (Array.isArray(messages) && messages.length > 0) {
+        // Lowercase first letter to match react-hook-form field names
+        const fieldKey = key.charAt(0).toLowerCase() + key.slice(1)
+        fieldErrors[fieldKey] = messages[0] as string
+      }
+    }
+    return { fieldErrors, domainErrors: [] }
+  }
+
+  // Domain error shape: [{ code, description, type }]
+  if (Array.isArray(data)) {
+    return { fieldErrors: {}, domainErrors: data as ApiError[] }
+  }
+
+  return { fieldErrors: {}, domainErrors: [] }
+}

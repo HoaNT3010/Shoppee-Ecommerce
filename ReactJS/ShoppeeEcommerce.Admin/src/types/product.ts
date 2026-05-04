@@ -78,3 +78,23 @@ export interface ProductCategoryResponse {
   id: string
   name: string
 }
+
+export interface UpdateProductInfoRequest {
+  name?: string
+  description?: string
+  price?: number
+  sku?: string
+}
+
+export interface UpdateProductCategoryRequest {
+  categoryIds: string[]
+}
+
+export interface UpdateProductImagesOrderRequest {
+  orders: ProductImageReorderRequest[]
+}
+
+export interface ProductImageReorderRequest {
+  imageId: number
+  displayOrder: number
+}

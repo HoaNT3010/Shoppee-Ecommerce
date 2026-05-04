@@ -20,13 +20,10 @@ interface ConfirmDialogProps {
   confirmLabel: string
   variant: "default" | "destructive"
   invalidateKey: unknown[]
-  // id?: string
-  // action: "soft-delete" | "hard-delete"
-  // isRestore?: boolean
-  // onClose: () => void
-  onConfirm: () => Promise<void> // ← caller provides the action
+  onConfirm: () => Promise<void>
   onClose: () => void
   successMsg?: string
+  onSuccess?: () => void
 }
 
 export function ConfirmDialog({
@@ -36,38 +33,17 @@ export function ConfirmDialog({
   confirmLabel,
   variant,
   invalidateKey,
-  // id,
-  // action,
-  // isRestore,
   onConfirm,
   onClose,
   successMsg = "Done.",
+  onSuccess,
 }: ConfirmDialogProps) {
   const queryClient = useQueryClient()
-
-  // const mutation = useMutation({
-  //   mutationFn: () => {
-  //     if (action === "hard-delete") return CategoryService.hardDelete(id!)
-  //     if (isRestore) return CategoryService.restore(id!)
-  //     return CategoryService.softDelete(id!)
-  //   },
-  //   onSuccess: () => {
-  //     if (action === "hard-delete")
-  //       toast.success("Category permanently deleted.")
-  //     else if (isRestore) toast.success("Category restored.")
-  //     else toast.success("Category deleted.")
-  //     queryClient.invalidateQueries({ queryKey: ["categories"] })
-  //     onClose()
-  //   },
-  //   onError: () => {
-  //     toast.error("Something went wrong. Please try again.")
-  //   },
-  // })
-
   const mutation = useMutation({
     mutationFn: onConfirm,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: invalidateKey })
+      onSuccess?.()
       toast.success(successMsg)
       onClose()
     },

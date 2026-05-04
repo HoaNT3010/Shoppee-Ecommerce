@@ -93,16 +93,16 @@ export function ProductDataTable({
           onValueChange={(v) =>
             dispatch({
               type: "SET_STATUS",
-              payload: v === "all" ? null : (v as "Draft" | "Published"),
+              payload: v === "All" ? null : (v as "Draft" | "Published"),
             })
           }
-          defaultValue="all"
+          defaultValue="All"
         >
           <SelectTrigger className="w-36">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
+            <SelectItem value="All">All</SelectItem>
             <SelectItem value="Draft">Draft</SelectItem>
             <SelectItem value="Published">Published</SelectItem>
           </SelectContent>

@@ -80,7 +80,7 @@ export default function MainImageStep() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => navigate(`/products/${id}/setup/images`)}
+            onClick={() => navigate(`/products/new/${id}/images`)}
           >
             ← Back
           </Button>
