@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Products.SetMainImage;
-using ShoppeeEcommerce.WebAPI.Common.Validators;
+using ShoppeeEcommerce.SharedViewModels.Validators;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.SetMainImage
+namespace ShoppeeEcommerce.SharedViewModels.Models.Products.SetMainImage
 {
     public class SetProductMainImageRequestValidator
         : AbstractValidator<SetProductMainImageRequest>

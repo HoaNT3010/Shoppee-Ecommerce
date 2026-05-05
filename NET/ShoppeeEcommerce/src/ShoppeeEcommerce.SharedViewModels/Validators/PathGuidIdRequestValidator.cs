@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
 
-namespace ShoppeeEcommerce.WebAPI.Common.Validators
+namespace ShoppeeEcommerce.SharedViewModels.Validators
 {
     public class PathGuidIdRequestValidator
         : AbstractValidator<PathGuidIdRequest>

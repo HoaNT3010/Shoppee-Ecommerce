@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Categories.Create;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Create
+namespace ShoppeeEcommerce.SharedViewModels.Models.Categories.Create
 {
     public class CreateCategoryRequestValidator
         : AbstractValidator<CreateCategoryRequest>

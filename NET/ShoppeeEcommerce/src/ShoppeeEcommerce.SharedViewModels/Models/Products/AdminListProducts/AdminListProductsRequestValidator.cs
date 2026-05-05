@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Products.AdminListProducts;
-using ShoppeeEcommerce.WebAPI.Common.Validators.Query;
+using ShoppeeEcommerce.SharedViewModels.Models.Common.Query;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.AdminListProducts
+namespace ShoppeeEcommerce.SharedViewModels.Models.Products.AdminListProducts
 {
     public class AdminListProductsRequestValidator
         : DateRangesSortedPagedIncludeDeletedRequestValidator<AdminListProductsRequest>

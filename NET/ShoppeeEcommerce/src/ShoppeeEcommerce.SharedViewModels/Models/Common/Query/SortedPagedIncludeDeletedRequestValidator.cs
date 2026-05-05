@@ -1,6 +1,4 @@
-﻿using ShoppeeEcommerce.SharedViewModels.Models.Common.Query;
-
-namespace ShoppeeEcommerce.WebAPI.Common.Validators.Query
+﻿namespace ShoppeeEcommerce.SharedViewModels.Models.Common.Query
 {
     // Bad name
     public class SortedPagedIncludeDeletedRequestValidator<T>

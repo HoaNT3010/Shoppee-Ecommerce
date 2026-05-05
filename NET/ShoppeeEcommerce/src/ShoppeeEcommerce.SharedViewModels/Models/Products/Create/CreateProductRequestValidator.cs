@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Products.Create;
-using ShoppeeEcommerce.WebAPI.Common.Validators;
+using ShoppeeEcommerce.SharedViewModels.Validators;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.Create
+namespace ShoppeeEcommerce.SharedViewModels.Models.Products.Create
 {
     public class CreateProductRequestValidator
         : AbstractValidator<CreateProductRequest>

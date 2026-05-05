@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Refresh;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Refresh
+namespace ShoppeeEcommerce.SharedViewModels.Models.Authentication.Logout
 {
-    public class RefreshRequestValidator
-        : AbstractValidator<RefreshRequest>
+    public class LogoutRequestValidator
+        : AbstractValidator<LogoutRequest>
     {
-        public RefreshRequestValidator()
+        public LogoutRequestValidator()
         {
             RuleFor(x => x.RefreshToken)
             .NotEmpty()

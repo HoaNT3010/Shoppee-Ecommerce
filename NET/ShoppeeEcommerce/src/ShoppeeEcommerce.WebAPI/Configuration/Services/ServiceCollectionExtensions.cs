@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
+using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
 using ShoppeeEcommerce.WebAPI.Middlewares;
 using ShoppeeEcommerce.WebAPI.Utilities;
-using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace ShoppeeEcommerce.WebAPI.Configuration.Services
@@ -24,7 +24,7 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.AddAuthenticationServices();
             services.AddExceptionHandler<GlobalExceptionHandler>();
             services.AddProblemDetails();
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(typeof(LoginRequestValidator).Assembly);
             services.AddSwaggerDocs();
             services.AddAuthorizationServices();
             services.AddApiVersioningServices();

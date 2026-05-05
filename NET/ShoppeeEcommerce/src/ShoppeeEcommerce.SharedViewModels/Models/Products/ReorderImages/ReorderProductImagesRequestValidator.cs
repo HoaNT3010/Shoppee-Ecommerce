@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Products.ReorderImages;
-using ShoppeeEcommerce.WebAPI.Common.Validators;
+using ShoppeeEcommerce.SharedViewModels.Validators;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.ReorderImages
+namespace ShoppeeEcommerce.SharedViewModels.Models.Products.ReorderImages
 {
     public class ReorderProductImagesRequestValidator
         : AbstractValidator<ReorderProductImagesRequest>

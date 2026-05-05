@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login
+namespace ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login
 {
     public class LoginRequestValidator
         : AbstractValidator<LoginRequest>

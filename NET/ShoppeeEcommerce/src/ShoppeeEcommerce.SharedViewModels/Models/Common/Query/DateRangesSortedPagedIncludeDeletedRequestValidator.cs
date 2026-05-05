@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Common.Query;
 
-namespace ShoppeeEcommerce.WebAPI.Common.Validators.Query
+namespace ShoppeeEcommerce.SharedViewModels.Models.Common.Query
 {
     // Really bad name. The last chained name (for now, hopefully).
     public class DateRangesSortedPagedIncludeDeletedRequestValidator<T>

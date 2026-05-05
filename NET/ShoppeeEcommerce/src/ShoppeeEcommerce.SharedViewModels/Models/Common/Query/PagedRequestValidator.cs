@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Common.Query;
 
-namespace ShoppeeEcommerce.WebAPI.Common.Validators.Query
+namespace ShoppeeEcommerce.SharedViewModels.Models.Common.Query
 {
     // Ok name
     public class PagedRequestValidator<T>

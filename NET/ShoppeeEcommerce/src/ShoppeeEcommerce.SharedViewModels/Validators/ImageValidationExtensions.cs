@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
-namespace ShoppeeEcommerce.WebAPI.Common.Validators
+namespace ShoppeeEcommerce.SharedViewModels.Validators
 {
     public static class ImageValidationExtensions
     {

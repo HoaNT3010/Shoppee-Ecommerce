@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Users.ListCustomers;
-using ShoppeeEcommerce.WebAPI.Common.Validators.Query;
+using ShoppeeEcommerce.SharedViewModels.Models.Common.Query;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Users.ListCustomers
+namespace ShoppeeEcommerce.SharedViewModels.Models.Users.ListCustomers
 {
     public class ListCustomersRequestValidator
         : PagedRequestValidator<ListCustomersRequest>

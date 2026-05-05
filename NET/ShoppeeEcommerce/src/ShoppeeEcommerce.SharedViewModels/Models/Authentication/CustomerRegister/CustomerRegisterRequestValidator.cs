@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Authentication.CustomerRegister;
-using ShoppeeEcommerce.WebAPI.Endpoints.Authentication.Login;
+using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Authentication.CustomerRegister
+namespace ShoppeeEcommerce.SharedViewModels.Models.Authentication.CustomerRegister
 {
     public class CustomerRegisterRequestValidator
         : AbstractValidator<CustomerRegisterRequest>

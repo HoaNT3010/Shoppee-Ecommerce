@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using ShoppeeEcommerce.SharedViewModels.Models.Products.UpdateCategories;
-using ShoppeeEcommerce.WebAPI.Common.Validators;
+using ShoppeeEcommerce.SharedViewModels.Validators;
 
-namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.UpdateCategories
+namespace ShoppeeEcommerce.SharedViewModels.Models.Products.UpdateCategories
 {
     public class UpdateProductCategoriesRequestValidator
         : AbstractValidator<UpdateProductCategoriesRequest>
