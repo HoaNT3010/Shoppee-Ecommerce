@@ -1,0 +1,64 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Auth
+@model LoginViewModel
+
+<div class="card-body" id="login-form">
+    <!-- Title -->
+    <h2 class="card-title text-2xl justify-center">Login to your account</h2>
+
+    <form class="space-y-4" hx-post="/Auth/HandleLogin" hx-target="#login-form" hx-swap="outerHTML">
+        <!-- Email -->
+        <div class="form-control">
+            <label class="label my-1">
+                <span class="label-text">Email</span>
+            </label>
+            <input asp-for="Email"
+                   type="email"
+                   placeholder="you@example.com"
+                   class="input input-bordered w-full" />
+            <span asp-validation-for="Email" class="text-error text-sm"></span>
+        </div>
+        <!-- Password -->
+        <div class="form-control">
+            <label class="label my-1">
+                <span class="label-text">Password</span>
+            </label>
+            <input asp-for="Password"
+                   type="password"
+                   class="input input-bordered w-full" />
+            <span asp-validation-for="Password" class="text-error text-sm"></span>
+        </div>
+        <!-- Remember me -->
+        <div class="flex justify-end">
+            <label class="cursor-pointer label gap-2">
+                <span class="label-text">Remember me</span>
+                <input asp-for="RememberMe" type="checkbox" class="checkbox checkbox-sm" />
+            </label>
+        </div>
+        <!-- Domain error -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div asp-validation-summary="ModelOnly"
+                 class="text-error text-sm text-center">
+            </div>
+        }
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary w-full">
+            Login
+        </button>
+        <!-- 4got password -->
+        <div class="text-center mt-2">
+            <a asp-action="ForgotPassword" class="link link-hover text-sm">
+                Forgot password?
+            </a>
+        </div>
+
+        <div class="divider">OR</div>
+        <!-- Register link -->
+        <div class="text-center">
+            <a asp-action="Register" class="link link-primary">
+                Create a new account
+            </a>
+        </div>
+
+    </form>
+</div>

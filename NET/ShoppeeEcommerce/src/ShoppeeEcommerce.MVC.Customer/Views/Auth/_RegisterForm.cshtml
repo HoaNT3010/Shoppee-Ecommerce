@@ -1,0 +1,95 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Auth
+@model RegisterViewModel
+
+<div class="card-body" id="register-form">
+    <h2 class="card-title text-2xl justify-center">Create your account</h2>
+
+    <form hx-post="/Auth/HandleRegister" hx-target="#register-form" hx-swap="outerHTML" class="space-y-4">
+
+        <!-- Username -->
+        <div class="form-control">
+            <label class="label my-1">
+                <span class="label-text">Username<span class="text-error"> *</span></span>
+            </label>
+            <input asp-for="UserName"
+                   class="input input-bordered w-full"
+                   placeholder="yourusername" />
+            <span asp-validation-for="UserName" class="text-error text-sm"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-control">
+            <label class="label my-1">
+                <span class="label-text">Email<span class="text-error"> *</span></span>
+            </label>
+            <input asp-for="Email"
+                   type="email"
+                   class="input input-bordered w-full"
+                   placeholder="you@example.com" />
+            <span asp-validation-for="Email" class="text-error text-sm"></span>
+        </div>
+
+        <!-- First & Last name side by side -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="form-control">
+                <label class="label my-1">
+                    <span class="label-text">First name</span>
+                </label>
+                <input asp-for="FirstName"
+                       class="input input-bordered w-full" />
+                <span asp-validation-for="FirstName" class="text-error text-sm"></span>
+            </div>
+
+            <div class="form-control">
+                <label class="label my-1">
+                    <span class="label-text">Last name</span>
+                </label>
+                <input asp-for="LastName"
+                       class="input input-bordered w-full" />
+                <span asp-validation-for="LastName" class="text-error text-sm"></span>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-control">
+            <label class="label my-1">
+                <span class="label-text">Password<span class="text-error"> *</span></span>
+            </label>
+            <input asp-for="Password"
+                   type="password"
+                   class="input input-bordered w-full" />
+            <span asp-validation-for="Password" class="text-error text-sm"></span>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-control">
+            <label class="label my-1">
+                <span class="label-text">Confirm Password<span class="text-error"> *</span></span>
+            </label>
+            <input asp-for="ConfirmPassword"
+                   type="password"
+                   class="input input-bordered w-full" />
+            <span asp-validation-for="ConfirmPassword" class="text-error text-sm"></span>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div asp-validation-summary="ModelOnly"
+                 class="text-error text-sm text-center">
+            </div>
+        }
+
+        <button type="submit" class="btn btn-primary w-full">
+            Create Account
+        </button>
+
+        <div class="divider">OR</div>
+
+        <div class="text-center">
+            <a asp-action="Login" class="link link-primary">
+                Already have an account? Login
+            </a>
+        </div>
+
+    </form>
+</div>

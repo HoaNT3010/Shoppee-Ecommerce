@@ -37,7 +37,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             string? returnUrl = null)
         {
             if (!ModelState.IsValid)
-                return View("Login", model);
+                return PartialView("_LoginForm", model);
             try
             {
                 var response = await authApi.Login(new LoginRequest(
@@ -51,12 +51,13 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
                     model.RememberMe);
 
                 this.SetToast("Login successful.");
-                return Redirect(returnUrl ?? "/");
+                Response.Headers["HX-Redirect"] = Url.Action("Index", "Home");
+                return Ok();
             }
             catch (ApiException ex)
             {
                 await ex.ToModelState(ModelState);
-                return View("Login", model);
+                return PartialView("_LoginForm", model);
             }
         }
 
@@ -71,7 +72,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
         public async Task<IActionResult> HandleRegister(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
-                return View("Register", model);
+                return PartialView("_RegisterForm", model);
             try
             {
                 await authApi.RegisterCustomer(new CustomerRegisterRequest(
@@ -83,12 +84,13 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
                     model.LastName
                 ));
                 this.SetToast("Registration successful. Please login.");
-                return RedirectToAction("Login");
+                Response.Headers["HX-Redirect"] = Url.Action("Login");
+                return Ok();
             }
             catch (ApiException ex)
             {
                 await ex.ToModelState(ModelState);
-                return View("Register", model);
+                return PartialView("_RegisterForm", model);
             }
         }
 
