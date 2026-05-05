@@ -17,14 +17,14 @@
     </div>
     <!-- Auth Section -->
     <div class="navbar-end">
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity?.IsAuthenticated == true)
         {
-            <span>Hi, @User.Identity.Name</span>
-            <a asp-action="Logout" asp-controller="Account" class="btn btn-outline ml-2">Logout</a>
+            <span>Hi, @User.FindFirst("name")?.Value</span>
+            <a asp-action="Logout" asp-controller="Auth" class="btn btn-outline ml-2">Logout</a>
         }
         else
         {
-            <a asp-action="Login" asp-controller="Account" class="btn btn-outline">Login</a>
+            <a asp-action="Login" asp-controller="Auth" class="btn btn-outline">Login</a>
         }
     </div>
 </div>

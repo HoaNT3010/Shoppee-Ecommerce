@@ -1,0 +1,9 @@
+﻿namespace ShoppeeEcommerce.MVC.Customer.ViewModels.Auth
+{
+    public class LoginViewModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public bool RememberMe { get; set; }
+    }
+}

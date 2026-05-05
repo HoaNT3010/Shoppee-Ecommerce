@@ -2,19 +2,16 @@
 <html lang="en" data-theme="emerald">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Shoppee</title>
-    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
 </head>
 <body class="bg-neutral-content">
-    <header>
-        @await Component.InvokeAsync("Navbar")
-    </header>
 
     @if (TempData["ToastMessage"] is string message)
     {
         var type = TempData["ToastType"]?.ToString() ?? "info";
-        <div class="toast toast-end z-50">
+        <div class="toast toast-end toast-end z-50">
             <div class="alert alert-@type shadow-lg">
                 <span>@message</span>
             </div>
@@ -27,15 +24,7 @@
         </script>
     }
 
-    <main class="container mx-auto px-4 py-8">
-        @RenderBody()
-    </main>
-
-    <!-- The Footer Component -->
-    @await Component.InvokeAsync("Footer")
-
-    <!-- HTMX -->
-    <script src="~/js/htmx.min.js"></script>
+    @RenderBody()
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

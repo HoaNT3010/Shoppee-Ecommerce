@@ -1,15 +1,21 @@
-using Refit;
-using ShoppeeEcommerce.MVC.Customer.API;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using ShoppeeEcommerce.MVC.Customer.Common;
+using ShoppeeEcommerce.MVC.Customer.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<ForceLoginFilter>();
+});
 builder.Services
-    .AddRefitClient<IAuthApi>()
-    .AddRefitClient<ICategoriesApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("http://localhost:8080/api/v1"));
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+    });
+builder.Services.AddHttpContextAccessor();
+builder.Services.ConfigureRefit(builder.Configuration);
 
 var app = builder.Build();
 
@@ -24,7 +30,9 @@ if (!app.Environment.IsDevelopment())
 //app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapDefaultControllerRoute();
 
 app.MapStaticAssets();
 

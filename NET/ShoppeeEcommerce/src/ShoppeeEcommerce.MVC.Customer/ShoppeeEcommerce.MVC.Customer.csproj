@@ -9,6 +9,7 @@
 		<PackageReference Include="Refit" />
 		<PackageReference Include="Refit.HttpClientFactory" />
 		<PackageReference Include="Westwind.AspNetCore.LiveReload" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\ShoppeeEcommerce.SharedViewModels\ShoppeeEcommerce.SharedViewModels.csproj" />
