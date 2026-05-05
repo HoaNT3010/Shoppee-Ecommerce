@@ -1,0 +1,55 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Product
+@model ProductDetailViewModel
+
+@{
+    var images = Model.Images;
+    var count = images.Count;
+}
+
+<div>
+    <!-- Main carousel -->
+    <div class="carousel w-full rounded-xl relative">
+        @for (int i = 0; i < count; i++)
+        {
+            var img = images[i];
+            var prevId = images[(i - 1 + count) % count].Id;
+            var nextId = images[(i + 1) % count].Id;
+
+            <div id="slide-@img.Id" class="carousel-item relative w-full">
+                <img src="@img.Url" class="w-full h-[450px] object-cover rounded-xl" />
+
+                <!-- Arrows -->
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-3 right-3 top-1/2">
+                    <a href="#slide-@prevId"
+                           class="pointer-events-auto bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </a>
+
+                    <!-- Right -->
+                    <a href="#slide-@nextId"
+                           class="pointer-events-auto bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             stroke-width="2" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8.25 4.5L15.75 12l-7.5 7.5" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- Thumbnails -->
+    <div class="grid grid-cols-5 gap-2 mt-4 justify-center">
+        @foreach (var img in Model.Images)
+        {
+            <a href="#slide-@img.Id" class="thumb-link">
+                <img src="@img.Url"
+                     class="w-full h-20 object-cover rounded-lg border-2 border-transparent hover:border-primary transition" />
+            </a>
+        }
+    </div>
+</div>

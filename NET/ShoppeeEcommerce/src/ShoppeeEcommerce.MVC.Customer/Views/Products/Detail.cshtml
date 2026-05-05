@@ -1,0 +1,26 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Product
+@model ProductDetailViewModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+        <partial name="_ProductGallery" model="Model" />
+
+        <div>
+            <partial name="_ProductInfo" model="Model" />
+        </div>
+
+    </div>
+
+    <div class="mt-16">
+        <partial name="_Reviews" model="Model" />
+    </div>
+
+    <div class="mt-16">
+        <partial name="_RelatedProducts" model="Model" />
+    </div>
+</div>

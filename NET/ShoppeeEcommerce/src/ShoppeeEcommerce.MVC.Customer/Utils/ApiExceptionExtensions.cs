@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Refit;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
+using System.Net;
 
 namespace ShoppeeEcommerce.MVC.Customer.Utils
 {
@@ -47,5 +48,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Utils
                 // ignored — no valid known shape
             }
         }
+
+        public static bool IsNotFound(this ApiException ex) => ex.StatusCode == HttpStatusCode.NotFound;
     }
 }

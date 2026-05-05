@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Page Not Found";
+}
+
+<div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-6xl font-bold text-primary">404</h1>
+    <p class="text-2xl mt-4 font-semibold">We couldn't find what you're looking for.</p>
+    <p class="mt-2 text-gray-500">
+        The product or page may have been removed or does not exist.
+    </p>
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-6">
+        Go back to homepage
+    </a>
+</div>

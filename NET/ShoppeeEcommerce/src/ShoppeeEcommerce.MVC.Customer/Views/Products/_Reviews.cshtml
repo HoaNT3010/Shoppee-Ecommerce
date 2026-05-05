@@ -1,0 +1,10 @@
+﻿<div hx-get="/Products/Reviews/@Model.Id"
+     @* hx-trigger="load" *@
+     hx-swap="outerHTML">
+
+    <h2 class="text-2xl">Customer Reviews</h2>
+
+    <div class="text-center py-6">
+        <span class="loading loading-spinner"></span>
+    </div>
+</div>

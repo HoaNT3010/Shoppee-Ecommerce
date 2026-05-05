@@ -6,7 +6,7 @@ namespace ShoppeeEcommerce.MVC.Customer.API
 {
     public interface IProductsApi
     {
-        [Get("products/{request.id}")]
+        [Get("/products/{request.id}")]
         Task<BaseProductResponse> GetById(PathGuidIdRequest request);
     }
 }
