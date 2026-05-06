@@ -24,5 +24,7 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public ProductImage? MainImage => ProductImages.FirstOrDefault(x => x.IsMain);
         [NotMapped]
         public IEnumerable<ProductImage> OrderedImages => ProductImages.OrderBy(x => !x.IsMain).ThenBy(x => x.DisplayOrder);
+
+        public bool IsFeatured { get; set; }
     }
 }
