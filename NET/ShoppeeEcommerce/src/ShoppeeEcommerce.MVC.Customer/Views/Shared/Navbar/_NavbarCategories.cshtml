@@ -1,0 +1,50 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Categories
+@model List<BaseCategoryResponse>
+
+<!-- Desktop menu -->
+<div class="dropdown dropdown-hover hidden lg:block">
+    <!-- Trigger -->
+    <label tabindex="0" class="btn btn-ghost">
+        Categories
+    </label>
+
+    <!-- Dropdown -->
+    <div tabindex="0"
+         class="dropdown-content bg-base-100 rounded-box z-[50] p-4 shadow w-[500px]">
+
+        <ul class="grid grid-flow-col grid-rows-4 gap-x-6 gap-y-2">
+            @foreach (var cat in Model)
+            {
+                <li>
+                    <a asp-controller="Products"
+                           asp-action="ByCategory"
+                           asp-route-id="@cat.Id"
+                           class="block px-2 py-1 hover:bg-base-200 rounded">
+                        @cat.Name
+                    </a>
+                </li>
+            }
+        </ul>
+        
+    </div>
+</div>
+
+<!-- Mobile dropdown -->
+<div class="dropdown lg:hidden">
+    <label tabindex="0" class="btn btn-ghost">
+        Categories
+    </label>
+    <ul tabindex="0"
+        class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+        @foreach (var cat in Model)
+        {
+            <li>
+                <a asp-controller="Products"
+                       asp-action="ByCategory"
+                       asp-route-id="@cat.Id">
+                    @cat.Name
+                </a>
+            </li>
+        }
+    </ul>
+</div>

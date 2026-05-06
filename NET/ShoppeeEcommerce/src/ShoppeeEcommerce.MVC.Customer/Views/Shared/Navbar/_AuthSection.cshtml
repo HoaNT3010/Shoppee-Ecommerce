@@ -1,0 +1,32 @@
+﻿@if (User.Identity?.IsAuthenticated == true)
+{
+    <div class="dropdown dropdown-end">
+        <button type="button"
+                tabindex="0"
+                class="btn btn-ghost btn-circle avatar w-8 rounded-full bg-primary text-white flex items-center justify-center"
+                aria-label="User menu">
+            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+                @(User.FindFirst("name")?.Value?.Substring(0, 1))
+            </span>
+        </button>
+
+        <ul tabindex="0"
+            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li class="menu-title">
+                <span>Hello, @User.FindFirst("name")?.Value</span>
+            </li>
+            <li><a asp-controller="Orders" asp-action="Index">My Orders</a></li>
+            <li><a asp-controller="Profile" asp-action="Index">Profile</a></li>
+
+            <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+        </ul>
+    </div>
+}
+else
+{
+    <a asp-controller="Auth"
+           asp-action="Login"
+           class="btn btn-primary btn-sm">
+        Login
+    </a>
+}

@@ -8,7 +8,7 @@
 </head>
 <body class="bg-neutral-content">
     <header>
-        @await Component.InvokeAsync("Navbar")
+        <partial name="Navbar/_Navbar" />
     </header>
 
     @if (TempData["ToastMessage"] is string message)
