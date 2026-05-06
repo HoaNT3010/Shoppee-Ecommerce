@@ -99,6 +99,14 @@ const ProductService = {
   ): Promise<void> => {
     await api.patch(`/admin/products/${id}/images/reorder`, request)
   },
+
+  feature: async (id: string): Promise<void> => {
+    await api.patch(`/admin/products/${id}/feature`)
+  },
+
+  unfeature: async (id: string): Promise<void> => {
+    await api.patch(`/admin/products/${id}/un-feature`)
+  },
 }
 
 export default ProductService

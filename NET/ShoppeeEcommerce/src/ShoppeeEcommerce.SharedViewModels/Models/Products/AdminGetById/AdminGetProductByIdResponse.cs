@@ -11,5 +11,6 @@ namespace ShoppeeEcommerce.SharedViewModels.Models.Products.AdminGetById
         public bool IsDeleted { get; init; }
         public DateTime? DeletedDate { get; init; }
         public BaseCreatorResponse? Creator { get; init; }
+        public bool IsFeatured { get; init; }
     }
 }

@@ -44,6 +44,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.AdminGetById
                 UpdatedDate = product.UpdatedDate,
                 IsDeleted = product.IsDeleted,
                 DeletedDate = product.DeletedDate,
+                IsFeatured = product.IsFeatured,
             };
         }
     }

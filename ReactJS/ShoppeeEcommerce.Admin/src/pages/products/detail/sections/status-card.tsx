@@ -18,6 +18,10 @@ export function StatusCard({ product }: StatusCardProps) {
   const [publishErrors, setPublishErrors] = useState<ApiError[]>([])
   const [confirmOpen, setConfirmOpen] = useState(false)
 
+  const isDeleted = product.isDeleted
+  const isPublished = product.status === "Published"
+  const isFeatured = product.isFeatured
+
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ["product", product.id] })
     queryClient.invalidateQueries({ queryKey: ["products"] })
@@ -36,7 +40,23 @@ export function StatusCard({ product }: StatusCardProps) {
     },
   })
 
-  const isDeleted = product.isDeleted
+  const featureMutation = useMutation({
+    mutationFn: () =>
+      isFeatured
+        ? ProductService.unfeature(product.id)
+        : ProductService.feature(product.id),
+    onSuccess: () => {
+      toast.success(isFeatured ? "Product unfeatured." : "Product featured.")
+      invalidate()
+    },
+    onError: () => {
+      toast.error(
+        isFeatured
+          ? "Failed to unfeature product."
+          : "Failed to feature product."
+      )
+    },
+  })
 
   return (
     <Card>
@@ -51,14 +71,18 @@ export function StatusCard({ product }: StatusCardProps) {
           </Badge>
           <Badge
             className={
-              product.status === "Published"
-                ? "bg-emerald-500 hover:bg-emerald-500/90"
-                : ""
+              isPublished ? "bg-emerald-500 hover:bg-emerald-500/90" : ""
             }
-            variant={product.status === "Published" ? "default" : "secondary"}
+            variant={isPublished ? "default" : "secondary"}
           >
             {product.status}
           </Badge>
+          {/* Featured — only show when product is featured */}
+          {isFeatured && (
+            <Badge className="bg-amber-500 hover:bg-amber-500/90">
+              Featured
+            </Badge>
+          )}
         </div>
 
         {/* Publish errors */}
@@ -81,6 +105,24 @@ export function StatusCard({ product }: StatusCardProps) {
               disabled={publishMutation.isPending}
             >
               {publishMutation.isPending ? "Publishing..." : "Publish Product"}
+            </Button>
+          )}
+
+          {/* Feature / Unfeature — only when Published and not deleted */}
+          {isPublished && !isDeleted && (
+            <Button
+              variant="outline"
+              className={`w-full gap-2 ${isFeatured ? "" : "text-amber-600 hover:text-amber-600"}`}
+              onClick={() => featureMutation.mutate()}
+              disabled={featureMutation.isPending}
+            >
+              {featureMutation.isPending
+                ? isFeatured
+                  ? "Unfeaturing..."
+                  : "Featuring..."
+                : isFeatured
+                  ? "Unfeature Product"
+                  : "Feature Product"}
             </Button>
           )}
 

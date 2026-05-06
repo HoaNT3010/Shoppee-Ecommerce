@@ -60,6 +60,7 @@ export interface DetailedProductResponse {
   createdDate: string
   updatedDate?: string
   isDeleted: boolean
+  isFeatured: boolean
   deletedDate?: string
   creator?: BaseCreatorResponse
   images: ProductImageResponse[]
