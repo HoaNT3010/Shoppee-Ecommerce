@@ -109,6 +109,14 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Validation(
                     "Product.ImagesMissingFromReorder",
                     $"Please provide all product's images with display order. The image(s) with ID is missing: {string.Join(", ", imageIds)}");
+            public static Error FeatureFailed() =>
+                Error.Failure(
+                    "Product.FeatureFailed",
+                    "Unexpected error occurred when trying to feature product.");
+            public static Error UnFeatureFailed() =>
+                Error.Failure(
+                    "Product.UnFeatureFailed",
+                    "Unexpected error occurred when trying to un-feature product.");
         }
     }
 }
