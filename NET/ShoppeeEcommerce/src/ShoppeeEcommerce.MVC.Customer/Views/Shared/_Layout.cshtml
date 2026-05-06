@@ -32,7 +32,8 @@
     </main>
 
     <!-- The Footer Component -->
-    @await Component.InvokeAsync("Footer")
+    @* @await Component.InvokeAsync("Footer") *@
+    <partial name="Footer/_Footer" />
 
     <!-- HTMX -->
     <script src="~/js/htmx.min.js"></script>

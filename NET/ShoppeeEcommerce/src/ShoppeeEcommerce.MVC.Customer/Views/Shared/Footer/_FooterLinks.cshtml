@@ -1,0 +1,16 @@
+﻿<div>
+    <h3 class="footer-title">Quick Links</h3>
+
+    <ul class="space-y-2 text-sm">
+        <li><a asp-controller="Home" asp-action="Index" class="link link-hover">Home</a></li>
+        <li><a asp-controller="Products" asp-action="Index" class="link link-hover">Products</a></li>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <li><a asp-controller="Orders" asp-action="Index" class="link link-hover">My Orders</a></li>
+        }
+        else
+        {
+            <li><a asp-controller="Auth" asp-action="Login" class="link link-hover">Login</a></li>
+        }
+    </ul>
+</div>
