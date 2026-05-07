@@ -3,10 +3,10 @@
     <div class="dropdown dropdown-end">
         <button type="button"
                 tabindex="0"
-                class="btn btn-ghost btn-circle avatar w-8 rounded-full bg-primary text-white flex items-center justify-center"
+                class="btn btn-ghost btn-circle avatar w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center"
                 aria-label="User menu">
-            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
-                @(User.FindFirst("name")?.Value?.Substring(0, 1))
+            <span class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             </span>
         </button>
 
@@ -28,5 +28,10 @@ else
            asp-action="Login"
            class="btn btn-primary btn-sm">
         Login
+    </a>
+    <a asp-controller="Auth"
+           asp-action="Register"
+           class="btn btn-outline btn-primary btn-sm">
+        Register
     </a>
 }

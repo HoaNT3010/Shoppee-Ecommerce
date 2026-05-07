@@ -12,11 +12,11 @@
     <!-- Featured -->
     <partial name="Products/_ProductSection"
              model="Model.FeaturedProducts"
-             view-data='new ViewDataDictionary(ViewData) { ["Title"] = "Featured Products" }' />
+             view-data='new ViewDataDictionary(ViewData) { ["Title"] = "Featured Products", ["Featured"] = "true" }' />
 
     <!-- Newest -->
     <partial name="Products/_ProductSection"
              model="Model.NewestProducts"
-             view-data='new ViewDataDictionary(ViewData) { ["Title"] = "Newest Products" }' />
+             view-data='new ViewDataDictionary(ViewData) { ["Title"] = "Newest Products", ["Newest"] = "true" }' />
 
 </div>

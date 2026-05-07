@@ -1,6 +1,12 @@
 ﻿@using ShoppeeEcommerce.SharedViewModels.Models.Categories
 @model List<BaseCategoryResponse>
 
+<a asp-controller="Products"
+       asp-action="Index"
+       class="btn btn-ghost">
+    Products
+</a>
+
 <!-- Desktop menu -->
 <div class="dropdown dropdown-hover hidden lg:block">
     <!-- Trigger -->
@@ -17,8 +23,8 @@
             {
                 <li>
                     <a asp-controller="Products"
-                           asp-action="ByCategory"
-                           asp-route-id="@cat.Id"
+                           asp-action="Index"
+                           asp-route-categoryIds="@cat.Id"
                            class="block px-2 py-1 hover:bg-base-200 rounded">
                         @cat.Name
                     </a>
@@ -40,8 +46,8 @@
         {
             <li>
                 <a asp-controller="Products"
-                       asp-action="ByCategory"
-                       asp-route-id="@cat.Id">
+                       asp-action="Index"
+                       asp-route-categoryIds="@cat.Id">
                     @cat.Name
                 </a>
             </li>

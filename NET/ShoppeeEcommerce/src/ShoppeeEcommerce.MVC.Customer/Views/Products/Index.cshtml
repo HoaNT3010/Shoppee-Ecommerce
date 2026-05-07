@@ -1,0 +1,202 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Product
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductsViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="drawer lg:drawer-open min-h-screen">
+    <input id="filter-drawer" type="checkbox" class="drawer-toggle" />
+
+    @* ── Main content ── *@
+    <div class="drawer-content flex flex-col">
+
+        @* Mobile top bar *@
+        <div class="navbar bg-base-100 border-b border-base-200 lg:hidden px-4 sticky top-0 z-20">
+            <div class="flex-1">
+                <h1 class="text-lg font-bold">Products</h1>
+            </div>
+            <label for="filter-drawer" class="btn btn-ghost btn-sm gap-2 drawer-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 4h18M6 8h12M9 12h6" />
+                </svg>
+                Filters
+            </label>
+        </div>
+
+        @* Page content *@
+        <main class="flex-1 p-4 lg:p-8">
+            <h1 class="text-3xl font-bold mb-8 hidden lg:block">Products</h1>
+
+            @* HTMX swap zone *@
+            <div id="product-results">
+                <partial name="_ProductResults" model="Model" />
+            </div>
+        </main>
+
+    </div>
+
+    @* ── Sidebar ── *@
+    <div class="drawer-side z-30">
+        <label for="filter-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+
+        <aside class="w-72 min-h-full bg-base-100 border-r border-base-200 flex flex-col">
+
+            <div class="p-6 border-b border-base-200 flex items-center justify-between">
+                <h2 class="font-bold text-base">Filters</h2>
+                <a asp-action="Index" asp-controller="Products"
+                   class="text-xs link link-primary">Reset all</a>
+            </div>
+
+                @* filter-form is the single source of truth for all active filters.
+                hx-trigger="change" catches: search input, selects, checkboxes, toggles, and
+                number/text inputs on blur. *@
+            <form id="filter-form"
+                  class="flex-1 overflow-y-auto flex flex-col"
+                  hx-get="@Url.Action("Index", "Products")"
+                  hx-target="#product-results"
+                  hx-swap="innerHTML"
+                  hx-push-url="true"
+                  hx-trigger="change, input delay:400ms">
+
+                @* Sort state — values written by __applySort() in _ProductResults *@
+                <input type="hidden" id="hf-sort-by"
+                       name="sortBy"
+                       value="@Model.Request.SortBy" />
+                <input type="hidden" id="hf-sort-desc"
+                       name="sortDesc"
+                       value="@(Model.Request.SortDesc == true ? "true" : "false")" />
+                <input type="hidden" id="hf-page-index" name="pageIndex" value="@(Model.Request.PageIndex ?? 1)" />
+
+                <div class="p-6 space-y-7 flex-1">
+
+                    @* ── Search ── *@
+                    <fieldset class="form-control">
+                        <label class="label pb-1.5">
+                            <span class="label-text text-xs font-semibold uppercase tracking-widest opacity-60">
+                                Search
+                            </span>
+                        </label>
+                        <label class="input input-sm input-bordered flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 opacity-40 shrink-0"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                            </svg>
+
+                            <input type="text"
+                                   name="searchTerm"
+                                   value="@Model.Request.SearchTerm"
+                                   placeholder="Search products…"
+                                   class="grow bg-transparent outline-none text-sm" />
+                        </label>
+                    </fieldset>
+
+                    @* ── Price range ── *@
+                    <fieldset class="form-control">
+                        <label class="label pb-1.5">
+                            <span class="label-text text-xs font-semibold uppercase tracking-widest opacity-60">
+                                Price Range
+                            </span>
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <input type="number"
+                                   name="minPrice"
+                                   value="@Model.Request.MinPrice"
+                                   placeholder="Min"
+                                   min="0"
+                                   class="input input-sm input-bordered w-full" />
+                            <span class="text-base-content/30 font-light select-none">—</span>
+                            <input type="number"
+                                   name="maxPrice"
+                                   value="@Model.Request.MaxPrice"
+                                   placeholder="Max"
+                                   min="0"
+                                   class="input input-sm input-bordered w-full" />
+                        </div>
+                    </fieldset>
+
+                    @* ── Categories ── *@
+                    @if (Model.Categories.Any())
+                    {
+                        <fieldset class="form-control">
+                            <label class="label pb-1.5">
+                                <span class="label-text text-xs font-semibold uppercase tracking-widest opacity-60">
+                                    Category
+                                </span>
+                            </label>
+                            <div class="flex flex-col gap-2.5 max-h-56 overflow-y-auto pr-1">
+                                @foreach (var cat in Model.Categories)
+                                {
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="checkbox"
+                                               name="categoryIds"
+                                               value="@cat.Id"
+                                               class="checkbox checkbox-sm checkbox-primary"
+                                        @(Model.Request.CategoryIds?.Contains(cat.Id.ToString()) == true
+                                                                                                                                                                                                                                                                                                                                           ? "checked"
+                                                                                                                                                                                                                                                                                                                                           : "") />
+                                        <span class="text-sm group-hover:text-primary transition-colors">
+                                            @cat.Name
+                                        </span>
+                                    </label>
+                                }
+                            </div>
+                        </fieldset>
+                    }
+
+                    @* ── Featured only ── *@
+                    <fieldset class="form-control">
+                        <label class="label cursor-pointer py-0">
+                            <span class="label-text text-xs font-semibold uppercase tracking-widest opacity-60">
+                                Featured only
+                            </span>
+                            <input type="checkbox"
+                                   name="isFeatured"
+                                   value="true"
+                                   class="toggle toggle-primary toggle-sm"
+                            @(Model.Request.IsFeatured == true ? "checked" : "") />
+                        </label>
+                    </fieldset>
+
+                </div>
+            </form>
+
+        </aside>
+    </div>
+</div>
+
+<script>
+    // If the change didn't come from the page index itself, reset it
+    document.getElementById('filter-form').addEventListener('change', function (e) {
+        if (e.target.id !== 'hf-page-index') {
+            document.getElementById('hf-page-index').value = 1;
+        }
+    });
+    document.getElementById('filter-form').addEventListener('input', function (e) {
+        if (e.target.id !== 'hf-page-index') {
+            document.getElementById('hf-page-index').value = 1;
+        }
+    });
+
+    // __applySort is defined here (full page) so it survives HTMX swaps of #product-results
+    function __applySort(val) {
+        const [by, desc] = val.split('|');
+        document.getElementById('hf-sort-by').value = by;
+        document.getElementById('hf-sort-desc').value = desc;
+        // Reset to page 1 when sorting changes
+        document.getElementById('hf-sort-by').dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function __goToPage(page) {
+        const input = document.getElementById('hf-page-index');
+        if (input){
+            input.value = page;
+            // CRITICAL: Dispatch the event from the INPUT and let it bubble up.
+            // This ensures e.target.id === 'hf-page-index' in the listener above.
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    }
+</script>

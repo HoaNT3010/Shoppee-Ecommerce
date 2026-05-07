@@ -1,0 +1,24 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Products
+@model IEnumerable<ListProductResponse>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    @foreach (var product in Model)
+    {
+        @* Wrapper gives us a stacking context for the featured badge overlay *@
+        <div class="relative">
+
+            @if (product.IsFeatured)
+            {
+                <div class="absolute top-2 left-2 z-10 pointer-events-none">
+                    <span class="badge badge-warning badge-sm shadow font-semibold tracking-wide">
+                        ★ Featured
+                    </span>
+                </div>
+            }
+
+            @* _ProductCard expects BaseProductSummaryResponse; ListProductResponse extends it *@
+            <partial name="Products/_ProductCard" model="(BaseProductSummaryResponse)product" />
+
+        </div>
+    }
+</div>

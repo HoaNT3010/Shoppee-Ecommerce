@@ -1,0 +1,168 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Product
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProductsViewModel
+
+@{
+    var paged = Model.Products;
+
+    // Result range label: "Showing 1–10 of 43"
+    var rangeStart = paged.TotalCount == 0 ? 0 : (paged.PageNumber - 1) * paged.PageSize + 1;
+    var rangeEnd = Math.Min(paged.PageNumber * paged.PageSize, paged.TotalCount);
+
+    // Build the combined sort value that pre-selects the dropdown
+    var sortKey = Model.Request.SortBy is not null
+        ? $"{Model.Request.SortBy}|{(Model.Request.SortDesc == true ? "true" : "false")}"
+        : string.Empty;
+}
+
+@* ── Toolbar ── *@
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+
+    @* Result count *@
+    <p class="text-sm text-base-content/60">
+        @if (paged.TotalCount == 0)
+        {
+            <span>No products found</span>
+        }
+        else
+        {
+            <span>
+                Showing <strong class="text-base-content">@rangeStart–@rangeEnd</strong>
+                of <strong class="text-base-content">@paged.TotalCount</strong> products
+            </span>
+        }
+    </p>
+
+    @*
+        Sort dropdown.
+        On change, __applySort() updates the hidden sort inputs in #filter-form
+        and triggers the form — no direct hx-* needed on the select itself.
+    *@
+    <select class="select select-sm select-bordered min-w-44"
+            onchange="__applySort(this.value)">
+        <option value="" @(string.IsNullOrEmpty(sortKey) ? "selected" : "")>
+            Sort: Default
+        </option>
+        <option value="name|false" @(sortKey == "name|false" ? "selected" : "")>
+            Name (A → Z)
+        </option>
+        <option value="name|true" @(sortKey == "name|true" ? "selected" : "")>
+            Name (Z → A)
+        </option>
+        <option value="price|false" @(sortKey == "price|false" ? "selected" : "")>
+            Price (Low → High)
+        </option>
+        <option value="price|true" @(sortKey == "price|true" ? "selected" : "")>
+            Price (High → Low)
+        </option>
+        <option value="createdDate|true" @(sortKey == "createdDate|true" ? "selected" : "")>
+            Newest first
+        </option>
+        <option value="createdDate|false" @(sortKey == "createdDate|false" ? "selected" : "")>
+            Oldest first
+        </option>
+    </select>
+
+</div>
+
+@* ── Product grid or empty state ── *@
+@if (!paged.Items.Any())
+{
+    <div class="flex flex-col items-center justify-center py-24 text-center gap-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-base-content/20" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M10 21a1 1 0 1 0 2 0
+            1 1 0 0 0-2 0zm7 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" />
+        </svg>
+        <div>
+            <p class="font-semibold text-lg">No products found</p>
+            <p class="text-sm text-base-content/50 mt-1">
+                Try adjusting your filters or search term.
+            </p>
+        </div>
+        <a asp-action="Index" asp-controller="Products" class="btn btn-sm btn-ghost mt-2">
+            Clear all filters
+        </a>
+    </div>
+}
+else
+{
+    <partial name="_ProductGrid" model="Model.Products.Items" />
+}
+
+@* ── Pagination ── *@
+@if (paged.TotalPages > 1)
+{
+    int currentPage = paged.PageNumber;
+    int totalPages = paged.TotalPages;
+
+    // Build the page number list with null = ellipsis
+    // Always includes: 1, window around current (±1), last page
+    var pageNumbers = new List<int?>();
+    pageNumbers.Add(1);
+
+    if (currentPage > 3)
+        pageNumbers.Add(null); // left ellipsis
+
+    for (int p = Math.Max(2, currentPage - 1); p <= Math.Min(totalPages - 1, currentPage + 1); p++)
+        pageNumbers.Add(p);
+
+    if (currentPage < totalPages - 2)
+        pageNumbers.Add(null); // right ellipsis
+
+    if (totalPages > 1)
+        pageNumbers.Add(totalPages);
+
+    <div class="flex justify-center mt-10">
+        <div class="join">
+
+            @* Prev *@
+            @if (paged.HasPreviousPage)
+            {
+                <button class="join-item btn btn-sm"
+                        onclick="__goToPage(@currentPage - 1)">
+                    «
+                </button>
+            }
+            else
+            {
+                <button class="join-item btn btn-sm btn-disabled" disabled>«</button>
+            }
+
+            @* Page numbers *@
+            @foreach (var pageNumber in pageNumbers)
+            {
+                if (pageNumber is null)
+                {
+                    <button class="join-item btn btn-sm btn-disabled" disabled>…</button>
+                }
+                else if (pageNumber == currentPage)
+                {
+                    <button class="join-item btn btn-sm btn-active btn-primary">@pageNumber</button>
+                }
+                else
+                {
+                    <button class="join-item btn btn-sm"
+                            onclick="__goToPage(@pageNumber)">
+                        @pageNumber
+                    </button>
+                }
+            }
+
+            @* Next *@
+            @if (paged.HasNextPage)
+            {
+                <button class="join-item btn btn-sm"
+                        onclick="__goToPage(@currentPage + 1)">
+                    »
+                </button>
+            }
+            else
+            {
+                <button class="join-item btn btn-sm btn-disabled" disabled>»</button>
+            }
+
+        </div>
+    </div>
+}

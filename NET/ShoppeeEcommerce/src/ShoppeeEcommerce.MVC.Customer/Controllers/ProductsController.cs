@@ -4,15 +4,59 @@ using ShoppeeEcommerce.MVC.Customer.API;
 using ShoppeeEcommerce.MVC.Customer.Utils;
 using ShoppeeEcommerce.MVC.Customer.ViewModels.Product;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
+using ShoppeeEcommerce.SharedViewModels.Models.Products.ListProducts;
 
 namespace ShoppeeEcommerce.MVC.Customer.Controllers
 {
     public class ProductsController(
-        IProductsApi productsApi) : Controller
+        IProductsApi productsApi,
+        ICategoriesApi categoriesApi) : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index([FromQuery] ListProductsRequest request)
         {
-            return View();
+            request.PageSize = 8;
+            // Tell the browser: "The response varies based on the HX-Request header"
+            Response.Headers.Append("Vary", "HX-Request");
+            // HTMX swap — only the results partial is needed, skip categories
+            if (Request.Headers.ContainsKey("HX-Request") && !Request.Headers.ContainsKey("HX-History-Restore-Request"))
+            {
+                var products = await productsApi.ListProducts(request.SearchTerm,
+                    request.MinPrice,
+                    request.MaxPrice,
+                    request.CategoryIds,
+                    request.IsFeatured,
+                    request.SortBy,
+                    request.SortDesc,
+                    request.PageIndex,
+                    request.PageSize);
+
+                return PartialView("_ProductResults", new ProductsViewModel
+                {
+                    Request = request,
+                    Products = products
+                });
+            }
+
+            // Full page — fetch products and categories in parallel
+            var productsTask = productsApi.ListProducts(request.SearchTerm,
+                request.MinPrice,
+                request.MaxPrice,
+                request.CategoryIds,
+                request.IsFeatured,
+                request.SortBy,
+                request.SortDesc,
+                request.PageIndex,
+                request.PageSize);
+            var categoriesTask = categoriesApi.GetActiveCategories();
+            await Task.WhenAll(productsTask, categoriesTask);
+
+            return View(new ProductsViewModel
+            {
+                Request = request,
+                Products = await productsTask,
+                Categories = await categoriesTask
+            });
         }
 
         [HttpGet]
