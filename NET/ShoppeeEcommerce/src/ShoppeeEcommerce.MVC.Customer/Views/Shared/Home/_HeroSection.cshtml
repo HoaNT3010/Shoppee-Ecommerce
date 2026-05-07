@@ -1,0 +1,36 @@
+﻿<section class="hero rounded-box overflow-hidden relative min-h-[70vh]">
+    <!-- Background Image -->
+    <img src="/images/hero-banner.jpg"
+         alt="Hero Banner"
+         class="absolute inset-0 w-full h-full object-cover" />
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <!-- Content -->
+    <div class="hero-content text-center text-neutral-content relative z-10">
+
+        <div class="max-w-2xl">
+
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight">
+                Welcome to Shoppee
+            </h1>
+
+            <p class="py-6 text-lg md:text-xl">
+                Discover featured and newest products curated just for you.
+            </p>
+
+            <div class="flex justify-center gap-4">
+
+                <a asp-controller="Products"
+                       asp-action="Index"
+                       class="btn btn-primary btn-lg text-white">
+                    Explore
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

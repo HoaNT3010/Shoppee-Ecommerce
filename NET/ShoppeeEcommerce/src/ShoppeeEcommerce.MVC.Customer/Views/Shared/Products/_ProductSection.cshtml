@@ -1,0 +1,107 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Products
+@model IEnumerable<BaseProductSummaryResponse>
+
+@{
+    var title = ViewData["Title"]?.ToString();
+    var sliderId = "slider-" + Guid.NewGuid().ToString("N");
+}
+
+<section class="mt-14">
+    <!-- Title -->
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">@title</h2>
+        <a asp-controller="Products" asp-action="Index" class="link link-primary">
+            View all
+        </a>
+    </div>
+    <!-- Slider -->
+    <div class="flex items-center gap-3" id="@sliderId">
+        <!-- Prev arrow -->
+        <button class="btn btn-circle btn-sm btn-ghost border border-base-300 shadow flex-shrink-0 slider-prev"
+                aria-label="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <!-- Carousel slider -->
+        <div class="overflow-hidden flex-1">
+            <div class="flex slider-track"
+                 style="gap: 24px; transition: transform 0.35s cubic-bezier(.4,0,.2,1);">
+                @foreach (var product in Model)
+                {
+                    <div class="flex-shrink-0 slider-item">
+                        <partial name="Products/_ProductCard" model="product" />
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Next arrow -->
+        <button class="btn btn-circle btn-sm btn-ghost border border-base-300 shadow flex-shrink-0 slider-next"
+                aria-label="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+
+    </div>
+
+</section>
+
+<script>
+    (function () {
+        if (!window._productSliderInit) {
+            window._productSliderInit = function (container) {
+                const track   = container.querySelector('.slider-track');
+                const items   = Array.from(track.querySelectorAll('.slider-item'));
+                const prevBtn = container.querySelector('.slider-prev');
+                const nextBtn = container.querySelector('.slider-next');
+                const GAP     = 24;
+                let   current = 0;
+
+                function visibleCount() {
+                    const w = window.innerWidth;
+                    if (w >= 1024) return 4;
+                    if (w >= 640)  return 2;
+                    return 1;
+                }
+
+                function maxIndex() {
+                    return Math.max(0, items.length - visibleCount());
+                }
+
+                function itemWidth() {
+                    const available = track.parentElement.offsetWidth;
+                    const vis = visibleCount();
+                    return (available - GAP * (vis - 1)) / vis;
+                }
+
+                function render() {
+                    const iw = itemWidth();
+                    items.forEach(el => el.style.width = iw + 'px');
+                    track.style.transform = `translateX(-${current * (iw + GAP)}px)`;
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    current = current <= 0 ? maxIndex() : current - 1;
+                    render();
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    current = current >= maxIndex() ? 0 : current + 1;
+                    render();
+                });
+
+                window.addEventListener('resize', () => {
+                    current = Math.min(current, maxIndex());
+                    render();
+                });
+
+                render();
+            };
+        }
+
+        window._productSliderInit(document.getElementById('@sliderId'));
+    })();
+</script>

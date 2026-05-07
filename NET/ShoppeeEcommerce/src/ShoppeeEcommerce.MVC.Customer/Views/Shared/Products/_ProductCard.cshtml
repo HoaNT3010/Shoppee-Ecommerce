@@ -1,0 +1,38 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Products
+@model BaseProductSummaryResponse
+
+<div class="card bg-base-100 shadow hover:shadow-lg transition-all duration-300 cursor-pointer border border-transparent hover:border-primary"
+     onclick="window.location.href='@Url.Action("Detail", "Products", new { id = Model.Id })'">
+    <!-- Image -->
+    <figure class="aspect-square bg-base-200 overflow-hidden">
+        <img src="@(Model.ImgUrl ?? "/images/no-image.png")"
+             alt="@Model.Name"
+             class="w-full h-full object-cover" />
+    </figure>
+    <!-- Info -->
+    <div class="card-body p-4">
+
+        <h2 class="card-title text-base line-clamp-2 min-h-[3rem]">
+            @Model.Name
+        </h2>
+
+        <p class="text-sm opacity-70">
+            SKU: @Model.SKU
+        </p>
+
+        <div class="mt-2 flex items-center justify-between">
+
+            <span class="text-lg font-bold text-primary">
+                $@Model.Price
+            </span>
+
+            <!-- Add To Cart -->
+            <button class="btn btn-outline btn-primary btn-sm"
+                    onclick="event.stopPropagation()">
+                Add to cart
+            </button>
+
+        </div>
+
+    </div>
+</div>
