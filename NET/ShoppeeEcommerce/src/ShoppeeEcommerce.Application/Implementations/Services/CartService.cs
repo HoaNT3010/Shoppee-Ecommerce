@@ -34,6 +34,7 @@ namespace ShoppeeEcommerce.Application.Implementations.Services
         public async Task ClearAsync(CancellationToken cancellationToken = default)
         {
             var cart = await GetOrCreateCartAsync(cancellationToken);
+            if (cart.CartItems.Count == 0) return;
             try
             {
                 cart.Clear();
