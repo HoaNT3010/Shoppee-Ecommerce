@@ -65,6 +65,12 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
             Touch();
         }
 
+        public void Clear()
+        {
+            CartItems.Clear();
+            Touch();
+        }
+
         private CartItem? GetItem(Guid productId)
             => CartItems.FirstOrDefault(x => x.ProductId == productId);
         private void Touch(DateTime? timeStamp = null)

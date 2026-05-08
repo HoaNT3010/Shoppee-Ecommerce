@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ShoppeeEcommerce.Application.Abstractions.Services;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
 using ShoppeeEcommerce.WebAPI.Middlewares;
 using ShoppeeEcommerce.WebAPI.Utilities;
@@ -29,6 +30,8 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.AddAuthorizationServices();
             services.AddApiVersioningServices();
             services.ConfigureCORSPolicies();
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICartOwnerProvider, CartOwnerProvider>();
 
             return services;
         }
