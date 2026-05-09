@@ -26,5 +26,8 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public IEnumerable<ProductImage> OrderedImages => ProductImages.OrderBy(x => !x.IsMain).ThenBy(x => x.DisplayOrder);
 
         public bool IsFeatured { get; set; }
+
+        public bool IsActive()
+            => !IsDeleted && Status == ProductStatus.Published;
     }
 }

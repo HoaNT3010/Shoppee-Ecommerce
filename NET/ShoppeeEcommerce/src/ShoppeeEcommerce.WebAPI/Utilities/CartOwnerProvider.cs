@@ -5,23 +5,16 @@ namespace ShoppeeEcommerce.WebAPI.Utilities
     public class CartOwnerProvider(
         IHttpContextAccessor contextAccessor) : ICartOwnerProvider
     {
-        const string CartOwnerHeader = "X-Cart-Owner";
+        const string SessionCartHeader = "X-Cart-Session";
+        const string CustomerCartHeader = "X-Cart-Customer";
 
         public Task<(Guid? userId, string? sessionId)> GetOwnerAsync(CancellationToken cancellationToken = default)
         {
-            var httpContext = contextAccessor.HttpContext!;
-            var user = httpContext.User;
-
-            var header = contextAccessor.HttpContext!.Request.Headers[CartOwnerHeader].ToString();
-            if (header is not null)
-            {
-                return header.StartsWith("user:")
-                    // users:
-                    ? Task.FromResult<(Guid?, string?)>((Guid.Parse(header[5..]), null))
-                    // session:
-                    : Task.FromResult<(Guid?, string?)>((null, header[8..]));
-            }
-            return Task.FromResult<(Guid?, string?)>((null, null));
+            var sessionHeader = contextAccessor.HttpContext!.Request.Headers[SessionCartHeader].ToString();
+            var customerHeader = contextAccessor.HttpContext!.Request.Headers[CustomerCartHeader].ToString();
+            Guid? userId = !string.IsNullOrWhiteSpace(customerHeader) ? Guid.Parse(customerHeader) : null;
+            string? sessionId = !string.IsNullOrWhiteSpace(sessionHeader) ? sessionHeader : null;
+            return Task.FromResult<(Guid?, string?)>((userId, sessionId));
         }
     }
 }
