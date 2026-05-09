@@ -33,10 +33,10 @@ namespace ShoppeeEcommerce.Application.Implementations.Services
 
         public async Task ClearAsync(CancellationToken cancellationToken = default)
         {
-            var cart = await GetOrCreateCartAsync(cancellationToken);
-            if (cart.CartItems.Count == 0) return;
             try
             {
+                var cart = await GetOrCreateCartAsync(cancellationToken);
+                if (cart.CartItems.Count == 0) return;
                 cart.Clear();
                 await uow.SaveChangesAsync(cancellationToken);
             }
@@ -117,9 +117,9 @@ namespace ShoppeeEcommerce.Application.Implementations.Services
 
         public async Task RemoveItemAsync(Guid productId, CancellationToken cancellationToken = default)
         {
-            var cart = await GetOrCreateCartAsync(cancellationToken);
             try
             {
+                var cart = await GetOrCreateCartAsync(cancellationToken);
                 cart.RemoveItem(productId);
                 await uow.SaveChangesAsync(cancellationToken);
             }
@@ -132,9 +132,9 @@ namespace ShoppeeEcommerce.Application.Implementations.Services
 
         public async Task UpdateQuantityAsync(Guid productId, int quantity, CancellationToken cancellationToken = default)
         {
-            var cart = await GetOrCreateCartAsync(cancellationToken);
             try
             {
+                var cart = await GetOrCreateCartAsync(cancellationToken);
                 cart.UpdateQuantity(productId, quantity);
                 await uow.SaveChangesAsync(cancellationToken);
             }
