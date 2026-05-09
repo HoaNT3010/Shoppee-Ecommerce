@@ -12,21 +12,17 @@
         <partial name="Navbar/_Navbar" />
     </header>
 
-    @if (TempData["ToastMessage"] is string message)
-    {
-        var type = TempData["ToastType"]?.ToString() ?? "info";
-        <div class="toast toast-end z-50">
-            <div class="alert alert-@type shadow-lg">
-                <span>@message</span>
-            </div>
-        </div>
-
-        <script>
-                setTimeout(() => {
-                    document.querySelector('.toast')?.remove();
-                }, 3000);
-        </script>
-    }
+    <div id="toast-container" class="toast toast-top toast-end z-50">
+        @if (TempData["ToastMessage"] is string message)
+        {
+            var type = TempData["ToastType"]?.ToString() ?? "info";
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    renderToast("@message", "@type");
+                });
+            </script>
+        }
+    </div>
 
     <main class="container mx-auto px-4 py-8">
         @RenderBody()
@@ -40,3 +36,24 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<script>
+    function renderToast(message, type) {
+        console.log("Rendering toast");
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'alert shadow-lg mb-2 alert-' + type;
+        toast.innerHTML = `<span>${message}</span>`;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            console.log("Toast dissappearing...")
+            toast.remove();
+        }, 3000);
+    }
+
+    document.body.addEventListener('showToast', function (evt) {
+        const { message, type } = evt.detail;
+        renderToast(message, type);
+    });
+</script>

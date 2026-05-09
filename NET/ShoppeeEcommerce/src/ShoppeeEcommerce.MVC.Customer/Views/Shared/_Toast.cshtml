@@ -1,0 +1,9 @@
+﻿@model (string message, string type)
+
+<div id="toast-container" hx-swap-oob="true">
+    <div class="toast toast-end z-50">
+        <div class="alert alert-@Model.type shadow-lg">
+            <span>@Model.message</span>
+        </div>
+    </div>
+</div>

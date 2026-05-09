@@ -17,7 +17,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Carts.UpdateQuantity
         {
         }
 
-        [HttpPut("api/v{version:apiVersion}/cart/items/{id}")]
+        [HttpPatch("api/v{version:apiVersion}/cart/items/{id}")]
         [ApiVersion(1)]
         [AllowAnonymous]
         [SwaggerOperation(

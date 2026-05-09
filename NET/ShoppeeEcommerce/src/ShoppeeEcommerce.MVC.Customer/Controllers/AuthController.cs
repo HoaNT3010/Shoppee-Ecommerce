@@ -24,7 +24,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             if (User.Identity?.IsAuthenticated == true)
             {
                 var userName = User.FindFirst("name")?.Value;
-                this.SetToast($"Welcome back, {userName ?? "customer"}.", "info");
+                this.SetToast($"Welcome back, {userName ?? "customer"}.");
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.ReturnUrl = returnUrl;
@@ -65,6 +65,12 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                var userName = User.FindFirst("name")?.Value;
+                this.SetToast($"Welcome back, {userName ?? "customer"}.");
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -111,7 +117,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             if (User.Identity?.IsAuthenticated == true)
             {
                 var userName = User.FindFirst("name")?.Value;
-                this.SetToast($"Welcome back, {userName ?? "customer"}.", "info");
+                this.SetToast($"Welcome back, {userName ?? "customer"}.");
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.ReturnUrl = returnUrl;

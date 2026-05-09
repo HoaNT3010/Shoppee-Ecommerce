@@ -28,6 +28,9 @@
 
             <!-- Add To Cart -->
             <button class="btn btn-outline btn-primary btn-sm"
+                    hx-post="/cart/add-item"
+                    hx-vals='{"productId": "@Model.Id"}'
+                    hx-swap="none"
                     onclick="event.stopPropagation()">
                 Add to cart
             </button>

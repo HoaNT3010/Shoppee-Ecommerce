@@ -21,6 +21,13 @@ namespace ShoppeeEcommerce.MVC.Customer.Configuration
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiUrl))
                 .AddHttpMessageHandler<ApiAuthHandler>();
 
+            services.AddTransient<CartOwnerHeaderHandler>();
+            services
+                .AddRefitClient<ICartApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiUrl))
+                .AddHttpMessageHandler<ApiAuthHandler>()
+                .AddHttpMessageHandler<CartOwnerHeaderHandler>();
+
             return services;
         }
     }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ShoppeeEcommerce.MVC.Customer.Common;
 using ShoppeeEcommerce.MVC.Customer.Configuration;
+using ShoppeeEcommerce.MVC.Customer.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,8 @@ app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
 //app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseMiddleware<CartSessionMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
