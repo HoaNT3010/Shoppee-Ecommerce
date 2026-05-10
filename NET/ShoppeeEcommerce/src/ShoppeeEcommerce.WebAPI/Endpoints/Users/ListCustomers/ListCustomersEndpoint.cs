@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Users.ListCustomers
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Get all customer users in the system. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Users })]
+            Tags = new[] { EndpointTags.UsersAdmin })]
         public override async Task<ActionResult<PagedList<ListCustomersResponse>>> HandleAsync(
             [FromQuery] ListCustomersRequest request,
             CancellationToken cancellationToken = default)

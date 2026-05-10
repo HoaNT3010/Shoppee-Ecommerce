@@ -22,7 +22,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.UploadImages
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Upload images for product. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         [IgnoreAntiforgeryToken]
         public override async Task<ActionResult<UploadProductImagesResponse>> HandleAsync(
             UploadProductImagesRequest request,

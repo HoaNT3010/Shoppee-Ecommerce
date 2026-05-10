@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ShoppeeEcommerce.Application.Tests.Application.Common;
 using ShoppeeEcommerce.Application.UseCases.Products.Common.Specifications;
-using ShoppeeEcommerce.Application.UseCases.UnFeature;
+using ShoppeeEcommerce.Application.UseCases.Products.UnFeature;
 using ShoppeeEcommerce.Domain.Entities.Core;
 using ShoppeeEcommerce.Domain.Errors;
 

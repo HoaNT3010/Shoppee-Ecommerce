@@ -7,7 +7,7 @@ using ShoppeeEcommerce.Domain.Common;
 using ShoppeeEcommerce.Domain.Entities.Core;
 using ShoppeeEcommerce.Domain.Errors;
 
-namespace ShoppeeEcommerce.Application.UseCases.UnFeature
+namespace ShoppeeEcommerce.Application.UseCases.Products.UnFeature
 {
     internal class UnFeatureProductCommandHandler(
         IRepository<Product, Guid> repo,

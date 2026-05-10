@@ -22,7 +22,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.Create
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Create new product. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public async override Task<ActionResult<CreateProductResponse>> HandleAsync(
             CreateProductRequest request,
             CancellationToken cancellationToken = default)

@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.GetById
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Get detailed information of a category by ID. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Categories })]
+            Tags = new[] { EndpointTags.CategoriesAdmin })]
         public override async Task<ActionResult<DetailedCategoryResponse>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,
             CancellationToken cancellationToken = default)

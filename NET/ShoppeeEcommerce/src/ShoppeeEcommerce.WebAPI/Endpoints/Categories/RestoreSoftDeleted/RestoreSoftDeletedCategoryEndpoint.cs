@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.RestoreSoftDeleted
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Restore a soft deleted category. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Categories })]
+            Tags = new[] { EndpointTags.CategoriesAdmin })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,
             CancellationToken cancellationToken = default)

@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.ReorderImages
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Adjust display order of product images. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             ReorderProductImagesRequest request,
             CancellationToken cancellationToken = default)

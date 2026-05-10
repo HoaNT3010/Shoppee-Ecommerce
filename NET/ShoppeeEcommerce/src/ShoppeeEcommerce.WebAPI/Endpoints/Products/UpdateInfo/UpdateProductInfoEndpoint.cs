@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.UpdateInfo
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Update product's basic info (name, description, price, sku). For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             UpdateProductInfoRequest request, CancellationToken cancellationToken = default)
         {

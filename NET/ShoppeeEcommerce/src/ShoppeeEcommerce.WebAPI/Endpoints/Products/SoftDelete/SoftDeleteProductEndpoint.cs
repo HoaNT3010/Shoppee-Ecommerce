@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.SoftDelete
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Soft delete product. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<Deleted>> HandleAsync(
             [FromRoute] PathGuidIdRequest request, CancellationToken cancellationToken = default)
         {

@@ -25,7 +25,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.SetMainImage
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Set main image of a product. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             [FromRoute] SetProductMainImageRequest request,
             CancellationToken cancellationToken = default)

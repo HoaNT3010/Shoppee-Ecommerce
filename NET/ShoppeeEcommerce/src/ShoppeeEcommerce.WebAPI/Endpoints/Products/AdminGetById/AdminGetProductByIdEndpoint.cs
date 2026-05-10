@@ -25,7 +25,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.AdminGetById
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Get product by product's ID. The result product will have its images, categories and creator included. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<AdminGetProductByIdResponse>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,
             CancellationToken cancellationToken = default)

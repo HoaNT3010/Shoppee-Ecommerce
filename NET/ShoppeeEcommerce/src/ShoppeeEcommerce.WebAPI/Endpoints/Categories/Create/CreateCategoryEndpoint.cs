@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.Create
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Create new category. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Categories })]
+            Tags = new[] { EndpointTags.CategoriesAdmin })]
         public override async Task<ActionResult<Created>> HandleAsync(
             [FromBody] CreateCategoryRequest request,
             CancellationToken cancellationToken = default)

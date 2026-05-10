@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.HardDelete
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Hard delete a category from the database. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Categories })]
+            Tags = new[] { EndpointTags.CategoriesAdmin })]
         public override async Task<ActionResult<Deleted>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,
             CancellationToken cancellationToken = default)

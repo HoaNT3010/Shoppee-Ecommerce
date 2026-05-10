@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.AdminGetImages
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Get all images of a product by product's ID. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<List<BaseProductImageResponse>>> HandleAsync(
             [FromRoute] PathGuidIdRequest request, CancellationToken cancellationToken = default)
         {

@@ -25,7 +25,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.PublishProduct
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Publish newly created product, change status from Draft to Published. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<Updated>> HandleAsync(
             [FromRoute] PathGuidIdRequest request,
             CancellationToken cancellationToken = default)

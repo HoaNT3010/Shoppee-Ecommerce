@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.UpdateCategories
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Update product's categories. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public override async Task<ActionResult<Updated>> HandleAsync(UpdateProductCategoriesRequest request, CancellationToken cancellationToken = default)
         {
             var command = new UpdateProductCategoriesCommand(Guid.Parse(request.Id!),

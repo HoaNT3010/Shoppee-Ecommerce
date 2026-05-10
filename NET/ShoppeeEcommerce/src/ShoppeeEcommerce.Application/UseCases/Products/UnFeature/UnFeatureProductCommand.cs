@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using MediatR;
 
-namespace ShoppeeEcommerce.Application.UseCases.UnFeature
+namespace ShoppeeEcommerce.Application.UseCases.Products.UnFeature
 {
     public record UnFeatureProductCommand(
         Guid Id)

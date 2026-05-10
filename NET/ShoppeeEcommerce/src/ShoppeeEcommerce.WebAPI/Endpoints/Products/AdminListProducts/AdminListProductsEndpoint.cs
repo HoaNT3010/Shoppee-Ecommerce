@@ -23,7 +23,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Products.AdminListProducts
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Get products with filter, sorting and pagination support. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Products })]
+            Tags = new[] { EndpointTags.ProductsAdmin })]
         public async override Task<ActionResult<PagedList<AdminListProductsResponse>>> HandleAsync(
             [FromQuery] AdminListProductsRequest request,
             CancellationToken cancellationToken = default)

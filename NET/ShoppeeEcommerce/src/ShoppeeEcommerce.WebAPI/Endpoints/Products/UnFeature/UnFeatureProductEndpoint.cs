@@ -3,7 +3,7 @@ using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoppeeEcommerce.Application.UseCases.UnFeature;
+using ShoppeeEcommerce.Application.UseCases.Products.UnFeature;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
 using ShoppeeEcommerce.WebAPI.Configuration.Services;
 using ShoppeeEcommerce.WebAPI.Utilities;

@@ -25,7 +25,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Categories.AdminListCategories
         [Authorize(Policy = AuthorizationPolicies.Admin)]
         [SwaggerOperation(
             Summary = "Get categories with filter, sorting and pagination support. For ADMIN users only.",
-            Tags = new[] { EndpointTags.Categories })]
+            Tags = new[] { EndpointTags.CategoriesAdmin })]
         public override async Task<ActionResult<PagedList<AdminListCategoryResponse>>> HandleAsync(
             [FromQuery] AdminListCategoriesRequest request,
             CancellationToken cancellationToken = default)
