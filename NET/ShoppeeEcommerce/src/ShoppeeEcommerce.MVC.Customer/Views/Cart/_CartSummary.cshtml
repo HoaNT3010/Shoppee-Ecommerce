@@ -3,7 +3,7 @@
 
 <div id="cart-summary" class="card bg-base-100 shadow sticky top-6 self-start">
     <div class="card-body">
-        <h2 class="card-title">Order Summary</h2>
+        <h2 class="card-title">Cart Summary</h2>
 
         <div class="flex justify-between">
             <span>Total items</span>
@@ -17,10 +17,14 @@
             </span>
         </div>
 
-        <button class="btn btn-outline btn-primary w-full mt-4"
-                disabled="@(Model.HasInactiveItem || Model.Items.Count == 0 ? "disabled" : null)">
-            Checkout
-        </button>
+        <form asp-controller="Cart" asp-action="Checkout" method="get">
+            <button type="submit"
+                    class="btn btn-outline btn-primary w-full mt-4"
+                    disabled="@(Model.HasInactiveItem || Model.Items.Count == 0)">
+                Checkout
+            </button>
+        </form>
+
         <button class="btn btn-outline btn-error w-full mt-4"
                 hx-delete="/cart"
                 hx-swap="none"

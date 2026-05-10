@@ -18,6 +18,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Configuration
             services
                 .AddRefitClient<ICategoriesApi>()
                 .AddRefitClient<IProductsApi>()
+                .AddRefitClient<IOrdersApi>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiUrl))
                 .AddHttpMessageHandler<ApiAuthHandler>();
 

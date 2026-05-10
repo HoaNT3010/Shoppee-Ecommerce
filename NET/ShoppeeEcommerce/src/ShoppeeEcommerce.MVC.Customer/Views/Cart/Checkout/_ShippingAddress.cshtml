@@ -1,0 +1,23 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Cart
+@model CheckoutAddressVM
+
+<div class="card bg-base-100 shadow">
+    <div class="card-body">
+
+        <h2 class="card-title">Shipping Address</h2>
+
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend">Receiver Name</legend>
+            <input type="text" class="input w-full" name="receiverName" placeholder="Full legal name" value="@Model.ReceiverName" />
+        </fieldset>
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend">Phone Number</legend>
+            <input type="text" class="input w-full" name="phone" placeholder="Phone number" value="@Model.Phone" />
+        </fieldset>
+        <fieldset class="fieldset">
+            <legend class="fieldset-legend">Address</legend>
+            <input type="text" class="input w-full" name="fullAddress" placeholder="Full address" value="@Model.FullAddress" />
+        </fieldset>
+
+    </div>
+</div>

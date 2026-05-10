@@ -104,7 +104,14 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
         public async Task<IActionResult> Logout(string? returnUrl = null)
         {
             var refreshToken = User.FindFirst(AuthCookieHelper.RefreshTokenClaimName)?.Value;
-            if (refreshToken != null) await authApi.Logout(new LogoutRequest(refreshToken));
+            try
+            {
+                if (refreshToken != null) await authApi.Logout(new LogoutRequest(refreshToken));
+            }
+            catch (ApiException ex)
+            {
+                
+            }
             await HttpContext.SignOutAsync();
 
             this.SetToast("Logout successful.");
