@@ -9,5 +9,6 @@
         public const string CategoriesAdmin = "Categories - Admin";
         public const string ProductsAdmin = "Products - Admin";
         public const string Cart = nameof(Cart);
+        public const string Orders = nameof(Orders);
     }
 }

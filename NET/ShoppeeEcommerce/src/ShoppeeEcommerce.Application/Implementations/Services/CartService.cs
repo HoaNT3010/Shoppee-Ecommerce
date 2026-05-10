@@ -115,6 +115,11 @@ namespace ShoppeeEcommerce.Application.Implementations.Services
             return cart;
         }
 
+        public async Task<Cart?> GetUserCart(Guid userId, CancellationToken cancellationToken = default)
+        {
+            return await cartRepo.FirstOrDefaultAsync(new CartWithItemsSpec(userId: userId), cancellationToken);
+        }
+
         public async Task RemoveItemAsync(Guid productId, CancellationToken cancellationToken = default)
         {
             try

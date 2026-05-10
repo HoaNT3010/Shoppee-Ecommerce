@@ -11,5 +11,6 @@ namespace ShoppeeEcommerce.Application.Abstractions.Services
         Task UpdateQuantityAsync(Guid productId, int quantity, CancellationToken cancellationToken = default);
         Task RemoveItemAsync(Guid productId, CancellationToken cancellationToken = default);
         Task ClearAsync(CancellationToken cancellationToken = default);
+        Task<Cart?> GetUserCart(Guid UserId, CancellationToken cancellationToken = default);
     }
 }
