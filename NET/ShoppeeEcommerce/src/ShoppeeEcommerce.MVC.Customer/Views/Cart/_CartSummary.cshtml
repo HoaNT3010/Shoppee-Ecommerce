@@ -1,0 +1,31 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Carts.View
+@model ViewCartResponse
+
+<div id="cart-summary" class="card bg-base-100 shadow sticky top-6 self-start">
+    <div class="card-body">
+        <h2 class="card-title">Order Summary</h2>
+
+        <div class="flex justify-between">
+            <span>Total items</span>
+            <span>@Model.Items.Count</span>
+        </div>
+
+        <div class="flex justify-between font-bold text-lg mt-2">
+            <span>Total</span>
+            <span>
+                $@Model.Items.Sum(i => i.Price * i.Quantity)
+            </span>
+        </div>
+
+        <button class="btn btn-outline btn-primary w-full mt-4"
+                disabled="@(Model.HasInactiveItem || Model.Items.Count == 0 ? "disabled" : null)">
+            Checkout
+        </button>
+        <button class="btn btn-outline btn-error w-full mt-4"
+                hx-delete="/cart"
+                hx-swap="none"
+                disabled="@(Model.HasInactiveItem || Model.Items.Count == 0 ? "disabled" : null)">
+            Clear Cart
+        </button>
+    </div>
+</div>

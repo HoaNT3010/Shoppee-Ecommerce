@@ -43,6 +43,7 @@ namespace ShoppeeEcommerce.Application.UseCases.Carts.View
                     result.Items.Add(new ViewCartItemResponse
                     {
                         Id = item.Id,
+                        ProductId = product.Id,
                         Name = product.Name,
                         Price = product.Price,
                         OldPrice = item.UnitPriceSnapshot != product.Price ? item.UnitPriceSnapshot : null,

@@ -1,0 +1,69 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Carts.View
+@model ViewCartItemResponse
+
+<div class="card bg-base-100 shadow border
+    @(Model.Status != CartItemStatus.Available ? "border-warning" : "")">
+
+    <div class="card-body flex flex-row gap-4 items-center">
+
+        <img src="@(Model.ImgUrl ?? "/images/no-image.png")"
+             class="w-24 h-24 object-cover rounded" />
+
+        <div class="flex-1">
+            <h2 class="font-semibold">@Model.Name</h2>
+
+            @if (Model.Status == CartItemStatus.Inactive)
+            {
+                <div class="badge badge-warning mt-1">Unavailable</div>
+            }
+            else if (Model.Status == CartItemStatus.PriceChanged)
+            {
+                <div class="badge badge-info mt-1">Price changed</div>
+            }
+
+            <div class="mt-2">
+                @if (Model.OldPrice.HasValue)
+                {
+                    <span class="line-through opacity-60 mr-2">
+                        $@Model.OldPrice
+                    </span>
+                }
+                <span class="font-bold text-primary">
+                    $@Model.Price
+                </span>
+            </div>
+        </div>
+        <form hx-patch="/cart/update-quantity"
+              hx-swap="none">
+            <div class="flex items-center gap-2"
+                 x-data="cartQty(@Model.Quantity)">
+
+                <!-- Update button -->
+                <button class="btn btn-outline btn-primary btn-sm ml-2"
+                        x-show="isChanged"
+                        x-cloak
+                        type="submit">
+                    Update
+                </button>
+
+                <button type="button" x-on:click="decrease()" class="btn btn-sm">-</button>
+
+                <span class="w-8 text-center" x-text="qty"></span>
+
+                <button type="button" x-on:click="increase()" class="btn btn-sm">+</button>
+
+                <input type="hidden" name="quantity" x-model="qty" />
+                <input type="hidden" name="productId" value="@Model.ProductId" />
+                
+            </div>
+        </form>
+        
+
+        <button class="btn btn-outline btn-sm text-error"
+                hx-delete="/cart/items/remove"
+                hx-vals='{"productId": "@Model.ProductId"}'
+                hx-swap="none">
+            Remove
+        </button>
+    </div>
+</div>

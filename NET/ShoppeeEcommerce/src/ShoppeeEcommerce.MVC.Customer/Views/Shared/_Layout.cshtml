@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - Shoppee</title>
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 <body class="bg-neutral-content">
     <header>
@@ -36,24 +38,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-<script>
-    function renderToast(message, type) {
-        console.log("Rendering toast");
-        const container = document.getElementById('toast-container');
-        const toast = document.createElement('div');
-        toast.className = 'alert shadow-lg mb-2 alert-' + type;
-        toast.innerHTML = `<span>${message}</span>`;
-
-        container.appendChild(toast);
-
-        setTimeout(() => {
-            console.log("Toast dissappearing...")
-            toast.remove();
-        }, 3000);
-    }
-
-    document.body.addEventListener('showToast', function (evt) {
-        const { message, type } = evt.detail;
-        renderToast(message, type);
-    });
-</script>

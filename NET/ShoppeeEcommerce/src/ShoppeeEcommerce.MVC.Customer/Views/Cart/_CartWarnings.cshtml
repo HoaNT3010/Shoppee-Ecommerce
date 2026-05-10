@@ -1,0 +1,22 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Carts.View
+@model ViewCartResponse
+
+@if (Model.HasInactiveItem || Model.HasDeletedItem || Model.HasPriceChangedItem)
+{
+    <div class="alert alert-warning">
+        <ul class="list-disc ml-6 text-sm">
+            @if (Model.HasInactiveItem)
+            {
+                <li>Some products are no longer available.</li>
+            }
+            @if (Model.HasPriceChangedItem)
+            {
+                <li>Some product prices have changed.</li>
+            }
+            @if (Model.HasDeletedItem)
+            {
+                <li>Some products were removed from the store.</li>
+            }
+        </ul>
+    </div>
+}

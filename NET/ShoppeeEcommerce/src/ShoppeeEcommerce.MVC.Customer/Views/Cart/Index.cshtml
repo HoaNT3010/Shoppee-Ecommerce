@@ -1,0 +1,25 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Carts.View
+@model ViewCartResponse
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<div class="space-y-6">
+
+    <div id="cart-warnings">
+        <partial name="_CartWarnings" model="Model" />
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+        <div class="md:col-span-2">
+            <div id="cart-items">
+                <partial name="_CartItemsList" model="Model.Items" />
+            </div>
+        </div>
+
+        <div id="cart-summary">
+            <partial name="_CartSummary" model="Model" />
+        </div>
+    </div>
+
+</div>

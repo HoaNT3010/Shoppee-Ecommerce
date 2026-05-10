@@ -1,0 +1,14 @@
+﻿@using ShoppeeEcommerce.SharedViewModels.Models.Carts.View
+@model ViewCartResponse
+
+<div id="cart-warnings" hx-swap-oob="true">
+    <partial name="_CartWarnings" model="Model" />
+</div>
+
+<div id="cart-items" hx-swap-oob="true">
+    <partial name="_CartItemsList" model="Model.Items" />
+</div>
+
+<div id="cart-summary" hx-swap-oob="true">
+    <partial name="_CartSummary" model="Model" />
+</div>

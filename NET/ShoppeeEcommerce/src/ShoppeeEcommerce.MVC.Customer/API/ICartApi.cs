@@ -15,7 +15,7 @@ namespace ShoppeeEcommerce.MVC.Customer.API
         [Delete("/cart/items/{request.id}")]
         public Task RemoveItem(PathGuidIdRequest request);
         [Patch("/cart/items/{id}")]
-        public Task UpdateQuantity(Guid id, [Body] QuantityRequest request);
+        public Task UpdateQuantity([AliasAs("id")] Guid id, [Body] QuantityRequest request);
         [Delete("/cart")]
         public Task ClearCart();
     }
