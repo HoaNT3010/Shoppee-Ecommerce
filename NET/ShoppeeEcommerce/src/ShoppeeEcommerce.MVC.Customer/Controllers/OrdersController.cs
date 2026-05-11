@@ -15,6 +15,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] ListUserOrdersRequest request)
         {
+            Response.Headers.Append("Vary", "HX-Request");
             if (User.Identity?.IsAuthenticated == false)
             {
                 this.SetToast("Only authenticated user can access orders page. Please login or create an account.", "error");

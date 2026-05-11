@@ -101,9 +101,24 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Related(Guid id)
+        public async Task<IActionResult> Related(Guid id)
         {
-            return PartialView("_RelatedProducts");
+            try
+            {
+                var product = await productsApi.GetById(new PathGuidIdRequest(id.ToString()));
+                var related = await productsApi.ListProducts(
+                    null, null, null,
+                    product.Categories.Select(c => c.Id.ToString()).ToList(),
+                    null, null, null, 1, 8);
+                return PartialView(
+                    "~/Views/Shared/Products/_ProductSlider.cshtml",
+                    related.Items);
+            }
+            catch (ApiException ex)
+            {
+
+                throw;
+            }
         }
     }
 }

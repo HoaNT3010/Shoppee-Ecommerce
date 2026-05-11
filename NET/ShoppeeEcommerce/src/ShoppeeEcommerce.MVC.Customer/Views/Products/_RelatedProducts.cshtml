@@ -1,9 +1,7 @@
-﻿<div @* hx-get="/Products/Related/@Model.Id"
+﻿<div id="related-products"
+     hx-get="/Products/Related/@Model.Id"
      hx-trigger="load"
-     hx-swap="outerHTML" *@
->
-
-    <h2 class="text-2xl">Related Products</h2>
+     hx-swap="outerHTML">
 
     <div class="text-center py-6">
         <span class="loading loading-spinner"></span>
