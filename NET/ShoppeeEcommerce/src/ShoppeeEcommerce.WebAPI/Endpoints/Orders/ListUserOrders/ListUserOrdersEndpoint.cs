@@ -18,7 +18,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Orders.ListUserOrders
         {
         }
 
-        [HttpGet("api/v{version:apiVersion}/user/orders")]
+        [HttpGet("api/v{version:apiVersion}/orders")]
         [ApiVersion(1)]
         [Authorize(Policy = AuthorizationPolicies.AuthenticatedUser)]
         [SwaggerOperation(

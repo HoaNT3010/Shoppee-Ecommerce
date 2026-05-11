@@ -1,5 +1,6 @@
 ﻿using Refit;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
+using ShoppeeEcommerce.SharedViewModels.Models.Orders.Detail;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders;
 
 namespace ShoppeeEcommerce.MVC.Customer.API
@@ -8,7 +9,9 @@ namespace ShoppeeEcommerce.MVC.Customer.API
     {
         [Post("/orders/place")]
         public Task PlaceOrder();
-        [Get("/user/orders")]
+        [Get("/orders")]
         public Task<PagedList<UserOrderSummary>> ListUserOrders([Query] ListUserOrdersRequest request);
+        [Get("/orders/{request.id}")]
+        public Task<OrderDetailResponse> ViewOrderDetail(PathGuidIdRequest request);
     }
 }
