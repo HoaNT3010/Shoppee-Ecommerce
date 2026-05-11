@@ -40,6 +40,20 @@ namespace ShoppeeEcommerce.Domain.Errors
                 Error.Failure(
                     "Order.CreateOrderFailed",
                     "Unexpected error occurred when trying to create new order.");
+
+            public static Error UserNotMatchOwner() =>
+                Error.Conflict(
+                    "Order.UserNotMatchOwner",
+                    "Only owner of the order is allowed to make this request.");
+
+            public static Error CancelInvalidStatus() =>
+                Error.Validation(
+                    "Order.Cancel.InvalidStatus",
+                    "Order is not in appropriate status to be cancelled.");
+            public static Error CancelOrderFailed() =>
+                Error.Failure(
+                    "Order.CancelOrderFailed",
+                    "Unexpected error occurred when trying to cancel order.");
         }
     }
 }

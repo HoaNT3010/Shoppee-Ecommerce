@@ -1,4 +1,5 @@
-﻿using ShoppeeEcommerce.Domain.Entities.Base;
+﻿using ShoppeeEcommerce.Domain.Common;
+using ShoppeeEcommerce.Domain.Entities.Base;
 using ShoppeeEcommerce.Domain.Enums;
 
 namespace ShoppeeEcommerce.Domain.Entities.Core
@@ -26,6 +27,12 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
                 Status = OrderStatus.Pending,
                 TotalPrice = 0,
             };
+        }
+
+        public void CancelOrder(DateTime? cancelDate = null)
+        {
+            Status = OrderStatus.Cancelled;
+            this.SetUpdatedDateTime(cancelDate);
         }
     }
 }
