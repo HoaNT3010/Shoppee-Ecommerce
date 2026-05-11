@@ -1,0 +1,47 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model OrderDetailViewModel
+
+<div id="order-header" class="card bg-base-100 shadow">
+    <div class="card-body space-y-4">
+
+        <div class="flex justify-between items-start">
+            <div>
+                <h2 class="text-2xl font-bold">
+                    Order #@Model.Order.Id.ToString().Substring(0, 8)
+                </h2>
+                <p class="text-sm opacity-70 mt-2">
+                    ID: @Model.Order.Id
+                </p>
+                <p class="text-sm opacity-70">
+                    Placed on @Model.Order.CreatedDate.ToLocalTime().ToString("f")
+                </p>
+            </div>
+
+            <div>
+                <span class="badge shadow
+                    @(Model.Order.Status == "Pending" ? "badge-warning" :
+                    Model.Order.Status == "Paid" ? "badge-secondary" :
+                    Model.Order.Status == "Completed" ? "badge-success" :
+                    Model.Order.Status == "Cancelled" ? "badge-error" :
+                    Model.Order.Status == "Refunded" ? "badge-accent" : "badge-neutral")">
+                    @Model.Order.Status
+                </span>
+            </div>
+        </div>
+
+        @* Actions *@
+        <div class="flex gap-3 flex-row-reverse">
+            @if (Model.Order.Status == "Pending")
+            {
+                <button class="btn btn-error shadow"
+                        hx-get="/orders/cancel-modal/@Model.Order.Id"
+                        hx-target="#modal-container"
+                        hx-swap="innerHTML">
+                    Cancel Order
+                </button>
+            }
+            <button class="btn btn-primary shadow">Buy Again</button>
+        </div>
+
+    </div>
+</div>

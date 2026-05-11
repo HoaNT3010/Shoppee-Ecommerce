@@ -13,5 +13,7 @@ namespace ShoppeeEcommerce.MVC.Customer.API
         public Task<PagedList<UserOrderSummary>> ListUserOrders([Query] ListUserOrdersRequest request);
         [Get("/orders/{request.id}")]
         public Task<OrderDetailResponse> ViewOrderDetail(PathGuidIdRequest request);
+        [Patch("/orders/{request.id}/cancel")]
+        public Task CancelOrder(PathGuidIdRequest request);
     }
 }

@@ -13,7 +13,17 @@
                 
             </div>
 
-            <div class="badge badge-outline my-2">@Model.Status</div>
+            @* <div class="badge badge-outline my-2">@Model.Status</div> *@
+            <div class="my-2">
+                <span class="badge
+                    @(Model.Status == "Pending" ? "badge-warning" :
+                        Model.Status == "Paid" ? "badge-secondary" :
+                        Model.Status == "Completed" ? "badge-success" :
+                        Model.Status == "Cancelled" ? "badge-error" :
+                        Model.Status == "Refunded" ? "badge-accent" : "badge-neutral")">
+                    @Model.Status
+                </span>
+            </div>
 
             <div class="text-sm opacity-70">
                 @Model.CreatedDate.ToString("dd MMM yyyy HH:mm") - @Model.LineItemsCount item(s)
@@ -26,8 +36,10 @@
                 $@Model.TotalPrice
             </div>
 
-            <a class="btn btn-sm btn-outline mt-2 hover:btn-primary"
-                   href="/orders/@Model.Id">
+            <a asp-controller="Orders"
+                class="btn btn-sm mt-2 btn-primary"
+                asp-action="Detail"
+                asp-route-id="@Model.Id">
                 View detail
             </a>
         </div>

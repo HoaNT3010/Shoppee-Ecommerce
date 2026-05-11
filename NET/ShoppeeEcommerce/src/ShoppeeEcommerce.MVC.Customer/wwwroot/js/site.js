@@ -22,6 +22,13 @@ document.addEventListener('DOMContentLoaded', function () {
         renderToast(message, type);
     });
 
+    document.body.addEventListener('htmx:afterSwap', function (e) {
+        if (e.detail.target.id === "order-header") {
+            const modalContainer = document.getElementById('modal-container');
+            if (modalContainer) modalContainer.innerHTML = '';
+        }
+    });
+
 });
 
 function cartQty(initial) {

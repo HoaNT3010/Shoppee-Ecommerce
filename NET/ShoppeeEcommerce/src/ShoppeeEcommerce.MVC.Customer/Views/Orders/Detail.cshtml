@@ -1,0 +1,11 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model OrderDetailViewModel
+
+@{
+    ViewData["Title"] = $"Order #{Model.Order.Id.ToString().Substring(0, 8)}";
+}
+<div class="max-w-5xl mx-auto space-y-8">
+    <partial name="Detail/_OrderHeader" model="Model" />
+    <partial name="Detail/_OrderItems" model="Model" />
+    <partial name="Detail/_OrderSummary" model="Model" />
+</div>

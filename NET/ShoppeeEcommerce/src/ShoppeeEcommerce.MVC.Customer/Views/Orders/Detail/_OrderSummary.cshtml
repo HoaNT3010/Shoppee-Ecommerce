@@ -1,0 +1,42 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model OrderDetailViewModel
+
+<div class="card bg-base-100 shadow">
+    <div class="card-body">
+        <h3 class="font-bold text-lg mb-4">Summary</h3>
+
+        @{
+            var subtotal = Model.Order.Items.Sum(x => x.Price * x.Quantity);
+        }
+
+        <div class="space-y-2 text-sm">
+
+            <div class="flex justify-between">
+                <span>Subtotal</span>
+                <span>$@subtotal</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Shipping</span>
+                <span>$0.00</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Tax</span>
+                <span>$0.00</span>
+            </div>
+
+            <div class="flex justify-between">
+                <span>Discount</span>
+                <span>$0.00</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="flex justify-between font-bold text-lg">
+                <span>Total</span>
+                <span>$@Model.Order.TotalPrice</span>
+            </div>
+        </div>
+    </div>
+</div>
