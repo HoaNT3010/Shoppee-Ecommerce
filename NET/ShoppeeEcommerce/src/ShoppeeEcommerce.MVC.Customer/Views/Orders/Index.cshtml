@@ -1,0 +1,8 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model UserOrdersViewModel
+@{
+    ViewData["Title"] = "Orders";
+}
+<div id="orders-container" class="space-y-6">
+    <partial name="List/_OrdersRefresh" model="Model" />
+</div>

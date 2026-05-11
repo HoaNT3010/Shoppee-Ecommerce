@@ -1,13 +1,13 @@
 ﻿@using ShoppeeEcommerce.SharedViewModels.Models.Categories
 @model List<BaseCategoryResponse>
 
+<!-- Desktop menu -->
 <a asp-controller="Products"
        asp-action="Index"
-       class="btn btn-ghost">
+       class="btn btn-ghost hidden lg:flex items-center">
     Products
 </a>
 
-<!-- Desktop menu -->
 <div class="dropdown dropdown-hover hidden lg:block">
     <!-- Trigger -->
     <label tabindex="0" class="btn btn-ghost">
@@ -35,13 +35,24 @@
     </div>
 </div>
 
+<a asp-controller="Orders"
+       asp-action="Index"
+       class="btn btn-ghost hidden lg:flex items-center">
+    Orders
+</a>
+
 <!-- Mobile dropdown -->
-<div class="dropdown lg:hidden">
-    <label tabindex="0" class="btn btn-ghost">
+<a asp-controller="Products"
+       asp-action="Index"
+       class="btn btn-ghost flex item-center lg:hidden">
+    Products
+</a>
+<div class="dropdown flex item-center lg:hidden">
+    <label tabindex="0" class="btn btn-ghost item-center w-full">
         Categories
     </label>
     <ul tabindex="0"
-        class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+        class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow w-full">
         @foreach (var cat in Model)
         {
             <li>
@@ -54,3 +65,8 @@
         }
     </ul>
 </div>
+<a asp-controller="Orders"
+       asp-action="Index"
+       class="btn btn-ghost flex item-center lg:hidden">
+    Orders
+</a>

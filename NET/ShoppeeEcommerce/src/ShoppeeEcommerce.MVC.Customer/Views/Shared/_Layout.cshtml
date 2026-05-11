@@ -14,7 +14,7 @@
         <partial name="Navbar/_Navbar" />
     </header>
 
-    <div id="toast-container" class="toast toast-top toast-end z-50">
+    <div id="toast-container" class="toast toast-end z-50">
         @if (TempData["ToastMessage"] is string message)
         {
             var type = TempData["ToastType"]?.ToString() ?? "info";

@@ -1,0 +1,12 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model UserOrdersViewModel
+
+<div class="grid md:grid-cols-3 gap-6">
+
+    <partial name="List/_OrdersFilter" model="Model" />
+
+    <div class="md:col-span-2">
+        <partial name="List/_OrdersList" model="Model" />
+    </div>
+
+</div>

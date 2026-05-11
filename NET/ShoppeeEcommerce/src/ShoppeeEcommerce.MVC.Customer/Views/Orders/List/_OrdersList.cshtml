@@ -1,0 +1,32 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model UserOrdersViewModel
+
+@if (Model.Orders.Items.Count == 0)
+{
+    <div class="flex flex-col items-center justify-center py-24 text-center gap-4">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-base-content/20">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+            <line x1="9" x2="9.01" y1="9" y2="9" />
+            <line x1="15" x2="15.01" y1="9" y2="9" />
+        </svg>
+        <div>
+            <p class="font-semibold text-lg">No order found!</p>
+            <p class="text-sm text-base-content/50 mt-1">
+                Try adjusting your filters or placing more orders.
+            </p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="space-y-4">
+        @foreach (var order in Model.Orders.Items)
+        {
+            <partial name="List/_OrderCard" model="order" />
+        }
+    </div>
+
+    <partial name="List/_OrdersPaging" model="@Model" />
+}

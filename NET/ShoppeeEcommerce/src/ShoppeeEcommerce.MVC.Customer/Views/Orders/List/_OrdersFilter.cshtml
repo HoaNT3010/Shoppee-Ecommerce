@@ -1,0 +1,52 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model UserOrdersViewModel
+
+<form id="orders-filter-form"
+      class="card bg-base-100 shadow md:sticky md:top-6 md:self-start"
+      hx-get="/orders/index"
+      hx-swap="innerHTML"
+      hx-trigger="change"
+      hx-target="#orders-container"
+      hx-push-url="true">
+
+    <div class="p-6 border-b border-base-200 flex items-center justify-between">
+        <h2 class="font-bold text-base">Filters</h2>
+        <a asp-action="Index" asp-controller="Orders"
+           class="text-xs link link-primary">Reset all</a>
+    </div>
+
+    @* Status *@
+    <fieldset class="fieldset px-6">
+        <legend class="fieldset-legend">Status</legend>
+        <select name="Status" class="select select-bordered w-full">
+            <option value="" selected="@(Model.Request.Status == null)">All</option>
+            @foreach (var s in Model.AvailableStatuses)
+            {
+                <option value="@s" selected="@(Model.Request.Status == s)">
+                    @s
+                </option>
+            }
+        </select>
+    </fieldset>
+
+    @* Sort By *@
+    <fieldset class="fieldset px-6">
+        <legend class="fieldset-legend">Sort By</legend>
+        <select name="SortBy" class="select select-bordered w-full">
+            <option value="" selected="@(Model.Request.SortBy == null)">Default</option>
+            <option value="createdDate" selected="@(Model.Request.SortBy == "createdDate")">Created Date</option>
+            <option value="totalPrice" selected="@(Model.Request.SortBy == "totalPrice")">Total Price</option>
+        </select>
+    </fieldset>
+
+    @* Sort Desc *@
+    <fieldset class="fieldset px-6 mb-6">
+        <legend class="fieldset-legend">Sort Direction</legend>
+        <select name="SortDesc" class="select select-bordered w-full">
+            <option value="" selected="@(Model.Request.SortDesc == null)">Default</option>
+            <option value="false" selected="@(Model.Request.SortDesc.HasValue && Model.Request.SortDesc == false)">Ascending</option>
+            <option value="true" selected="@(Model.Request.SortDesc.HasValue && Model.Request.SortDesc == true)">Descending</option>
+        </select>
+    </fieldset>
+
+</form>
