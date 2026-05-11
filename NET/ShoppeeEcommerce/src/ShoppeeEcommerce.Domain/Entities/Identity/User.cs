@@ -12,5 +12,6 @@ namespace ShoppeeEcommerce.Domain.Entities.Identity
         public ICollection<Product> CreatedProducts { get; set; } = [];
         public ICollection<ProductRating> ProductRatings { get; set; } = [];
         public ICollection<UserRole> UserRoles { get; set; } = [];
+        public ICollection<Payment> Payments { get; set; } = [];
     }
 }

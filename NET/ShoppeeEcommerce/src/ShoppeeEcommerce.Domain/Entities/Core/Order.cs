@@ -13,6 +13,7 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
         public decimal TotalPrice { get; set; }
 
         public ICollection<OrderItem> Items { get; set; } = [];
+        public Payment? Payment { get; set; }
 
         public void RecalculateTotal()
         {
