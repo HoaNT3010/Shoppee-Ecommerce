@@ -39,8 +39,19 @@
                         hx-swap="innerHTML">
                     Cancel Order
                 </button>
+
+                <button class="btn btn-secondary"
+                        hx-post="/orders/create-payment/@Model.Order.Id"
+                        hx-target="#payment-section"
+                        hx-swap="innerHTML">
+                    Pay Now
+                </button>
             }
-            <button class="btn btn-primary shadow">Buy Again</button>
+            @if (Model.CanRefundPayment)
+            {
+                <button class="btn btn-warning shadow">Refund</button>
+            }
+            @* <button class="btn btn-primary shadow">Buy Again</button> *@
         </div>
 
     </div>

@@ -2,6 +2,7 @@
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.Detail;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders;
+using ShoppeeEcommerce.SharedViewModels.Models.Payments.Stripe.Create;
 
 namespace ShoppeeEcommerce.MVC.Customer.API
 {
@@ -15,5 +16,7 @@ namespace ShoppeeEcommerce.MVC.Customer.API
         public Task<OrderDetailResponse> ViewOrderDetail(PathGuidIdRequest request);
         [Patch("/orders/{request.id}/cancel")]
         public Task CancelOrder(PathGuidIdRequest request);
+        [Post("/orders/{request.id}/payment/stripe")]
+        public Task<CreateStripePaymentResponse> CreatePayment(PathGuidIdRequest request);
     }
 }

@@ -6,6 +6,11 @@
 }
 <div class="max-w-5xl mx-auto space-y-8">
     <partial name="Detail/_OrderHeader" model="Model" />
+    <div id="payment-section"></div>
+    @if (Model.CanAcceptPayment)
+    {
+        <partial name="Detail/_OrderStripePayment" model="Model" />
+    }
     <partial name="Detail/_OrderItems" model="Model" />
     <partial name="Detail/_OrderSummary" model="Model" />
 </div>

@@ -7,6 +7,6 @@ namespace ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
     {
         public PagedList<UserOrderSummary> Orders { get; set; }
         public ListUserOrdersRequest Request { get; set; } = new();
-        public List<string> AvailableStatuses = ["Pending", "Paid", "Completed", "Cancelled", "Refunded"];
+        public List<string> AvailableStatuses = ["Pending", "AwaitingPayment", "Paid", "Completed", "Cancelled", "Refunded"];
     }
 }

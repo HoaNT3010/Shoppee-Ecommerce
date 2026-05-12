@@ -5,7 +5,7 @@ namespace ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders
     public class ListUserOrdersRequestValidator
         : AbstractValidator<ListUserOrdersRequest>
     {
-        static readonly string[] _statuses = ["Pending", "Paid", "Completed", "Cancelled", "Refunded"];
+        static readonly string[] _statuses = ["Pending", "AwaitingPayment", "Paid", "Completed", "Cancelled", "Refunded"];
         private static readonly string[] _allowedSorts = [
             "createdDate",
             "totalPrice",

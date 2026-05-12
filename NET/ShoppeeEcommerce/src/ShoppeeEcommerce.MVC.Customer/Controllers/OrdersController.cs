@@ -3,6 +3,7 @@ using Refit;
 using ShoppeeEcommerce.MVC.Customer.API;
 using ShoppeeEcommerce.MVC.Customer.Utils;
 using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders;
+using ShoppeeEcommerce.MVC.Customer.ViewModels.Payment;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders;
 using System.Net;
@@ -10,7 +11,8 @@ using System.Net;
 namespace ShoppeeEcommerce.MVC.Customer.Controllers
 {
     public class OrdersController(
-        IOrdersApi ordersApi) : Controller
+        IOrdersApi ordersApi,
+        IConfiguration configuration) : Controller
     {
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery] ListUserOrdersRequest request)
@@ -115,6 +117,23 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             {
                 this.SetHTMXToast("Something went wrong when trying to cancel order. Please try again.");
                 throw;
+            }
+        }
+
+        [HttpPost("orders/create-payment/{orderId}")]
+        public async Task<IActionResult> CreatePayment(Guid orderId)
+        {
+            try
+            {
+                var result = await ordersApi.CreatePayment(new PathGuidIdRequest(orderId.ToString()));
+                this.SetToast("Request payment for order successful. Please complete the order payment.");
+                Response.Headers["HX-Redirect"] = Url.Action("Detail", new { id = orderId });
+                return Ok();
+            }
+            catch (ApiException ex)
+            {
+                this.SetHTMXToast("Failed to create payment for order. Please try again.", "error");
+                return NoContent();
             }
         }
     }

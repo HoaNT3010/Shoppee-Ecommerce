@@ -1,0 +1,37 @@
+﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+@model OrderDetailViewModel
+@inject IConfiguration Configuration
+@{
+    var stripePublishableKey = Configuration["Stripe:PublishableKey"];
+}
+
+<div id="stripe-config"
+     data-publishable-key="@stripePublishableKey"
+     data-order-id="@Model.Order.Id"
+     class="card bg-base-100 shadow-xl">
+    
+    <div class="card-body">
+        <h2 class="card-title">Payment</h2>
+
+        <div class="text-sm opacity-70">
+            Currently accept only card payment.
+        </div>
+
+        <div id="card-element" class="p-4 border rounded-lg"></div>
+
+        <button id="pay-btn" class="btn btn-primary w-full mt-4">
+            Pay @Model.Order.TotalPrice.ToString("C")
+        </button>
+
+        <p id="card-error" class="text-error text-sm mt-2"></p>
+    </div>
+</div>
+
+<script>
+    const loadPayment = @Json.Serialize(Model.CanAcceptPayment);
+    if (loadPayment === true){
+        document.addEventListener("DOMContentLoaded", function() {
+            initStripe("@Model.Order.Payment.ClientSecret");
+        });
+    }
+</script>

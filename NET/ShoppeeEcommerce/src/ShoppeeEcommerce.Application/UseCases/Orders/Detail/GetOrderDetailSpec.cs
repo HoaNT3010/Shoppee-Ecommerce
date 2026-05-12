@@ -28,7 +28,20 @@ namespace ShoppeeEcommerce.Application.UseCases.Orders.Detail
                         ProductImgUrl = i.ProductImgUrl,
                         Price = i.PriceSnapshot,
                         Quantity = i.Quantity,
-                    }).ToList()
+                    }).ToList(),
+                    Payment = o.Payment == null ? null : new OrderPaymentResponse
+                    {
+                        Id = o.Payment.Id,
+                        Amount = o.Payment.Amount,
+                        Status = o.Payment.Status.ToString(),
+                        Method = o.Payment.Method.ToString(),
+                        CreatedDate = o.Payment.CreatedDate,
+                        UpdatedDate = o.Payment.UpdatedDate,
+                        PaidDate = o.Payment.PaidDate,
+                        RefundedDate = o.Payment.RefundedDate,
+                        FailedDate = o.Payment.FailedDate,
+                        ClientSecret = o.Payment.StripeClientSecret
+                    }
                 });
         }
     }
