@@ -25,7 +25,7 @@ namespace ShoppeeEcommerce.WebAPI.Endpoints.Orders.CreatePayment
             Summary = "Create a Stripe payment request for the order. For AUTHENTICATED users only.",
             Tags = new[] { EndpointTags.Orders })]
         public override async Task<ActionResult<CreateStripePaymentResponse>> HandleAsync(
-            [FromBody] PathGuidIdRequest request,
+            [FromRoute] PathGuidIdRequest request,
             CancellationToken cancellationToken = default)
         {
             var userId = HttpContext.User.GetUserId();

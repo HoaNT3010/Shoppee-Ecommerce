@@ -17,6 +17,11 @@ builder.Services
     .AddWebAPIServices();
 
 var app = builder.Build();
+app.Use(async (ctx, next) =>
+{
+    ctx.Request.EnableBuffering();
+    await next();
+});
 app.UseCors(CORSServiceCollectionExtensions.AllowedAllOriginsPolicy);
 app.UseExceptionHandler();
 
