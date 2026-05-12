@@ -35,5 +35,23 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
             Status = OrderStatus.Cancelled;
             this.SetUpdatedDateTime(cancelDate);
         }
+
+        public void MarkAsPaid(DateTime? paidDate = null)
+        {
+            Status = OrderStatus.Paid;
+            this.SetUpdatedDateTime(paidDate);
+        }
+
+        public void MarkAsRefunded(DateTime? refundDate = null)
+        {
+            Status = OrderStatus.Refunded;
+            this.SetUpdatedDateTime(refundDate);
+        }
+
+        public void MarkAsAwaitingPayment(DateTime? awaitDate = null)
+        {
+            Status = OrderStatus.AwaitingPayment;
+            this.SetUpdatedDateTime(awaitDate);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ShoppeeEcommerce.Infrastructure.Authentication;
+using ShoppeeEcommerce.Infrastructure.Payments.Stripe;
 
 namespace ShoppeeEcommerce.WebAPI.Configuration
 {
@@ -13,6 +14,11 @@ namespace ShoppeeEcommerce.WebAPI.Configuration
                 .BindConfiguration(JwtOptions.SectionName)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
+            services.AddOptions<StripeOptions>()
+                .BindConfiguration(StripeOptions.SectionName)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
+
             return services;
         }
     }

@@ -11,5 +11,6 @@
         public const string ProductsAdmin = "Products - Admin";
         public const string Cart = nameof(Cart);
         public const string Orders = nameof(Orders);
+        public const string Webhooks = nameof(Webhooks);
     }
 }
