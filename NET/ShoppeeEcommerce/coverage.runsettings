@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<DataCollectionRunSettings>
+		<DataCollectors>
+			<DataCollector friendlyName="XPlat Code Coverage">
+				<Configuration>
+					<Format>cobertura</Format>
+					<Exclude>
+						[ShoppeeEcommerce.SharedViewModels*]*,
+						[ShoppeeEcommerce.MVC.Customer*]*,
+						[*.Migrations.*]*
+					</Exclude>
+					<ExcludeByFile>
+						**/Migrations/*.cs,
+						**/Configurations/*.cs,
+						**/Program.cs,
+						**/Startup.cs,
+						**/*ServiceCollectionExtensions.cs,
+						**/*Spec.cs,
+						**/*OptionsSetup.cs
+					</ExcludeByFile>
+					<ExcludeByAttribute>
+						Obsolete,
+						GeneratedCodeAttribute,
+						CompilerGeneratedAttribute
+					</ExcludeByAttribute>
+				</Configuration>
+			</DataCollector>
+		</DataCollectors>
+	</DataCollectionRunSettings>
+</RunSettings>

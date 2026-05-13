@@ -290,3 +290,6 @@ __pycache__/
 
 **/wwwroot/css/app.css
 **/wwwroot/js/htmx.min.js
+
+coverage-report
+coverage.cmd
