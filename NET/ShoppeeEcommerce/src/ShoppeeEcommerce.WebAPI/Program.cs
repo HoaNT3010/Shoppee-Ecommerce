@@ -1,6 +1,7 @@
 using Asp.Versioning.ApiExplorer;
 using ShoppeeEcommerce.Application;
 using ShoppeeEcommerce.Infrastructure;
+using ShoppeeEcommerce.Infrastructure.Realtime.Hubs;
 using ShoppeeEcommerce.Persistence;
 using ShoppeeEcommerce.WebAPI.Configuration;
 using ShoppeeEcommerce.WebAPI.Configuration.Services;
@@ -46,6 +47,7 @@ app.UseAuthorization();
 
 app.MapHealthChecks("/api/health");
 app.MapControllers();
+app.MapHub<OrderHub>("/hubs/orders");
 
 // Use to seed data for database
 // Disable if not necessary

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ShoppeeEcommerce.Application.Abstractions.DataAccess;
 using ShoppeeEcommerce.Application.Abstractions.Payments.Stripe;
+using ShoppeeEcommerce.Application.Abstractions.Realtime;
 using ShoppeeEcommerce.Application.UseCases.Orders.Common.Specifications;
 using ShoppeeEcommerce.Application.UseCases.Payments.Common.Specification;
 using ShoppeeEcommerce.Domain.Entities.Core;
@@ -19,19 +20,22 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
         readonly IUnitOfWork _uow;
         readonly StripeOptions _options;
         readonly ILogger<StripePaymentService> _logger;
+        readonly IOrderRealtimeNotifier _orderNotifier;
 
         public StripePaymentService(
             IRepository<Payment, Guid> paymentRepo,
             IRepository<Order, Guid> orderRepo,
             IUnitOfWork uow,
             IOptions<StripeOptions> options,
-            ILogger<StripePaymentService> logger)
+            ILogger<StripePaymentService> logger,
+            IOrderRealtimeNotifier orderNotifier)
         {
             _paymentRepo = paymentRepo;
             _orderRepo = orderRepo;
             _uow = uow;
             _options = options.Value;
             _logger = logger;
+            _orderNotifier = orderNotifier;
         }
 
         public async Task<ErrorOr<Payment>> CreatePaymentIntentAsync(
@@ -87,6 +91,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
             string stripeSignature,
             CancellationToken cancellationToken = default)
         {
+            await Task.Delay(2000);
             Event stripeEvent;
             try
             {
@@ -160,6 +165,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
                 _logger.LogInformation(
                     "Payment succeeded. OrderId: {OrderId}, ChargeId: {ChargeId}",
                     payment.OrderId, intent.LatestChargeId);
+                await _orderNotifier.NotifyOrderUpdated(payment.Order.Id, payment.Order.Status.ToString(), cancellationToken);
                 return payment;
             }
             catch (Exception ex)
@@ -185,6 +191,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
                 _logger.LogWarning(
                     "Payment failed. OrderId: {OrderId}, Reason: {Reason}",
                     payment.OrderId, intent.LastPaymentError?.Message);
+                await _orderNotifier.NotifyOrderUpdated(payment.Order.Id, payment.Order.Status.ToString(), cancellationToken);
                 return payment;
             }
             catch (Exception ex)
@@ -218,6 +225,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
                 _logger.LogInformation(
                     "Payment cancelled via webhook. OrderId: {OrderId}, Reason: {Reason}",
                     payment.OrderId, intent.CancellationReason);
+                await _orderNotifier.NotifyOrderUpdated(payment.Order.Id, payment.Order.Status.ToString(), cancellationToken);
                 return payment;
             }
             catch (Exception ex)
@@ -250,6 +258,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
                 _logger.LogInformation(
                     "Payment refunded via Webhook. OrderId: {OrderId}, Amount: {Amount}",
                     payment.OrderId, amount);
+                await _orderNotifier.NotifyOrderUpdated(payment.Order.Id, payment.Order.Status.ToString(), cancellationToken);
                 return payment;
             }
             catch (Exception ex)

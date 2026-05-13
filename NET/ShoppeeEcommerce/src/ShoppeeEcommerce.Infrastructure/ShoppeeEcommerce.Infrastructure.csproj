@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" />
     <PackageReference Include="Stripe.net" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>

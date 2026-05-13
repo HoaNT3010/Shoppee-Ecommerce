@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ShoppeeEcommerce.Infrastructure.Authentication;
 using ShoppeeEcommerce.Infrastructure.Payments.Stripe;
+using ShoppeeEcommerce.Infrastructure.Realtime;
 using ShoppeeEcommerce.Infrastructure.Storage.CloudinaryFS;
 
 namespace ShoppeeEcommerce.Infrastructure
@@ -15,6 +16,8 @@ namespace ShoppeeEcommerce.Infrastructure
             services.AddAuthenticationServices();
             services.AddCloudinary(configuration);
             services.AddStripe(configuration);
+            services.AddRealtimeServices();
+
             return services;
         }
     }
