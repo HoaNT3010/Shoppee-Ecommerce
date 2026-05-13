@@ -35,14 +35,19 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.UploadImages
             if (existingCount >= 10 || existingCount + request.Images.Count > 10)
                 return Errors.ProductErrors.ExceedMaximumImages(10);
 
-            var streams = request.Images.Select(f => f.OpenReadStream()).ToList();
+            //var streams = request.Images.Select(f => f.OpenReadStream()).ToList();
+
+            var fileStreams = new List<(Stream Stream, string FileName)>();
+            foreach (var file in request.Images)
+            {
+                var memoryStream = new MemoryStream();
+                await file.CopyToAsync(memoryStream, cancellationToken);
+                memoryStream.Position = 0;
+                fileStreams.Add((memoryStream, file.FileName));
+            }
+
             try
             {
-                var fileStreams = request.Images.Select((f, i) =>
-                (
-                    Stream: streams[i],
-                     f.FileName
-                ));
                 var uploadResults = await fs.UploadManyAsync(
                     fileStreams,
                     folder: $"product/{request.ProductId.ToString()}",
@@ -72,8 +77,8 @@ namespace ShoppeeEcommerce.Application.UseCases.Products.UploadImages
             }
             finally
             {
-                foreach (var stream in streams)
-                    await stream.DisposeAsync();
+                foreach (var stream in fileStreams)
+                    await stream.Stream.DisposeAsync();
             }
         }
     }
