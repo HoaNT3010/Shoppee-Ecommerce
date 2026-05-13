@@ -136,6 +136,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
                 await _uow.SaveChangesAsync(cancellationToken);
                 _logger.LogInformation(
                     "Payment '{PaymentId}' refunded along with order ID '{OrderId}'. Amount: {Amount}", paymentId, payment.Order.Id, refundAmount);
+                await _orderNotifier.NotifyOrderUpdated(payment.Order.Id, payment.Order.Status.ToString(), cancellationToken);
                 return payment;
             }
             catch (Exception ex)

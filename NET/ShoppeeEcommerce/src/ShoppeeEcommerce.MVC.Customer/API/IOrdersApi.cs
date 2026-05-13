@@ -3,6 +3,7 @@ using ShoppeeEcommerce.SharedViewModels.Models.Common;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.Detail;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders;
 using ShoppeeEcommerce.SharedViewModels.Models.Payments.Stripe.Create;
+using ShoppeeEcommerce.SharedViewModels.Models.Payments.Stripe.Refund;
 
 namespace ShoppeeEcommerce.MVC.Customer.API
 {
@@ -18,5 +19,9 @@ namespace ShoppeeEcommerce.MVC.Customer.API
         public Task CancelOrder(PathGuidIdRequest request);
         [Post("/orders/{request.id}/payment/stripe")]
         public Task<CreateStripePaymentResponse> CreatePayment(PathGuidIdRequest request);
+        [Post("/orders/{orderId}/payment/stripe/{paymentId}/refund")]
+        public Task RefundOrder([AliasAs("orderId")] Guid orderId,
+            [AliasAs("paymentId")] Guid paymentId,
+            [Body] RefundAmountRequest request);
     }
 }

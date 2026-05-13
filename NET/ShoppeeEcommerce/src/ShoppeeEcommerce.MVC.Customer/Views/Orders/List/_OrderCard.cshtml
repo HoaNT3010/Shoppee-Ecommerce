@@ -1,4 +1,5 @@
-﻿@using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders
+﻿@using ShoppeeEcommerce.MVC.Customer.Utils
+@using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders
 @model UserOrderSummary
 
 <div class="card bg-base-100 shadow border hover:border-primary">
@@ -26,7 +27,7 @@
             </div>
 
             <div class="text-sm opacity-70">
-                @Model.CreatedDate.ToString("dd MMM yyyy HH:mm") - @Model.LineItemsCount item(s)
+                @(DateTimeHelper.ToLocalDateTime(Model.CreatedDate)) - @Model.LineItemsCount item(s)
             </div>
 
         </div>

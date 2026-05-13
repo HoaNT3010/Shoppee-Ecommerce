@@ -1,4 +1,5 @@
-﻿@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
+﻿@using ShoppeeEcommerce.MVC.Customer.Utils
+@using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders
 @model OrderDetailViewModel
 
 <div id="order-header" class="card bg-base-100 shadow">
@@ -13,17 +14,17 @@
                     ID: @Model.Order.Id
                 </p>
                 <p class="text-sm opacity-70">
-                    Placed on @Model.Order.CreatedDate.ToLocalTime().ToString("f")
+                    Placed on @(DateTimeHelper.ToLocalDateTime(Model.Order.CreatedDate))
                 </p>
             </div>
 
             <div>
                 <span class="badge shadow
                     @(Model.Order.Status == "Pending" ? "badge-warning" :
-                    Model.Order.Status == "Paid" ? "badge-secondary" :
-                    Model.Order.Status == "Completed" ? "badge-success" :
-                    Model.Order.Status == "Cancelled" ? "badge-error" :
-                    Model.Order.Status == "Refunded" ? "badge-accent" : "badge-neutral")">
+                                                                Model.Order.Status == "Paid" ? "badge-secondary" :
+                                                                Model.Order.Status == "Completed" ? "badge-success" :
+                                                                Model.Order.Status == "Cancelled" ? "badge-error" :
+                                                                Model.Order.Status == "Refunded" ? "badge-accent" : "badge-neutral")">
                     @Model.Order.Status
                 </span>
             </div>
@@ -49,7 +50,16 @@
             }
             @if (Model.CanRefundPayment)
             {
-                <button class="btn btn-warning shadow">Refund</button>
+                <button class="btn btn-warning shadow"
+                        hx-post="/orders/refund"
+                        hx-vals='{
+                    "orderId": "@Model.Order.Id",
+                    "paymentId": "@Model.Order.Payment!.Id",
+                    "amount": @Model.Order.TotalPrice
+                    }'
+                        hx-swap="none">
+                    Refund
+                </button>
             }
             @* <button class="btn btn-primary shadow">Buy Again</button> *@
         </div>

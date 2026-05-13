@@ -14,3 +14,29 @@
     <partial name="Detail/_OrderItems" model="Model" />
     <partial name="Detail/_OrderSummary" model="Model" />
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+<script>
+    const orderId = "@Model.Order.Id.ToString()";
+    const connection = new signalR.HubConnectionBuilder()
+    .withUrl("http://localhost:8080/hubs/orders")
+    .build();
+
+    connection.start().then(() => {
+    connection.invoke("JoinOrderGroup", orderId);
+    });
+
+    connection.on("OrderUpdated", function (data) {
+    const status = data.status;
+
+    if (status === "Paid"){
+    window.location.href = `/orders/detail/${orderId}?paid=true`;
+    }
+    else if (status === "Cancelled"){
+    window.location.href = `/orders/detail/${orderId}?cancelled=true`;
+    }
+    else if (status === "Refunded"){
+    window.location.href = `/orders/detail/${orderId}?refunded=true`;
+    }
+    });
+
+</script>

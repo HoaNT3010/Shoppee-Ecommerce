@@ -6,6 +6,7 @@ using ShoppeeEcommerce.MVC.Customer.ViewModels.Orders;
 using ShoppeeEcommerce.MVC.Customer.ViewModels.Payment;
 using ShoppeeEcommerce.SharedViewModels.Models.Common;
 using ShoppeeEcommerce.SharedViewModels.Models.Orders.ListUserOrders;
+using ShoppeeEcommerce.SharedViewModels.Models.Payments.Stripe.Refund;
 using System.Net;
 
 namespace ShoppeeEcommerce.MVC.Customer.Controllers
@@ -60,7 +61,10 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Detail(Guid id)
+        public async Task<IActionResult> Detail(Guid id,
+            bool? paid,
+            bool? cancelled,
+            bool? refunded)
         {
             if (User.Identity?.IsAuthenticated == false)
             {
@@ -70,6 +74,14 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             try
             {
                 var order = await ordersApi.ViewOrderDetail(new PathGuidIdRequest(id.ToString()));
+                if (paid == true)
+                    this.SetToast("Payment successful. Your order is now paid.", "success");
+
+                if (cancelled == true)
+                    this.SetToast("Order has been cancelled.", "warning");
+
+                if (refunded == true)
+                    this.SetToast("Order refunded successfully.", "info");
                 return View(new OrderDetailViewModel
                 {
                     Order = order
@@ -133,6 +145,22 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             catch (ApiException ex)
             {
                 this.SetHTMXToast("Failed to create payment for order. Please try again.", "error");
+                return NoContent();
+            }
+        }
+
+        [HttpPost("orders/refund")]
+        public async Task<IActionResult> RefundOrderPayment(Guid orderId, Guid paymentId, decimal amount)
+        {
+            try
+            {
+                await ordersApi.RefundOrder(orderId, paymentId, new RefundAmountRequest { Amount = amount });
+                this.SetHTMXToast("Refund request has been created successful and will be processed shortly.");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                this.SetHTMXToast("Failed to refund order. Please try again.", "error");
                 return NoContent();
             }
         }

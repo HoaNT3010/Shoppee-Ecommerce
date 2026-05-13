@@ -7,6 +7,7 @@
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
 		<PackageReference Include="Refit" />
 		<PackageReference Include="Refit.HttpClientFactory" />
 		<PackageReference Include="Westwind.AspNetCore.LiveReload" />

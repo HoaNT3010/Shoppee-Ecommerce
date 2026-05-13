@@ -136,7 +136,7 @@ namespace ShoppeeEcommerce.MVC.Customer.Controllers
             {
                 await ordersApi.PlaceOrder();
                 this.SetToast("Order has been placed successfully.");
-                Response.Headers["HX-Redirect"] = Url.Action("Checkout");
+                Response.Headers["HX-Redirect"] = Url.Action("Index", "Orders");
                 return Ok();
             }
             catch (ApiException ex)
