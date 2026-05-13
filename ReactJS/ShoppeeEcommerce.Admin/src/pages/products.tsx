@@ -30,7 +30,7 @@ export default function ProductsPage() {
 
   return (
     <div className="container mx-auto mt-4">
-      <div className="mb-6 flex items-center justify-between">
+      <div className=" ">
         <h1 className="text-2xl font-bold">Products</h1>
         <Button onClick={handleCreate}>+ New Product</Button>
       </div>
