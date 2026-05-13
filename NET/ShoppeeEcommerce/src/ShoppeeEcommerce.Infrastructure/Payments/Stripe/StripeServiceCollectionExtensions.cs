@@ -11,6 +11,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
             this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddScoped<IStripeServiceWrapper, StripeServiceWrapper>();
             services.AddScoped<IStripePaymentService, StripePaymentService>();
             var stripeSettings = configuration
                 .GetSection(StripeOptions.SectionName)

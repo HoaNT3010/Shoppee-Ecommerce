@@ -21,6 +21,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
         readonly StripeOptions _options;
         readonly ILogger<StripePaymentService> _logger;
         readonly IOrderRealtimeNotifier _orderNotifier;
+        readonly IStripeServiceWrapper _stripeWrapper;
 
         public StripePaymentService(
             IRepository<Payment, Guid> paymentRepo,
@@ -28,7 +29,8 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
             IUnitOfWork uow,
             IOptions<StripeOptions> options,
             ILogger<StripePaymentService> logger,
-            IOrderRealtimeNotifier orderNotifier)
+            IOrderRealtimeNotifier orderNotifier,
+            IStripeServiceWrapper stripeWrapper)
         {
             _paymentRepo = paymentRepo;
             _orderRepo = orderRepo;
@@ -36,6 +38,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
             _options = options.Value;
             _logger = logger;
             _orderNotifier = orderNotifier;
+            _stripeWrapper = stripeWrapper;
         }
 
         public async Task<ErrorOr<Payment>> CreatePaymentIntentAsync(
@@ -51,7 +54,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
             var service = new PaymentIntentService();
             try
             {
-                var intent = await service.CreateAsync(new PaymentIntentCreateOptions
+                var intent = await _stripeWrapper.CreatePaymentIntentAsync(new PaymentIntentCreateOptions
                 {
                     // cents - multiply by 100
                     Amount = (long)(order.TotalPrice * 100),
@@ -65,7 +68,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
                         { "order_id", orderId.ToString() },
                         { "user_id",  userId.ToString()  }
                     }
-                }, cancellationToken: cancellationToken);
+                }, cancellationToken);
 
                 var payment = Payment.Create(orderId, userId, order.TotalPrice, intent.Id, intent.ClientSecret);
                 order.MarkAsAwaitingPayment();
@@ -95,7 +98,7 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
             Event stripeEvent;
             try
             {
-                stripeEvent = EventUtility.ConstructEvent(json, stripeSignature, _options.WebhookSecret, throwOnApiVersionMismatch: false);
+                stripeEvent = _stripeWrapper.ConstructEvent(json, stripeSignature, _options.WebhookSecret);
             }
             catch (StripeException ex)
             {
@@ -126,11 +129,11 @@ namespace ShoppeeEcommerce.Infrastructure.Payments.Stripe
 
             try
             {
-                await new RefundService().CreateAsync(new RefundCreateOptions
+                await _stripeWrapper.CreateRefundAsync(new RefundCreateOptions
                 {
                     PaymentIntent = payment.StripePaymentIntentId,
                     Amount = (long)(refundAmount * 100)
-                }, cancellationToken: cancellationToken);
+                }, cancellationToken);
                 payment.MarkAsRefunded(refundAmount);
                 payment.Order.MarkAsRefunded();
                 await _uow.SaveChangesAsync(cancellationToken);
