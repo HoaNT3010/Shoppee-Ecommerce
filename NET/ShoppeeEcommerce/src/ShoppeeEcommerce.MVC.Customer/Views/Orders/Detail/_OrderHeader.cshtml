@@ -34,7 +34,7 @@
         <div class="flex gap-3 flex-row-reverse">
             @if (Model.Order.Status == "Pending")
             {
-                <button class="btn btn-error shadow"
+                <button class="btn btn-error shadow text-white"
                         hx-get="/orders/cancel-modal/@Model.Order.Id"
                         hx-target="#modal-container"
                         hx-swap="innerHTML">

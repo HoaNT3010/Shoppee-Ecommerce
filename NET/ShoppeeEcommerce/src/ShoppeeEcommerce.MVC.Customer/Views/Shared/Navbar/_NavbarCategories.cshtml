@@ -18,14 +18,14 @@
     <div tabindex="0"
          class="dropdown-content bg-base-100 rounded-box z-[50] p-4 shadow w-[500px]">
 
-        <ul class="grid grid-flow-col grid-rows-4 gap-x-6 gap-y-2">
+        <ul class="grid grid-flow-col grid-rows-4 gap-x-6 gap-y-2 auto-rows-[56px]">
             @foreach (var cat in Model)
             {
                 <li>
                     <a asp-controller="Products"
                            asp-action="Index"
                            asp-route-categoryIds="@cat.Id"
-                           class="block px-2 py-1 hover:bg-base-200 rounded">
+                           class="flex items-center px-2 py-1 h-full hover:bg-base-200 rounded line-clamp-2 leading-snug">
                         @cat.Name
                     </a>
                 </li>
