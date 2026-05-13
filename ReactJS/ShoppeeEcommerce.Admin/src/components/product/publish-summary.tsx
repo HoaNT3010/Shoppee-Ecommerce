@@ -13,7 +13,7 @@ export function PublishSummary({ product }: PublishSummaryProps) {
     <div className="overflow-hidden rounded-lg border bg-muted/30">
       {/* Main image banner */}
       {mainImage ? (
-        <div className="h-40 w-full overflow-hidden">
+        <div className="h-112.5 w-full overflow-hidden">
           <img
             src={mainImage.url}
             alt={product.name}

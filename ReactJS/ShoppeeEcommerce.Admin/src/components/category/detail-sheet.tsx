@@ -1,5 +1,3 @@
-"use client"
-
 import { useQuery } from "@tanstack/react-query"
 import {
   Sheet,
@@ -14,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import CategoryService from "@/services/category-service"
 import type { DetailedCategoryResponse } from "@/types/category"
 import { CalendarDays, Clock, Pencil, Trash2, User } from "lucide-react"
+import { formatDate, formatDateTime } from "@/lib/utils"
 
 interface DetailSheetProps {
   open: boolean
@@ -42,9 +41,14 @@ export function DetailSheet({ open, id, onEdit, onClose }: DetailSheetProps) {
               {isLoading ? (
                 <Skeleton className="h-6 w-40" />
               ) : (
-                <SheetTitle className="text-xl font-semibold tracking-tight">
-                  {data?.name ?? "—"}
-                </SheetTitle>
+                <>
+                  <SheetTitle className="text-xl font-semibold tracking-tight">
+                    {data?.name ?? "—"}
+                  </SheetTitle>
+                  <p className="text-xs font-medium tracking-widest text-muted-foreground uppercase">
+                    Id: {data?.id}
+                  </p>
+                </>
               )}
             </div>
             {!isLoading && data && (
@@ -83,13 +87,13 @@ export function DetailSheet({ open, id, onEdit, onClose }: DetailSheetProps) {
                   <DateRow
                     icon={<CalendarDays className="h-3.5 w-3.5" />}
                     label="Created"
-                    value={formatDate(data.createdDate)}
+                    value={formatDateTime(data.createdDate)}
                   />
                   <DateRow
                     icon={<Clock className="h-3.5 w-3.5" />}
                     label="Last updated"
                     value={
-                      data.updatedDate ? formatDate(data.updatedDate) : "—"
+                      data.updatedDate ? formatDateTime(data.updatedDate) : "—"
                     }
                   />
                   {data.isDeleted && (
@@ -97,7 +101,9 @@ export function DetailSheet({ open, id, onEdit, onClose }: DetailSheetProps) {
                       icon={<Trash2 className="h-3.5 w-3.5 text-destructive" />}
                       label="Deleted on"
                       value={
-                        data.deletedDate ? formatDate(data.deletedDate) : "—"
+                        data.deletedDate
+                          ? formatDateTime(data.deletedDate)
+                          : "—"
                       }
                       destructive
                     />
@@ -217,14 +223,6 @@ function LoadingSkeleton() {
 }
 
 // ── Helpers ───────────────────────────────────────────────────
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleString(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  })
-}
-
 function formatCreatorName(creator: DetailedCategoryResponse["creator"]) {
   if (!creator) return "—"
   const full = [creator.firstName, creator.lastName].filter(Boolean).join(" ")

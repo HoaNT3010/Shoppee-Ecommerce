@@ -82,7 +82,7 @@ const AppSidebarFooter = () => {
                 </DropdownMenuLabel>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuGroup>
+              {/* <DropdownMenuGroup>
                 <Link to={"account"}>
                   <DropdownMenuItem className="hover:cursor-pointer">
                     <User2 />
@@ -102,7 +102,7 @@ const AppSidebarFooter = () => {
                   </DropdownMenuItem>
                 </Link>
               </DropdownMenuGroup>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator /> */}
               <DropdownMenuGroup>
                 <DropdownMenuItem
                   className="text-destructive hover:cursor-pointer focus:text-destructive"

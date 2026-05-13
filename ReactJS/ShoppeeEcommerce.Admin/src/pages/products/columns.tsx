@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { type ListProductsResponse } from "@/types/product"
 import { useNavigate } from "react-router"
+import { formatDateTime } from "@/lib/utils"
 
 export type ProductTableHandlers = {
   onView: (id: string) => void
@@ -63,7 +64,7 @@ export const createColumns = (
       </Button>
     ),
     cell: ({ row }) => (
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 pl-2">
         <ProductImage imgUrl={row.original.imgUrl} name={row.original.name} />
         <div className="min-w-0">
           <p className="truncate text-sm font-medium">{row.original.name}</p>
@@ -90,7 +91,7 @@ export const createColumns = (
     cell: ({ row }) => {
       const price = row.getValue("price") as number
       return (
-        <span className="font-medium tabular-nums">
+        <span className="pl-3 font-medium tabular-nums">
           {new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD",
@@ -133,8 +134,12 @@ export const createColumns = (
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) =>
-      new Date(row.getValue("createdDate")).toLocaleDateString(),
+    cell: ({ row }) => (
+      <span className="pl-2">
+        {formatDateTime(row.getValue("createdDate"))}
+      </span>
+    ),
+    // new Date(row.getValue("createdDate")).toLocaleDateString(),
   },
 
   // Row actions — View + Delete/Restore only

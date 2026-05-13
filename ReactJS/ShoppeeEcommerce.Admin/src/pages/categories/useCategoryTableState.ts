@@ -4,7 +4,7 @@ import { useReducer } from "react"
 
 const DEFAULT_PARAMS: ListCategoriesRequest = {
   pageIndex: 1,
-  pageSize: 5,
+  pageSize: 10,
 }
 
 type Action =

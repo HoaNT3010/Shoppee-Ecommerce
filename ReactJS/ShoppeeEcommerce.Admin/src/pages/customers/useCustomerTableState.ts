@@ -3,7 +3,7 @@ import { useReducer } from "react"
 
 const DEFAULT_PARAMS: ListCustomersRequest = {
   pageIndex: 1,
-  pageSize: 5,
+  pageSize: 10,
 }
 
 type Action =

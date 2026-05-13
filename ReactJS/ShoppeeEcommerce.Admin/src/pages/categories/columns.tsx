@@ -1,7 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import type { ShortCategoryResponse } from "@/types/category"
 import { Badge } from "@/components/ui/badge"
-import { format } from "date-fns"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import {
@@ -13,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { formatDate } from "@/lib/utils"
 
 export type CategoryTableHandlers = {
   onView: (id: string) => void
@@ -24,10 +24,10 @@ export type CategoryTableHandlers = {
 export const columns = (
   handlers: CategoryTableHandlers
 ): ColumnDef<ShortCategoryResponse>[] => [
-  {
-    accessorKey: "id",
-    header: "ID",
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: "ID",
+  // },
   // --- Name (sortable) ---
   {
     accessorKey: "name",
@@ -40,6 +40,7 @@ export const columns = (
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
+    cell: ({ row }) => <span className="pl-2">{row.getValue("name")}</span>,
   },
   // --- Description ---
   {
@@ -65,8 +66,9 @@ export const columns = (
     ),
     cell: ({ row }) => {
       return (
-        <span>
-          {format(new Date(row.getValue("createdDate")), "dd/MM/yyyy")}
+        <span className="pl-4">
+          {/* {format(new Date(row.getValue("createdDate")), "dd/MM/yyyy")} */}
+          {formatDate(row.getValue("createdDate"))}
         </span>
       )
     },
@@ -86,9 +88,11 @@ export const columns = (
     cell: ({ row }) => {
       const isDeleted = row.getValue("isDeleted") as boolean
       return (
-        <Badge variant={isDeleted ? "destructive" : "default"}>
-          {isDeleted ? "Deleted" : "Active"}
-        </Badge>
+        <span className="pl-4">
+          <Badge variant={isDeleted ? "destructive" : "default"}>
+            {isDeleted ? "Deleted" : "Active"}
+          </Badge>
+        </span>
       )
     },
   },

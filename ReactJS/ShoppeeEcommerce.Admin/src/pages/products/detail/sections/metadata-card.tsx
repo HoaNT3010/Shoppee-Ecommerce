@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { User } from "lucide-react"
 import type { DetailedProductResponse } from "@/types/product"
+import { formatDateTime } from "@/lib/utils"
 
 interface MetadataCardProps {
   product: DetailedProductResponse
@@ -15,20 +16,18 @@ export function MetadataCard({ product }: MetadataCardProps) {
       <CardContent className="space-y-4">
         <MetaField
           label="Created"
-          value={new Date(product.createdDate).toLocaleString()}
+          value={formatDateTime(product.createdDate)}
         />
         <MetaField
           label="Last Updated"
           value={
-            product.updatedDate
-              ? new Date(product.updatedDate).toLocaleString()
-              : "—"
+            product.updatedDate ? formatDateTime(product.updatedDate) : "—"
           }
         />
         {product.isDeleted && product.deletedDate && (
           <MetaField
             label="Deleted On"
-            value={new Date(product.deletedDate).toLocaleString()}
+            value={formatDateTime(product.deletedDate)}
           />
         )}
 
