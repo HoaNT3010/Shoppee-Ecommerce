@@ -81,7 +81,7 @@ export function ProductDataTable({
   return (
     <div className="space-y-4">
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-end gap-3">
         <Input
           placeholder="Search products..."
           onChange={(e) =>
@@ -89,54 +89,65 @@ export function ProductDataTable({
           }
           className="max-w-xs"
         />
-        <Select
-          onValueChange={(v) =>
-            dispatch({
-              type: "SET_STATUS",
-              payload: v === "All" ? null : (v as "Draft" | "Published"),
-            })
-          }
-          defaultValue="All"
-        >
-          <SelectTrigger className="w-36">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="All">All</SelectItem>
-            <SelectItem value="Draft">Draft</SelectItem>
-            <SelectItem value="Published">Published</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="space-y-1">
+          <p className="text-xs text-muted-foreground">Status</p>
+          <Select
+            onValueChange={(v) =>
+              dispatch({
+                type: "SET_STATUS",
+                payload: v === "All" ? null : (v as "Draft" | "Published"),
+              })
+            }
+            defaultValue="All"
+          >
+            <SelectTrigger className="w-36">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="All">All</SelectItem>
+              <SelectItem value="Draft">Draft</SelectItem>
+              <SelectItem value="Published">Published</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         <div className="flex items-center gap-2">
-          <Input
-            type="number"
-            placeholder="Min price"
-            className="w-28"
-            onChange={(e) =>
-              dispatch({
-                type: "SET_PRICE_RANGE",
-                payload: {
-                  minPrice: e.target.value ? Number(e.target.value) : undefined,
-                  maxPrice: params.maxPrice,
-                },
-              })
-            }
-          />
-          <span className="text-sm text-muted-foreground">—</span>
-          <Input
-            type="number"
-            placeholder="Max price"
-            className="w-28"
-            onChange={(e) =>
-              dispatch({
-                type: "SET_PRICE_RANGE",
-                payload: {
-                  minPrice: params.minPrice,
-                  maxPrice: e.target.value ? Number(e.target.value) : undefined,
-                },
-              })
-            }
-          />
+          <div className="space-y-1">
+            <p className="text-xs text-muted-foreground">Price range</p>
+            <Input
+              type="number"
+              placeholder="Min price"
+              className="w-28"
+              onChange={(e) =>
+                dispatch({
+                  type: "SET_PRICE_RANGE",
+                  payload: {
+                    minPrice: e.target.value
+                      ? Number(e.target.value)
+                      : undefined,
+                    maxPrice: params.maxPrice,
+                  },
+                })
+              }
+            />
+            <span className="text-sm text-muted-foreground"> — </span>
+            <Input
+              type="number"
+              placeholder="Max price"
+              className="w-28"
+              onChange={(e) =>
+                dispatch({
+                  type: "SET_PRICE_RANGE",
+                  payload: {
+                    minPrice: params.minPrice,
+                    maxPrice: e.target.value
+                      ? Number(e.target.value)
+                      : undefined,
+                  },
+                })
+              }
+            />
+          </div>
         </div>
         <label className="ml-auto flex items-center gap-2 text-sm">
           <Checkbox

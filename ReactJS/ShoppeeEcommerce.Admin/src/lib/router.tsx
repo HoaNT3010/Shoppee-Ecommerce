@@ -8,6 +8,7 @@ import CustomersPage from "@/pages/customers"
 import DashboardPage from "@/pages/dashboard"
 import LoginPage from "@/pages/login"
 import OrdersPage from "@/pages/orders"
+import OrderDetailPage from "@/pages/orders/detail"
 import ProductsPage from "@/pages/products"
 import BasicInfoStep from "@/pages/products/create"
 import ImagesStep from "@/pages/products/create/images-step"
@@ -39,6 +40,7 @@ export const router = createBrowserRouter([
           { path: "products/:id", element: <ProductDetailPage /> },
           { path: "products", element: <ProductsPage /> },
           { path: "customers", element: <CustomersPage /> },
+          { path: "orders/:id", element: <OrderDetailPage /> },
           { path: "orders", element: <OrdersPage /> },
           // { path: "settings", element: <SystemSettingsPage /> },
           {

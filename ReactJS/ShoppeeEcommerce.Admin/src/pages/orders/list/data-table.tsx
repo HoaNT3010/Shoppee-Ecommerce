@@ -84,7 +84,7 @@ export function OrderDataTable({ onView }: OrderTableHandlers) {
       {/* Toolbar */}
       <div className="flex flex-wrap items-end gap-3">
         {/* Status filter */}
-        <div className="space-y-1">
+        <div>
           <p className="text-xs text-muted-foreground">Status</p>
           <Select
             onValueChange={(v) =>

@@ -15,7 +15,7 @@ import type { ListOrderResponse } from "@/types/order"
 import { formatDateTime } from "@/lib/utils"
 
 export type OrderTableHandlers = {
-  onView: (order: ListOrderResponse) => void
+  onView: (order: string) => void
 }
 
 // Status badge — each status gets a distinct color
@@ -135,7 +135,7 @@ export const createColumns = (
             <DropdownMenuGroup>
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handlers.onView(order)}>
+              <DropdownMenuItem onClick={() => handlers.onView(order.id)}>
                 View details
               </DropdownMenuItem>
             </DropdownMenuGroup>
