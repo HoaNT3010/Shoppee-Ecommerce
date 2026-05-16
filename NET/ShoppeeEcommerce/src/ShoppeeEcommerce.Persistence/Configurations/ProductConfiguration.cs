@@ -40,6 +40,11 @@ namespace ShoppeeEcommerce.Persistence.Configurations
                 .IsUnique();
             builder.Property(p => p.Price)
                 .HasPrecision(18, 2);
+
+            builder.HasOne(p => p.RatingSummary)
+                .WithOne(prs => prs.Product)
+                .HasForeignKey<ProductRatingSummary>(prs => prs.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

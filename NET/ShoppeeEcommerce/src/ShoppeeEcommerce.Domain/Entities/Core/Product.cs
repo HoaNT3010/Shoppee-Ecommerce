@@ -29,5 +29,7 @@ namespace ShoppeeEcommerce.Domain.Entities.Core
 
         public bool IsActive()
             => !IsDeleted && Status == ProductStatus.Published;
+
+        public ProductRatingSummary? RatingSummary { get; set; }
     }
 }
