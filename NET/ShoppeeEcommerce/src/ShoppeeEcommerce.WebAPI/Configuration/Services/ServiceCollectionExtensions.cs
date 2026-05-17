@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using ShoppeeEcommerce.Application.Abstractions.Services;
 using ShoppeeEcommerce.SharedViewModels.Models.Authentication.Login;
+using ShoppeeEcommerce.WebAPI.Common.JsonSerializers;
 using ShoppeeEcommerce.WebAPI.Middlewares;
 using ShoppeeEcommerce.WebAPI.Utilities;
 using System.Text.Json.Serialization;
@@ -18,6 +19,8 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             }).AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new UtcDateTimeJsonConverter());
+                options.JsonSerializerOptions.Converters.Add(new NullableUtcDateTimeJsonConverter());
             });
             services.AddOpenApi();
             services.AddHealthChecks();
@@ -32,6 +35,7 @@ namespace ShoppeeEcommerce.WebAPI.Configuration.Services
             services.ConfigureCORSPolicies();
             services.AddHttpContextAccessor();
             services.AddScoped<ICartOwnerProvider, CartOwnerProvider>();
+            services.AddSingleton(TimeProvider.System);
 
             return services;
         }
