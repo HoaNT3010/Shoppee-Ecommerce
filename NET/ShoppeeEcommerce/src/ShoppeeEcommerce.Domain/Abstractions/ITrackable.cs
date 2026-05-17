@@ -4,5 +4,6 @@
     {
         DateTime CreatedDate { get; set; }
         DateTime? UpdatedDate { get; set; }
+        void MarkEntityAsUpdated(DateTime? updateTimestamp = null);
     }
 }

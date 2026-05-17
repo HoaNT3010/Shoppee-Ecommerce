@@ -14,6 +14,8 @@ namespace ShoppeeEcommerce.Persistence.Configurations
                 .HasMaxLength(100);
             builder.Property(x => x.LastName)
                 .HasMaxLength(100);
+            builder.Property(pi => pi.AvatarPublicId)
+                .HasMaxLength(512);
         }
     }
 }
